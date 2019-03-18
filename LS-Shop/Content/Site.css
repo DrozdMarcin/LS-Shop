@@ -16,3 +16,7 @@ textarea {
     padding-left: 5%;
     padding-top: 5%;
 }
+
+hr {
+    background-color: aquamarine;
+}

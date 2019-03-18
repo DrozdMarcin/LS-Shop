@@ -25,7 +25,7 @@ namespace LS_Shop
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
+                      "~/Content/Site.css",
                       "~/Styles/styles.css"));
         }
     }
