@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using LS_Shop.Models;
+using LS_Shop.Data_Access_Layer;
 
 namespace LS_Shop
 {
@@ -42,7 +43,7 @@ namespace LS_Shop
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ProductsContext>()));
             // Konfiguruj logikę weryfikacji nazw użytkowników
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

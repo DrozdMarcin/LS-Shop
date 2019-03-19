@@ -8,6 +8,7 @@ namespace LS_Shop.Models
 {
     public class Order
     {
+        [Key]
         public int OrderId { get; set; }
         [Required(ErrorMessage = "Wprowadź imię")]
         [StringLength(50)]

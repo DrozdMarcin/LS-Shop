@@ -8,6 +8,7 @@ namespace LS_Shop.Models
 {
     public class Category
     {
+        [Key]
         public int CategoryId { get; set; }
         [Required(ErrorMessage = "Wprowadź nazwę kategorii")]
         [StringLength(100)]

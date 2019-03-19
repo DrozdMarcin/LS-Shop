@@ -1,7 +1,10 @@
-﻿namespace LS_Shop.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LS_Shop.Models
 {
     public class OrderPosition
     {
+        [Key]
         public int OrderPositionId { get; set; }
         public int OrderId { get; set; }  // foreign key
         public int ProductId { get; set; }  // foreign key

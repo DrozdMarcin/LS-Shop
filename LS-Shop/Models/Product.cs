@@ -9,6 +9,7 @@ namespace LS_Shop.Models
 {
     public class Product
     {
+        [Key]
         public int ProductId { get; set; }
         public int CategoryId { get; set; }  //foreign key
         [Required(ErrorMessage = "Wprowadź nazwę produktu")]
