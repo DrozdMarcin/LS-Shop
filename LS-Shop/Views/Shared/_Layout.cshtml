@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title — LS-Shop</title>
@@ -22,12 +22,7 @@
                 <ul class="nav navbar-nav mr-auto">
                     <li>@Html.ActionLink("Strona główna", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
                 </ul>
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Logowanie", "Login", new { controller = "Account" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Rejestracja", "Register", new { controller = "Account" }, new { @class = "nav-link" })</li>
-                    <li><img src="~/Images/user.png" width="50" height="50" /></li>                   
-
-                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
@@ -42,16 +37,16 @@
                 <li class="list-group-item">Kategoria 5</li>
             </ul>
         </div>
-            <div class="container body-content col-lg-9 col-sm-12 col-xs-12 col-md-12">
-                <h1>@ViewBag.Title</h1>
-                <hr />
-                <div class="jumbotron">
-                    @RenderBody()
-                </div>
-                <hr />
-                <footer>
-                    <p>&copy; @DateTime.Now.Year — Marcin Drozd, Miłosz Kulesza, Michał Fabrowski</p>
-                </footer>
+        <div class="container body-content col-lg-9 col-sm-12 col-xs-12 col-md-12">
+            <h1>@ViewBag.Title</h1>
+            <hr />
+            <div class="jumbotron">
+                @RenderBody()
+            </div>
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year — Marcin Drozd, Miłosz Kulesza, Michał Fabrowski</p>
+            </footer>
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
