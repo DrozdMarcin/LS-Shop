@@ -23,23 +23,24 @@
                     <li>@Html.ActionLink("Strona główna", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
 
                 </ul>
-
+                <div class="navbar-expand" style="margin-right:4%;">
+                    @using (Html.BeginForm("Search", "Search", FormMethod.Get))
+                    {
+                        <ul class="nav navbar-nav" style="margin-top: 3px">
+                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;" })</li>
+                            <li><input type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="38" height="38" style="background-color:dimgray; border-radius: 10%;" /></li>
+                        </ul>
+                    }
+                
+                </div>
                 @Html.Partial("_LoginPartial")
             </div>
-            <div class="navbar-expand" style="margin-left:3%;">
-                @using (Html.BeginForm("Search", "Search", FormMethod.Get))
-                {
-                    <ul class="nav navbar-nav" style="margin-top: 3px">
-                        <li>@Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;" })</li>
-                        <li><input type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="38" height="38" style="background-color:dimgray; border-radius: 10%;" /></li>
-                    </ul>
-                }
-            </div>
-            <div class="navbar-expand" style="margin-left:5%;">
+            
+            <div class="navbar-expand" style="margin-left:2%;">
                 @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
                 {
                     <ul class="nav navbar-nav" style="margin-top: 3px">                       
-                        <li><input type="image" src="~/Images/cart.png" width="38" height="38"/></li>
+                        <li><input type="image" src="~/Images/cart.png" width="35" height="35"/></li>
                     </ul>
                 }
             </div>
