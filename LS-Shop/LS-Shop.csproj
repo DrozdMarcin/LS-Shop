@@ -225,6 +225,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\lupa.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\user.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
