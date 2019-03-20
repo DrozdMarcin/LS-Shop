@@ -202,9 +202,9 @@
     <Compile Include="Migrations\201903190947370_initial.Designer.cs">
       <DependentUpon>201903190947370_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903191003163_integrate-identity.cs" />
-    <Compile Include="Migrations\201903191003163_integrate-identity.Designer.cs">
-      <DependentUpon>201903191003163_integrate-identity.cs</DependentUpon>
+    <Compile Include="Migrations\201903200017462_integrate-identity.cs" />
+    <Compile Include="Migrations\201903200017462_integrate-identity.Designer.cs">
+      <DependentUpon>201903200017462_integrate-identity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -344,8 +344,8 @@
     <EmbeddedResource Include="Migrations\201903190947370_initial.resx">
       <DependentUpon>201903190947370_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903191003163_integrate-identity.resx">
-      <DependentUpon>201903191003163_integrate-identity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903200017462_integrate-identity.resx">
+      <DependentUpon>201903200017462_integrate-identity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

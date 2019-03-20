@@ -13,7 +13,7 @@ namespace LS_Shop.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201903191003163_integrate-identity"; }
+            get { return "201903200017462_integrate-identity"; }
         }
         
         string IMigrationMetadata.Source
