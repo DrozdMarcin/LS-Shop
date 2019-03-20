@@ -21,8 +21,20 @@
             <div class="navbar-collapse collapse" id="navbarNav">
                 <ul class="nav navbar-nav mr-auto">
                     <li>@Html.ActionLink("Strona główna", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
+
                 </ul>
+                <div class="navbar-right" style="margin-right:10%;">
+                    @using (Html.BeginForm("Search", "Search", FormMethod.Get))
+                    {
+                        <ul class="nav navbar-nav">
+                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
+                            <li><input type="submit" value="Search" /></li>
+                        </ul>
+                    }
+                </div>
                 @Html.Partial("_LoginPartial")
+                
+
             </div>
         </div>
     </nav>
