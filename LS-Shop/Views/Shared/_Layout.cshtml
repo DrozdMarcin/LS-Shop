@@ -23,12 +23,12 @@
                     <li>@Html.ActionLink("Strona główna", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>
 
                 </ul>
-                <div class="navbar-right" style="margin-right:10%;">
+                <div class="navbar-right" style="margin-right:30%;">
                     @using (Html.BeginForm("Search", "Search", FormMethod.Get))
                     {
                         <ul class="nav navbar-nav">
                             <li>@Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt" })</li>
-                            <li><input type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="35" height="35" style="margin-left: 5px;"/></li>
+                            <li><input type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="34" height="34" style="margin-left: 5px;"/></li>
                         </ul>
                     }
                 </div>

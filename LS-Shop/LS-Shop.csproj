@@ -196,12 +196,13 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Data Access Layer\ProductsContext.cs" />
+    <Compile Include="Data Access Layer\ProductsInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903201512103_initial.cs" />
-    <Compile Include="Migrations\201903201512103_initial.Designer.cs">
-      <DependentUpon>201903201512103_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201903202011394_Initial.cs" />
+    <Compile Include="Migrations\201903202011394_Initial.Designer.cs">
+      <DependentUpon>201903202011394_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -342,8 +343,8 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903201512103_initial.resx">
-      <DependentUpon>201903201512103_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903202011394_Initial.resx">
+      <DependentUpon>201903202011394_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
