@@ -14,7 +14,7 @@
     <script>
         $(document).ready(function(){
             $("#search").mouseenter(function(){
-                $("#search").css("background-color", "lightgray");
+                $("#search").css("background-color", "rgba(100, 120, 140, 0.5)");
             });
             $("#search").mouseleave(function() {
                 $("#search").css("background-color", "rgba(52, 58, 64, 0.5)");
@@ -28,7 +28,7 @@
             });
 
             $("#cart").mouseenter(function () {
-                $("#cart").css("background-color", "rgba(52, 58, 90, 100)");
+                $("#cart").css("background-color", "rgba(52, 95, 115, 0.5)");
             });
             $("#cart").mouseleave(function () {
                 $("#cart").css("background-color", "rgba(52, 58, 64, 0.5)");
@@ -80,7 +80,7 @@
                 @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
                 {
                     <ul class="nav navbar-nav" style="margin-top: 3px">                       
-                        <li id="cart"><input type="image" src="~/Images/cart.png" width="35" height="35" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 20%;" /></li>
+                        <li ><input id="cart" type="image" src="~/Images/cart.png" width="35" height="35" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" /></li>
                     </ul>
                 }
             </div>

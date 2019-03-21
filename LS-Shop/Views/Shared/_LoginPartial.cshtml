@@ -8,9 +8,9 @@
             <a id="user" href="#" class="nav-link dropdown-toggle " role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:lightblue">
                 <img src="~/Images/user.png" width="30" height="30" /> Witaj, @User.Identity.Name
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a >@Html.ActionLink("Zarządzaj", "Index", "Manage" , null, new { @class = "nav-link dropdown-item", style = "background-color:lightgray", id="ListItem"})</a>
-                <a id="ListItem2" style = "background-color:lightgray" href="javascript:document.getElementById('logoutForm').submit()" class="nav-link dropdown-item">Wyloguj</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="width: 215px">
+                <a >@Html.ActionLink("Zarządzaj", "Index", "Manage" , null, new { @class = "nav-link dropdown-item", style = "background-color:lightgray;", id="ListItem"})</a>
+                <a id="ListItem2" style = "background-color: lightgray;" href="javascript:document.getElementById('logoutForm').submit()" class="nav-link dropdown-item">Wyloguj</a>
             </div>
         </div>
     }
