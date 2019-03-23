@@ -80,7 +80,12 @@
                 @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
                 {
                     <ul class="nav navbar-nav" style="margin-top: 3px">                       
-                        <li ><input id="cart" type="image" src="~/Images/cart.png" width="35" height="35" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" /></li>
+                        <li>
+                            <input id="cart" type="image" src="~/Images/cart.png" width="35" height="35" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
+                            <!-- ilość produktów w koszyku - do zrobienia -->
+                            <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
+                            <!-- koniec -->
+                        </li>
                     </ul>
                 }
             </div>
