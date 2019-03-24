@@ -7,48 +7,11 @@
     <title>@ViewBag.Title — LS-Shop</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @*<link href="~/Styles/styles.css" rel="stylesheet" />*@
+    
     @Styles.Render("~/Styles/styles.css")
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#search").mouseenter(function(){
-                $("#search").css("background-color", "rgba(100, 120, 140, 0.5)");
-            });
-            $("#search").mouseleave(function() {
-                $("#search").css("background-color", "rgba(52, 58, 64, 0.5)");
-            });
-
-            $("#user").mouseenter(function() {
-                $("#user").css("color", "lightcyan");
-            });
-            $("#user").mouseleave(function () {
-                $("#user").css("color", "lightblue");
-            });
-
-            $("#cart").mouseenter(function () {
-                $("#cart").css("background-color", "rgba(52, 95, 115, 0.5)");
-            });
-            $("#cart").mouseleave(function () {
-                $("#cart").css("background-color", "rgba(52, 58, 64, 0.5)");
-            });     
-
-            $("#ListItem").mouseenter(function () {
-                $("#ListItem").css("background-color", "#ddffff");
-            });
-            $("#ListItem").mouseleave(function () {
-                $("#ListItem").css("background-color", "lightgray");       
-            });    
-
-            $("#ListItem2").mouseenter(function () {
-                $("#ListItem2").css("background-color", "#ddffff");
-            });
-            $("#ListItem2").mouseleave(function () {
-                $("#ListItem2").css("background-color", "lightgray");
-            });  
-        });
-    </script>
+    @Scripts.Render("~/Scripts/navbar.js")
  
 </head>
 <body>
@@ -81,7 +44,7 @@
                 {
                     <ul class="nav navbar-nav" style="margin-top: 3px">                       
                         <li>
-                            <input id="cart" type="image" src="~/Images/cart.png" width="35" height="35" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
+                            <input id="cart" type="image" src="~/Images/cart.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
                             <!-- ilość produktów w koszyku - do zrobienia -->
                             <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
                             <!-- koniec -->
