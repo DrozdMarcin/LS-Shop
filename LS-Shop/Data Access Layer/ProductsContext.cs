@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations.Model;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using LS_Shop.Migrations;
 using LS_Shop.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -11,10 +13,13 @@ namespace LS_Shop.Data_Access_Layer
 {
     public class ProductsContext : IdentityDbContext<ApplicationUser>
     {
+       
         public ProductsContext() : base("ProductsContext")
         {
-
+           Configuration configuration = new Configuration(this);       
         }
+
+       
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -28,6 +33,8 @@ namespace LS_Shop.Data_Access_Layer
             // using System.Data.Entity.ModelConfiguration.Conventions;
             // Wyłącza konwencję, która automatycznie tworzy liczbę mnogą dla nazw tabel w bazie danych
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+          
         }
 
         public static ProductsContext Create()

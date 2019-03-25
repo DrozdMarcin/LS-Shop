@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace LS_Shop.Models
     public class Product
     {
         [Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)] //attributes not to assign Ids by the server
         public int ProductId { get; set; }
         public int CategoryId { get; set; }  //foreign key
         [Required(ErrorMessage = "Wprowadź nazwę produktu")]
