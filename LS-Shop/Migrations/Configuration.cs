@@ -15,6 +15,7 @@ namespace LS_Shop.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "LS-Shop.Data_Access_Layer.ProductsContext";
         }
 
         public Configuration(ProductsContext context) : base()
