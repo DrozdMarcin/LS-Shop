@@ -187,6 +187,15 @@ namespace LS_Shop.Data_Access_Layer
                     DateOfAddition = DateTime.Now,
                     CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
                 },
+
+                new Product()
+                {
+                    Name = "krówki",
+                    Description = "pyszne krówki",
+                    Hidden = false,
+                    DateOfAddition = DateTime.Now,
+                    CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                },
             };
 
             products.ForEach(p => context.Products.AddOrUpdate(h => h.Name, p));
