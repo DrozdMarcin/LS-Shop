@@ -79,9 +79,12 @@
                 <p style="text-align: center">&copy; @DateTime.Now.Year — Marcin Drozd, Miłosz Kulesza, Michał Fabrowski</p>
             </footer>
             <div class="fixed-bottom" style="background-color: rgba(52, 58, 64, 0.87);">
-                <ul class="list-group list-inline " style="text-align: center; display: block">
-                    <li>O nas</li>
-                    <li>Kontakt</li>
+                <ul class="list-group list-inline " style="text-align: center; display: block; white-space: nowrap; font-size: 25px">
+                    <li style="display: inline-block;">@Html.ActionLink("O nas","StaticSites", "Home", new {name = "Onas"}, null)</li>
+                    <li style="display: inline-block">@Html.ActionLink("Kontakt", "StaticSites", "Home", new { name = "Kontakt" }, null)</li>
+                    <li style="display: inline-block">@Html.ActionLink("Pomoc", "StaticSites", "Home", new { name = "Pomoc" }, null)</li>
+                    <li style="display: inline-block">@Html.ActionLink("Regulamin", "StaticSites", "Home", new { name = "Regulamin" }, null)</li>
+                    <li style="display: inline-block">@Html.ActionLink("Opinie", "StaticSites", "Home", new { name = "Opinie" }, null)</li>
                 </ul>
             </div>
         </div>

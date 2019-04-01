@@ -13,6 +13,12 @@ namespace LS_Shop
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // trasa dla stron statycznych:
+            routes.MapRoute(
+                name: "StaticSites",
+                url: "sites/{name}.html",
+                defaults: new { controller = "Home", action = "StaticSites"} );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

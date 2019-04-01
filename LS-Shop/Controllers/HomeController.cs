@@ -28,5 +28,10 @@ namespace LS_Shop.Controllers
            
             return View(vm);
         }
+
+        public ActionResult StaticSites(string name)
+        {
+            return View(name);
+        }
     }
 }
