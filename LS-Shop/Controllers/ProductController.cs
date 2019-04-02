@@ -1,5 +1,6 @@
 ﻿using LS_Shop.Data_Access_Layer;
 using LS_Shop.Models;
+using LS_Shop.Models;
 using LS_Shop.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace LS_Shop.Controllers
     public class ProductController : Controller
     {
         private IDbContext dbContext;
-        public int PageSize = 20;
+        public int PageSize = 10;
 
         public ProductController(IDbContext dbContextParam)
         {
@@ -40,24 +41,22 @@ namespace LS_Shop.Controllers
             return PartialView(viewModel);
         }
 
-        public ActionResult List(string category, int page = 1)
+        public ActionResult List(int? category, int page = 1)
         {
-            ProductsListViewModel viewModel = new ProductsListViewModel()
+            Category currentCategory = dbContext.Categories.Where(o => o.CategoryId == category).First();
+            ProductsListViewModel model = new ProductsListViewModel
             {
-                Products = dbContext.Products
-                .Where(o => o.Category.Name == null || o.Category.Name.Equals(category))
-                .OrderBy(o => o.ProductId)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize),
-                PagingInfo = new PagingInfo()
+                Products = dbContext.Products.Where(o => category == null || o.CategoryId == category)
+                .OrderBy(o => o.ProductId).Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = category == null ? dbContext.Products.Count() : dbContext.Products.Where(o => o.Category.Name.Equals(category)).Count()
+                    TotalItems = category == null ? dbContext.Products.Count() : dbContext.Products.Where(o => o.CategoryId == category).Count()
                 },
-                CurrentCategory = dbContext.Categories.Where(o => o.Name.Equals(category)).First()
+                CurrentCategory = currentCategory
             };
-            return View(viewModel);
+            return View(model);
         }
     }
 }

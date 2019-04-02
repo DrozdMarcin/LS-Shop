@@ -3,9 +3,9 @@
 <div class="col-lg-2 col-xs-12 col-sm-12 col-md-12 sidebar-categories" padding-bottom: 30%;">
     <h3>Kategorie</h3>
     <ul class="list-group">
-        @foreach (var category in Model)
+        @foreach (var element in Model)
         {
-            <a><li class="list-group-item nav-link">@category.Name</li></a>
+            <a href="@Url.Action("List", "Product", new { category = element.CategoryId, page = 1 })"><li class="list-group-item nav-link">@element.Name</li></a>
         }
     </ul>
 </div>

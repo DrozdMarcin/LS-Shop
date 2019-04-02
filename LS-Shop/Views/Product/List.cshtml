@@ -5,12 +5,16 @@
 }
 
 <div class="row">
-    <h1>Produkty</h1>
-    @foreach(var element in Model.Products)
-    {
+    <h1>Kategoria: @Model.CurrentCategory.Name</h1>
+</div><br />
+@foreach (var element in Model.Products)
+{
+    <div class="row">
         @Html.Partial("ProductCard", element)
-    }
+    </div><br />
+}
+<div class="row">
     <div class="btn-group">
-        @Html.PageLinks(Model.PagingInfo, o => Url.Action("List", new { page = o, category = Model.CurrentCategory.Name }))        
+        @Html.PageLinks(Model.PagingInfo, o => Url.Action("List", new { page = o, category = Model.CurrentCategory.CategoryId }))
     </div>
 </div>
