@@ -74,18 +74,18 @@ namespace LS_Shop.Infrastructure
         public int DeleteFromCart(int productID)
         {
             var cart = TakeCart();
-            var postitionCart = cart.Find(k => k.Product.ProductId == productID);
+            var positionCart = cart.Find(k => k.Product.ProductId == productID);
 
-            if(postitionCart != null)
+            if(positionCart != null)
             {
-                if(postitionCart.Amount > 1)
+                if(positionCart.Amount > 1)
                 {
-                    postitionCart.Amount--;
-                    return postitionCart.Amount;
+                    positionCart.Amount--;
+                    return positionCart.Amount;
                 }
                 else
                 {
-                    cart.Remove(postitionCart);
+                    cart.Remove(positionCart);
                 }
             }
             return 0;
@@ -106,6 +106,39 @@ namespace LS_Shop.Infrastructure
             return amount;
         }
 
-       
+
+        //Metoda tworzenia nowe zamowienie
+       public Order CreateOrder(Order newOrder, string userEmail)
+        {
+            var cart = TakeCart();
+            newOrder.DateOfAddition = DateTime.Now;
+            newOrder.Email = userEmail;
+            
+            //dodanie zamówienia
+            db.Orders.Add(newOrder);
+
+            //dodanie pozycji zamowienia
+            if (newOrder.OrderPosition == null)
+                newOrder.OrderPosition = new List<OrderPosition>();
+
+            decimal cartValue = 0;
+
+            foreach( var cartElement in cart)
+            {
+                //tworzenie nowej pozycji zamowienia
+                var newPositionOrder = new OrderPosition()
+                {
+                    ProductId = cartElement.Product.ProductId,
+                    Amount = cartElement.Amount,
+                    PurchasePrice = cartElement.Product.Price
+                };
+
+                cartValue += (cartElement.Amount * cartElement.Product.Price);
+                newOrder.OrderPosition.Add(newPositionOrder);
+           }
+            newOrder.OrderValue = cartValue;
+            db.SaveChanges();
+            return newOrder;
+    }
     }
 }

@@ -36,7 +36,7 @@ namespace LS_Shop.Models
         public OrderStatus OrderStatus { get; set; }
         public decimal OrderValue { get; set; }
 
-        public List<OrderPosition> OrderItems { get; set; }
+        public List<OrderPosition> OrderPosition{ get; set; }
     }
 
     public enum OrderStatus
