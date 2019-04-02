@@ -1,13 +1,11 @@
-﻿@model LS_Shop.Models.BestsellersViewModel
+﻿@model LS_Shop.ViewModels.BestsellersViewModel
 
 <div class="bestsellers">
     <h3>Bestsellery</h3> <br />
     <ul>
         @foreach (var bestseller in Model.Products)
         {
-            <li>
-                @bestseller.Name @bestseller.Description @bestseller.Price.ToString("c")
-            </li>
+            @Html.Partial("ProductCard", bestseller)
         }
     </ul>
 </div>

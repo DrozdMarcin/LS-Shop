@@ -1,5 +1,6 @@
 ﻿using LS_Shop.Data_Access_Layer;
 using LS_Shop.Models;
+using LS_Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace LS_Shop.Controllers
     public class ProductController : Controller
     {
         private IDbContext dbContext;
+        public int PageSize = 20;
 
         public ProductController(IDbContext dbContextParam)
         {
@@ -36,6 +38,26 @@ namespace LS_Shop.Controllers
                 Products = bestsellers
             };
             return PartialView(viewModel);
+        }
+
+        public ActionResult List(string category, int page = 1)
+        {
+            ProductsListViewModel viewModel = new ProductsListViewModel()
+            {
+                Products = dbContext.Products
+                .Where(o => o.Category.Name == null || o.Category.Name.Equals(category))
+                .OrderBy(o => o.ProductId)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo()
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = category == null ? dbContext.Products.Count() : dbContext.Products.Where(o => o.Category.Name.Equals(category)).Count()
+                },
+                CurrentCategory = dbContext.Categories.Where(o => o.Name.Equals(category)).First()
+            };
+            return View(viewModel);
         }
     }
 }

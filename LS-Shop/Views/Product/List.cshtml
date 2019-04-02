@@ -1,0 +1,16 @@
+﻿@model LS_Shop.ViewModels.ProductsListViewModel
+
+@{
+    ViewBag.Title = "Produkty";
+}
+
+<div class="row">
+    <h1>Produkty</h1>
+    @foreach(var element in Model.Products)
+    {
+        @Html.Partial("ProductCard", element)
+    }
+    <div class="btn-group">
+        @Html.PageLinks(Model.PagingInfo, o => Url.Action("List", new { page = o, category = Model.CurrentCategory.Name }))        
+    </div>
+</div>

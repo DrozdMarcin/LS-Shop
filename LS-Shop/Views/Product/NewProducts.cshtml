@@ -1,13 +1,11 @@
-﻿@model LS_Shop.Models.NewProductsViewModel
+﻿@model LS_Shop.ViewModels.NewProductsViewModel
 
 <nav class="news">
     <h3>Nowości</h3> <br />
     <ul>
         @foreach (var product in Model.Products)
         {
-            <li>
-                @product.Name @product.Description @product.Price.ToString("c")
-            </li>
+            @Html.Partial("ProductCard", product)
         }
     </ul>
 </nav>

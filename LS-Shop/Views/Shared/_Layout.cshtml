@@ -41,7 +41,7 @@
                 @Html.Partial("_LoginPartial")
             </div>
             
-            <div class="navbar-expand" style="margin-left:1%;" onmouseenter="CartEnter">
+            <div class="navbar-collapse collapse" id="navbarNav" style="margin-left:1%;" onmouseenter="CartEnter">
                 @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
                 {
                     <ul class="nav navbar-nav" style="margin-top: 3px">                       
