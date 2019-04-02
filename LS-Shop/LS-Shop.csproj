@@ -365,10 +365,10 @@
     <Content Include="Views\Home\Pomoc.cshtml" />
     <Content Include="Views\Home\Regulamin.cshtml" />
     <Content Include="Views\Home\Opinie.cshtml" />
+    <Content Include="Views\Category\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Category\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
