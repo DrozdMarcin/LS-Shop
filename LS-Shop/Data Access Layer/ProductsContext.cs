@@ -16,7 +16,8 @@ namespace LS_Shop.Data_Access_Layer
        
         public ProductsContext() : base("ProductsContext")
         {
-           Configuration configuration = new Configuration(this);       
+            Database.SetInitializer(new ProductsInitializer());
+           //Configuration configuration = new Configuration(this);       
         }
 
        
