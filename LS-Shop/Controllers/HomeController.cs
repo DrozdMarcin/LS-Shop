@@ -10,28 +10,10 @@ using LS_Shop.Models;
 namespace LS_Shop.Controllers
 {
     public class HomeController : Controller
-    {
-        private IDbContext productsContext;
-
-        public HomeController(IDbContext productsContextParam)
-        {
-            productsContext = productsContextParam;
-        }
-        
+    {        
         public ActionResult Index()
         {           
-            
-            var news = productsContext.Products.Where(k => !k.Hidden).OrderByDescending(k => k.DateOfAddition).Take(4).ToList();
-
-            var bestsellers = productsContext.Products.Where(k => !k.Hidden && k.Bestseller).OrderBy(k => Guid.NewGuid()).Take(4).ToList();
-
-            var vm = new HomeViewModel()
-            {
-                News = news,
-                Bestsellers = bestsellers
-            };
-           
-            return View(vm);
+            return View();
         }
 
         public ActionResult StaticSites(string name)

@@ -1,0 +1,13 @@
+﻿@model LS_Shop.Models.BestsellersViewModel
+
+<div class="bestsellers">
+    <h3>Bestsellery</h3> <br />
+    <ul>
+        @foreach (var bestseller in Model.Products)
+        {
+            <li>
+                @bestseller.Name @bestseller.Description @bestseller.Price.ToString("c")
+            </li>
+        }
+    </ul>
+</div>

@@ -2,38 +2,10 @@
     ViewBag.Title = "Strona główna";
 }
 
-@model LS_Shop.Models.HomeViewModel
-
-
 <div class="row">
     <div class="col-lg-12 col-xs-12">
         <h1>Witamy na stronie głównej sklepu internetowego</h1>
-
-        <nav class="news">
-            <h3>Nowości</h3> <br />
-            <ul>
-                @foreach (var news in Model.News)
-                {
-                    <li>
-                        <p>@news.Name</p>
-                        <p>@news.Description</p>
-                    </li>
-                }
-            </ul>
-        </nav>
-        
-        <nav class="bestsellers">
-            <h3>Bestsellery</h3> <br />
-            <ul>
-                @foreach (var bestsellers in Model.Bestsellers)
-                {
-                    <li>
-                        <p>@bestsellers.Name</p>
-                        <p>@bestsellers.Description</p>
-                    </li>
-                }
-            </ul>
-        </nav>
-       
+        @Html.Action("NewProducts", "Product")
+        @Html.Action("Bestsellers", "Product")
     </div>   
 </div>

@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<LS_Shop.Models.Category>
 
 <div class="col-lg-2 col-xs-12 col-sm-12 col-md-12 sidebar-categories" padding-bottom: 30%;">
-    Kategorie
-    <ul class="list-group list-group-flush">
+    <h3>Kategorie</h3>
+    <ul class="list-group">
         @foreach (var category in Model)
         {
-            <li class="list-group-item">@category.Name</li>
+            <a><li class="list-group-item nav-link">@category.Name</li></a>
         }
     </ul>
 </div>

@@ -215,6 +215,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Data Access Layer\DbContext.cs" />
     <Compile Include="Data Access Layer\DbInitializer.cs" />
@@ -230,11 +231,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BestsellersViewModel.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\LayoutViewModelcs.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewProductsViewModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderPosition.cs" />
     <Compile Include="Models\Product.cs" />
@@ -366,6 +367,8 @@
     <Content Include="Views\Home\Regulamin.cshtml" />
     <Content Include="Views\Home\Opinie.cshtml" />
     <Content Include="Views\Category\List.cshtml" />
+    <Content Include="Views\Product\NewProducts.cshtml" />
+    <Content Include="Views\Product\Bestsellers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

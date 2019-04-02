@@ -5,8 +5,8 @@ using System.Web;
 
 namespace LS_Shop.Models
 {
-    public class LayoutViewModelcs
+    public class NewProductsViewModel
     {
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Product> Products { get; set; }
     }
 }

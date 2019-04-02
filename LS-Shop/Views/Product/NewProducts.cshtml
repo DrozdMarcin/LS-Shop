@@ -1,0 +1,13 @@
+﻿@model LS_Shop.Models.NewProductsViewModel
+
+<nav class="news">
+    <h3>Nowości</h3> <br />
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            <li>
+                @product.Name @product.Description @product.Price.ToString("c")
+            </li>
+        }
+    </ul>
+</nav>

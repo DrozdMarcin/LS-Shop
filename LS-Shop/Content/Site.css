@@ -17,6 +17,14 @@ textarea {
     padding-top: 5%;
 }
 
+.sidebar-categories a :hover {
+    background-color: lightcyan;
+}
+
+.sidebar-categories a{
+    text-align: center;
+}
+
 hr {
     background-color: aquamarine;
 }
