@@ -56,7 +56,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "Koszerna yerba niepalona z Brazylii",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Yerba mate")).CategoryId,         
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Yerba mate")).CategoryId, 
+                                        Category = categories.FindLast(c=>c.Name.Equals("Yerba mate"))
                 },
 
                 new Product()
@@ -65,7 +66,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "Yerba klasyczna niepalona o ciekawym smaku",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Yerba mate")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Yerba mate")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Yerba mate"))
                 },
 
                 new Product()
@@ -74,7 +76,8 @@ namespace LS_Shop.Data_Access_Layer
                 Description = "Oliwa z oliwek pierwszego tłoczenia najwyższej jakości",
                 Hidden = false,
                 DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Oleje")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Oleje")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Oleje"))
                 },
 
                 new Product()
@@ -83,7 +86,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "Bardzo skondensowane białko serwatkowe, aż 99%!",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Białko")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Białko")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Białko")),
 
                     Bestseller = true
                 },
@@ -94,7 +98,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "Baton z płatkami owsianymi, posypany suszonymi owocami oblanymi gorzką czekoladą",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
                 new Product()
                 {
@@ -102,7 +107,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "cukierek",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -111,7 +117,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "żelki",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -120,7 +127,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "gorzka czekolada BIO",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -129,7 +137,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "pyszne oscypki",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -138,7 +147,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "wafle",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                   // CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -147,7 +157,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "lizak",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                   // CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -156,7 +167,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "mordoklejka",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                   // CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -165,7 +177,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "landrynki",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Słodycze")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Słodycze"))
                 },
 
                 new Product()
@@ -174,7 +187,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "ananasik",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Owoce")),
 
                     Bestseller = true                    
                 },
@@ -185,7 +199,8 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "bananek",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                    //CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Owoce"))
                 },
 
                 new Product()
@@ -194,11 +209,12 @@ namespace LS_Shop.Data_Access_Layer
                     Description = "pyszne krówki",
                     Hidden = false,
                     DateOfAddition = DateTime.Now,
-                    CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                   // CategoryId = categories.FindLast(c=>c.Name.Equals("Owoce")).CategoryId,
+                    Category = categories.FindLast(c=>c.Name.Equals("Owoce"))
                 },
             };
 
-            products.ForEach(p => context.Products.AddOrUpdate(h => h.Name, p));
+           //products.ForEach(p => context.Products.AddOrUpdate(h => h.Name, p));
 
             context.SaveChanges();
         }
