@@ -64,12 +64,48 @@ namespace LS_Shop.Infrastructure
                     };
 
                     cart.Add(newPossitionCart);
-                }
-                //uaktualnienie sesji
-                session.Set(Consts.CartSessionKey, cart);
-            }
-
+                } 
+            } 
+              //uaktualnienie sesji
+              session.Set(Consts.CartSessionKey, cart);
         }
 
+        //usuwanie z koszyka
+        public int DeleteFromCart(int productID)
+        {
+            var cart = TakeCart();
+            var postitionCart = cart.Find(k => k.Product.ProductId == productID);
+
+            if(postitionCart != null)
+            {
+                if(postitionCart.Amount > 1)
+                {
+                    postitionCart.Amount--;
+                    return postitionCart.Amount;
+                }
+                else
+                {
+                    cart.Remove(postitionCart);
+                }
+            }
+            return 0;
+        }
+
+        //wartość koszyka
+        public decimal TakeValueCart()
+        {
+            var cart = TakeCart();
+            return cart.Sum(k => (k.Amount * k.Product.Price));
+        }
+
+        //zwracanie ilości pozycji w koszyku
+        public int TakeValuePossitionCart()
+        {
+            var cart = TakeCart();
+            var amount = cart.Sum(k => k.Amount);
+            return amount;
+        }
+
+       
     }
 }
