@@ -10,7 +10,7 @@ namespace LS_Shop.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<LS_Shop.Data_Access_Layer.ProductsContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<LS_Shop.Data_Access_Layer.EfDbContext>
     {
         public Configuration()
         {
@@ -18,18 +18,18 @@ namespace LS_Shop.Migrations
             ContextKey = "LS-Shop.Data_Access_Layer.ProductsContext";
         }
 
-        public Configuration(ProductsContext context) : base()
+        public Configuration(EfDbContext context) : base()
         {
             Seed(context);
         }
 
-        protected override void Seed(LS_Shop.Data_Access_Layer.ProductsContext context)
+        protected override void Seed(LS_Shop.Data_Access_Layer.EfDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            ProductsInitializer.SeedProductsData(context);
+            DbInitializer.SeedProductsData(context);
         }
     }
 }

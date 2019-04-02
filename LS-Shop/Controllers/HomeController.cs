@@ -10,15 +10,20 @@ using LS_Shop.Models;
 namespace LS_Shop.Controllers
 {
     public class HomeController : Controller
-    {      
-        private ProductsContext db = new ProductsContext();
+    {
+        private IDbContext productsContext;
+
+        public HomeController(IDbContext productsContextParam)
+        {
+            productsContext = productsContextParam;
+        }
         
         public ActionResult Index()
         {           
             
-            var news = db.Products.Where(k => !k.Hidden).OrderByDescending(k => k.DateOfAddition).Take(4).ToList();
+            var news = productsContext.Products.Where(k => !k.Hidden).OrderByDescending(k => k.DateOfAddition).Take(4).ToList();
 
-            var bestsellers = db.Products.Where(k => !k.Hidden && k.Bestseller).OrderBy(k => Guid.NewGuid()).Take(4).ToList();
+            var bestsellers = productsContext.Products.Where(k => !k.Hidden && k.Bestseller).OrderBy(k => Guid.NewGuid()).Take(4).ToList();
 
             var vm = new HomeViewModel()
             {

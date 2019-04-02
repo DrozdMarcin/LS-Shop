@@ -9,10 +9,10 @@ using LS_Shop.Models;
 
 namespace LS_Shop.Data_Access_Layer
 {
-    internal class ProductsInitializer : MigrateDatabaseToLatestVersion<ProductsContext, Configuration>
+    internal class DbInitializer : MigrateDatabaseToLatestVersion<EfDbContext, Configuration>
     {     
 
-        public static void SeedProductsData(ProductsContext context)
+        public static void SeedProductsData(EfDbContext context)
         {
             var categories = new List<Category>
             {
