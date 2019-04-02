@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LS_Shop.Infrastructure
 {
-    interface ISessionManager
+    public interface ISessionManager
     { 
         //pobranie elementu
         T Get<T>(string key);
