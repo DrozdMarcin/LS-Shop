@@ -32,6 +32,7 @@ namespace LS_Shop.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<IDbContext>().To<DbContext>();
+            kernel.Bind<ISessionManager>().To<SessionManager>();
         }
     }
 }
