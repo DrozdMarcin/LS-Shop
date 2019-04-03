@@ -140,5 +140,13 @@ namespace LS_Shop.Infrastructure
             db.SaveChanges();
             return newOrder;
     }
+
+        //Usuwanie sesji (czyszczenie koszyka)
+        public void EmptyCart()
+        {
+            session.Set<List< PositionCart>>(Consts.CartSessionKey, null);
+        }
+
+
     }
 }

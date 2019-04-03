@@ -12,5 +12,10 @@ namespace LS_Shop.Controllers
         {
             return View();
         }
+
+        public ActionResult AddIntoCart(string id)
+        {
+            return View();
+        }
     }
 }
