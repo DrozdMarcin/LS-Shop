@@ -13,7 +13,7 @@ namespace LS_Shop.Controllers
     public class ProductController : Controller
     {
         private IDbContext dbContext;
-        public int PageSize = 10;
+        public int PageSize = 4;
 
         public ProductController(IDbContext dbContextParam)
         {
