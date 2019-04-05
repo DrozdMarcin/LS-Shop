@@ -46,5 +46,11 @@ namespace LS_Shop.Data_Access_Layer
                 return context.OrderPositions;
             }
         }
+
+        public void Add(Order order)
+        {
+            context.Orders.Add(order);
+            context.SaveChanges();
+        }
     }
 }

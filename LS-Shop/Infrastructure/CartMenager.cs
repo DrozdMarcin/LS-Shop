@@ -8,11 +8,12 @@ using System.Web;
 
 namespace LS_Shop.Infrastructure
 {
-    public class CartMenager
+    public class CartMenager : ICartManager
     {
-        private EfDbContext db;
+        private IDbContext db;
         private ISessionManager session;
-        public CartMenager(ISessionManager session, EfDbContext db)
+
+        public CartMenager(ISessionManager session, IDbContext db)
         {
             this.session = session;
             this.db = db;
@@ -115,7 +116,7 @@ namespace LS_Shop.Infrastructure
             newOrder.Email = userEmail;
             
             //dodanie zamówienia
-            db.Orders.Add(newOrder);
+            db.Add(newOrder);
 
             //dodanie pozycji zamowienia
             if (newOrder.OrderPosition == null)
@@ -137,12 +138,11 @@ namespace LS_Shop.Infrastructure
                 newOrder.OrderPosition.Add(newPositionOrder);
            }
             newOrder.OrderValue = cartValue;
-            db.SaveChanges();
             return newOrder;
     }
 
         //Usuwanie sesji (czyszczenie koszyka)
-        public void EmptyCart()
+        public void ClearCart()
         {
             session.Set<List< PositionCart>>(Consts.CartSessionKey, null);
         }

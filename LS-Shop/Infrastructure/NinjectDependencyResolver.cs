@@ -33,6 +33,7 @@ namespace LS_Shop.Infrastructure
         {
             kernel.Bind<IDbContext>().To<DbContext>();
             kernel.Bind<ISessionManager>().To<SessionManager>();
+            kernel.Bind<ICartManager>().To<CartMenager>();
         }
     }
 }
