@@ -29,7 +29,12 @@ namespace LS_Shop.Controllers
         {
             SearchViewModel searchViewModel = new SearchViewModel();
 
+            searchViewModel.SearchText = id;
             searchViewModel.Products = dbContext.Products.Where(product => product.Name.ToLower().Contains(id.ToLower()));
+
+            if (searchViewModel.Products.Any())
+                searchViewModel.AnySearchingProductExists = true;
+            else searchViewModel.AnySearchingProductExists = false;
 
             return View(searchViewModel);
         }
