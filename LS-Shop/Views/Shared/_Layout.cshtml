@@ -29,10 +29,10 @@
             <div class="navbar-collapse collapse" id="navbarNav" style="margin-left:2%;">
                 <ul class="nav navbar-nav mr-auto">
                     @*<li>@Html.ActionLink("Strona główna", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>*@
-                    @using (Html.BeginForm("Search", "Search", FormMethod.Get))
+                    @using (Html.BeginForm("Search", "Search"))
                     {
                         <ul class="nav navbar-nav" style="margin-top: 3px">
-                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;" })</li>
+                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;"})</li>
                             <li><input id="search" type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%; margin-left: 2px" /></li>
                         </ul>
                     }

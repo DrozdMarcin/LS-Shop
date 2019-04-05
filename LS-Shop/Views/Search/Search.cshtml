@@ -3,5 +3,15 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
+@model LS_Shop.ViewModels.SearchViewModel
+
+<nav class="news">
+    <h3>Rezultat Wyszukania:</h3> <br />
+    <ul>
+        @foreach (var product in Model.Products)
+        {
+            @Html.Partial("ProductCard", product)
+        }
+    </ul>
+</nav>
 
