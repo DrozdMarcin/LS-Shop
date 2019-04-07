@@ -58,5 +58,10 @@ namespace LS_Shop.Controllers
             };
             return View(model);
         }
+
+        public ActionResult Details(string id)
+        {
+            return View();
+        }
     }
 }

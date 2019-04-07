@@ -1,8 +1,17 @@
 ﻿@model LS_Shop.Models.Product
+@using LS_Shop.Infrastructure
 
 <div class="card col-xs-12 col-md-12">
     <div class="card-header">
         <h4>@Model.Name</h4>
+    </div>
+    <div class="card-img">
+        
+        <a class="ProductDetails" href="@Url.Action("Details", "Product", new { id = Model.ProductId})">
+            @* <img src="@Url.ImagesOfProductsPath(Model.NameOfImage)"/>   - coś nie działa, pokazuje, że path null - do naprawienia *@
+        </a>
+            
+         
     </div>
     <div class="card-body">
         <div class="card-text">
