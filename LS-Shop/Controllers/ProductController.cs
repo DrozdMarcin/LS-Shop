@@ -43,7 +43,15 @@ namespace LS_Shop.Controllers
 
         public ActionResult List(int? category, int page = 1)
         {
-            Category currentCategory = dbContext.Categories.Where(o => o.CategoryId == category).First();
+            Category currentCategory;
+            if (category == null || category == 0)
+            {
+                currentCategory = null;                
+            }
+            else
+            {
+                currentCategory = dbContext.Categories.Where(o => o.CategoryId == category).First();
+            }
             ProductsListViewModel model = new ProductsListViewModel
             {
                 Products = dbContext.Products.Where(o => category == null || o.CategoryId == category)

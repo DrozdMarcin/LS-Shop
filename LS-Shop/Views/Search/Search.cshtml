@@ -8,21 +8,28 @@
 @model LS_Shop.ViewModels.SearchViewModel
 
 <nav class="news">
-    @if (Model.AnySearchingProductExists)
+    @if (Model != null)
     {
-        <h3>Rezultat Wyszukania:</h3>
-        <br/>
-        <ul>
-            @foreach (var product in Model.Products)
-            {
-                @Html.Partial("ProductCard", product)
-            }
-        </ul>
+        if (Model.AnySearchingProductExists)
+        {
+            <h3>Rezultat Wyszukania:</h3>
+            <br />
+            <ul>
+                @foreach (var product in Model.Products)
+                {
+                    @Html.Partial("ProductCard", product)
+                }
+            </ul>
+        }
+        else
+        {
+            <h3>Brak wyników wyszukania dla frazy: </h3>
+            <h2 style="color: green">@Model.SearchText</h2>
+        }
     }
     else
     {
-        <h3>Brak wyników wyszukania dla frazy: </h3>
-        <h2 style="color: green">@Model.SearchText</h2>
+        <h3>Nie podano frazy do wyszukania.</h3>
     }
 </nav>
 

@@ -4,9 +4,18 @@
     ViewBag.Title = "Produkty";
 }
 
-<div class="row">
-    <h1>Kategoria: @Model.CurrentCategory.Name</h1>
-</div><br />
+@if (Model.CurrentCategory != null)
+{
+    <div class="row">
+        <h1>Kategoria: @Model.CurrentCategory.Name</h1>
+    </div><br />
+}
+else
+{
+    <div class="row">
+        <h1>Wszystkie produkty</h1>
+    </div><br />
+}
 @foreach (var element in Model.Products)
 {
     <div class="row">
@@ -15,6 +24,13 @@
 }
 <div class="row">
     <div class="btn-group">
-        @Html.PageLinks(Model.PagingInfo, o => Url.Action("List", new { page = o, category = Model.CurrentCategory.CategoryId }))
+        @if (Model.CurrentCategory != null)
+        {
+            @Html.PageLinks(Model.PagingInfo, o => Url.Action("List", new { page = o, category = Model.CurrentCategory.CategoryId }))
+        }
+        else
+        {
+            @Html.PageLinks(Model.PagingInfo, o => Url.Action("List", new { page = o }))
+        }
     </div>
 </div>

@@ -27,6 +27,10 @@ namespace LS_Shop.Controllers
         [HttpPost]
         public ActionResult Search(string id)
         {
+            if(id == null || id.Equals(""))
+            {
+                return View();
+            }
             SearchViewModel searchViewModel = new SearchViewModel();
 
             searchViewModel.SearchText = id;
