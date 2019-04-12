@@ -3,7 +3,7 @@
     ViewBag.Title = "Zarejestruj";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "was-validated form-horizontal", role = "form", novalidate = "true" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", novalidate = "true" }))
 {
     @Html.AntiForgeryToken()
     <h4>Utwórz nowe konto.</h4>
@@ -35,8 +35,4 @@
             <input type="submit" class="btn btn-success" value="Zarejestruj" />
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }
