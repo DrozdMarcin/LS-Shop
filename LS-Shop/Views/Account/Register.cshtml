@@ -3,7 +3,7 @@
     ViewBag.Title = "Zarejestruj";
 }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", novalidate = "true" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal was-validated", novalidate = "true" }))
 {
     @Html.AntiForgeryToken()
     <h4>Utwórz nowe konto.</h4>

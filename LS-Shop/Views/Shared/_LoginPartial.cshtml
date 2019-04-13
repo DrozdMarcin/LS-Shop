@@ -4,21 +4,19 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
     {
         @Html.AntiForgeryToken()
-        <div class="dropdown">
-            <a id="user" href="#" class="nav-link dropdown-toggle " role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:lightblue">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: lightblue;">
                 <img src="~/Images/user.png" width="30" height="30" /> Witaj, @User.Identity.Name
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="width: 215px">
-                <a >@Html.ActionLink("Zarządzaj", "Index", "Manage" , null, new { @class = "nav-link dropdown-item", style = "background-color:lightgray;", id="ListItem"})</a>
-                <a id="ListItem2" style = "background-color: lightgray;" href="javascript:document.getElementById('logoutForm').submit()" class="nav-link dropdown-item">Wyloguj</a>
+            <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
+                @Html.ActionLink("Zarządzaj", "Index", "Manage", null, new { @class = "nav-link dropdown-item bg-secondary" })
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="nav-link dropdown-item bg-secondary">Wyloguj</a>
             </div>
-        </div>
+        </li>
     }
 }
 else
 {
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Zarejestruj", "Register", new { controller = "Account" }, new { id = "registerLink", @class = "nav-link" })</li>
-        <li>@Html.ActionLink("Zaloguj", "Login", new { controller = "Account" }, new { id = "loginLink", @class = "nav-link" })</li>
-    </ul>
+    <li>@Html.ActionLink("Zarejestruj", "Register", new { controller = "Account" }, new { id = "registerLink", @class = "nav-link" })</li>
+    <li>@Html.ActionLink("Zaloguj", "Login", new { controller = "Account" }, new { id = "loginLink", @class = "nav-link" })</li>
 }

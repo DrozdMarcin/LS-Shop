@@ -1,12 +1,26 @@
 ﻿@model IEnumerable<LS_Shop.Models.Category>
 
-<div class="col-lg-2 col-xs-12 col-sm-12 col-md-12 sidebar-categories" padding-bottom: 30%;">
-    <h3>Kategorie</h3>
-    <ul class="list-group">
-        @Html.ActionLink("Wszystkie", "List", new { controller = "Product", page = 1 }, new {  @class = "list-group-item nav-link" })
-        @foreach (var element in Model)
+<div class="col-xl-2 col-lg-3 col-md-3 col-xs-12 sidebar-categories" padding-bottom: 30%;">
+    <div class="col-xs-12">
+        <h3>Wyszukaj</h3>
+        @using (Html.BeginForm("Search", "Search"))
         {
-            <a href="@Url.Action("List", "Product", new { category = element.CategoryId, page = 1 })"><li class="list-group-item nav-link">@element.Name</li></a>
+            <div class="form-row">
+                <div class="col-md-11 col-xs-12">
+                    @Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;" })
+                </div>
+                <div class="col-md-1">
+                    <input id="search" type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%; margin-left: 2px" />
+                </div>
+            </div>
         }
-    </ul>
+        <h3>Kategorie</h3>
+        <ul class="list-group">
+            @Html.ActionLink("Wszystkie", "List", new { controller = "Product", page = 1 }, new { @class = "list-group-item nav-link" })
+            @foreach (var element in Model)
+            {
+                <a href="@Url.Action("List", "Product", new { category = element.CategoryId, page = 1 })"><li class="list-group-item nav-link">@element.Name</li></a>
+            }
+        </ul>
+    </div>
 </div>

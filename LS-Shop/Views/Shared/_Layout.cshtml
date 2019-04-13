@@ -7,59 +7,51 @@
     <title>@ViewBag.Title — LS-Shop</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    
+
     @Styles.Render("~/Styles/styles.css")
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     @Scripts.Render("~/Scripts/navbar.js")
- 
 </head>
 <body style="background-color:rgba(52, 58, 64, 0.05); padding-bottom: 2%">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <div class="navbar-brand">
                 <ul class="nav navbar-nav mr-auto">
-                    <li>@Html.ActionLink("LS-Shop", "Index", new { controller = "Home" }, new { @class = "nav-link", style="font-size:22px;"})</li>
+                    <li><a href="@Url.Action("Index", new { controller = "Home" })" class="nav-link"><img src="https://www.logolynx.com/images/logolynx/31/3124733b27eaf3910b3d1983a796ef93.png" width="50" height="50" />LS-Shop</a></li>
 
                 </ul>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="navbar-collapse collapse" id="navbarNav" style="margin-left:2%;">
-                <ul class="nav navbar-nav mr-auto">
-                    @*<li>@Html.ActionLink("Strona główna", "Index", new { controller = "Home" }, new { @class = "nav-link" })</li>*@
-                    @using (Html.BeginForm("Search", "Search"))
-                    {
-                        <ul class="nav navbar-nav" style="margin-top: 3px">
-                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;"})</li>
-                            <li><input id="search" type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%; margin-left: 2px" /></li>
-                        </ul>
-                    }
-                </ul>
-                
-                @Html.Partial("_LoginPartial")
-            </div>
-            
+            <ul class="navbar-nav navbar-collapse collapse" id="navbarNav" style="margin-left:2%;">
+                <li class="nav-item">@Html.ActionLink("O nas", "StaticSites", "Home", new { name = "Onas" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Kontakt", "StaticSites", "Home", new { name = "Kontakt" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Pomoc", "StaticSites", "Home", new { name = "Pomoc" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Regulamin", "StaticSites", "Home", new { name = "Regulamin" }, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Opinie", "StaticSites", "Home", new { name = "Opinie" }, new { @class = "nav-link" })</li>
+            </ul>
+
             <div class="navbar-collapse collapse" id="navbarNav" style="margin-left:1%;" onmouseenter="CartEnter">
-                @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
-                {
-                    <ul class="nav navbar-nav" style="margin-top: 3px">                       
-                        <li>
-                            <input id="cart" type="image" src="~/Images/cart.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
-                            <!-- ilość produktów w koszyku - do zrobienia -->
-                            <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
-                            <!-- koniec -->
-                        </li>
+                <ul class="navbar-nav navbar-collapse">
+                    @Html.Partial("_LoginPartial")
+                    @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
+                    {
+                            <li>
+                                <input id="cart" type="image" src="~/Images/cart.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
+                                <!-- ilość produktów w koszyku - do zrobienia -->
+                                <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
+                                <!-- koniec -->
+                            </li>
+                    }
                     </ul>
-                }
             </div>
         </div>
     </nav>
     <div class="row">
         @Html.Action("List", "Category")
-        
-        <div class="container body-content col-lg-9 col-sm-12 col-xs-12 col-md-12">
+        <div class="container body-content col-xl-9 col-lg-9 col-md-7 col-sm-12 col-xs-12">
             <h1>@ViewBag.Title</h1>
             <hr />
             <div class="jumbotron">
@@ -69,17 +61,7 @@
             <footer>
                 <p style="text-align: center">&copy; @DateTime.Now.Year — Marcin Drozd, Miłosz Kulesza, Michał Fabrowski</p>
             </footer>
-            <div class="fixed-bottom" style="background-color: rgba(52, 58, 64, 0.87);">
-                <ul class="list-group list-inline " style="text-align: center; display: block; white-space: nowrap; font-size: 25px">
-                    <li style="display: inline-block;">@Html.ActionLink("O nas","StaticSites", "Home", new {name = "Onas"}, null)</li>
-                    <li style="display: inline-block">@Html.ActionLink("Kontakt", "StaticSites", "Home", new { name = "Kontakt" }, null)</li>
-                    <li style="display: inline-block">@Html.ActionLink("Pomoc", "StaticSites", "Home", new { name = "Pomoc" }, null)</li>
-                    <li style="display: inline-block">@Html.ActionLink("Regulamin", "StaticSites", "Home", new { name = "Regulamin" }, null)</li>
-                    <li style="display: inline-block">@Html.ActionLink("Opinie", "StaticSites", "Home", new { name = "Opinie" }, null)</li>
-                </ul>
-            </div>
         </div>
-
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -87,20 +69,5 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("scripts", required: false)
-    <script>
-        (function () {
-            'use strict';
-            window.addEventListener('load', function () {
-                var form = document.getElementById('needs-validation');
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            }, false);
-        })();  
-    </script>
 </body>
 </html>
