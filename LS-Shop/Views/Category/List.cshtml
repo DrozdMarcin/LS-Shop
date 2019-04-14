@@ -5,14 +5,12 @@
         <h3>Wyszukaj</h3>
         @using (Html.BeginForm("Search", "Search"))
         {
-            <div class="form-row">
-                <div class="col-md-11 col-xs-12">
-                    @Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt", style = "background-color: lightgray;" })
-                </div>
-                <div class="col-md-1">
-                    <input id="search" type="image" value="Wyszukaj produkt" src="~/Images/lupa.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%; margin-left: 2px" />
-                </div>
+        <div class="input-group mb-3">
+            @Html.TextBox("id", ViewBag.CurrentFilter as string, new { @class = "form-control", placeholder = "Wyszukaj produkt"})
+            <div class="input-group-append">
+                <button class="btn btn-info" type="submit"><i class="fas fa-search"></i></button>
             </div>
+        </div>
         }
         <h3>Kategorie</h3>
         <ul class="list-group">
