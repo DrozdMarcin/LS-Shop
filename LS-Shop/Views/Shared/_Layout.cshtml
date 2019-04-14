@@ -13,7 +13,7 @@
     @Scripts.Render("~/Scripts/navbar.js")
 </head>
 <body style="background-color:rgba(52, 58, 64, 0.05); padding-bottom: 2%">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <div class="navbar-brand">
                 <ul class="nav navbar-nav mr-auto">
@@ -37,20 +37,20 @@
                     @Html.Partial("_LoginPartial")
                     @using (Html.BeginForm("Cart", "Cart", FormMethod.Get))
                     {
-                            <li>
-                                <input id="cart" type="image" src="~/Images/cart.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
-                                <!-- ilość produktów w koszyku - do zrobienia -->
-                                <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
-                                <!-- koniec -->
-                            </li>
+                        <li>
+                            <input id="cart" type="image" src="~/Images/cart.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
+                            <!-- ilość produktów w koszyku - do zrobienia -->
+                            <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
+                            <!-- koniec -->
+                        </li>
                     }
-                    </ul>
+                </ul>
             </div>
         </div>
     </nav>
-    <div class="row">
+    <div class="row" style="padding-top: 130px;">
         @Html.Action("List", "Category")
-        <div class="container body-content col-xl-9 col-lg-9 col-md-7 col-sm-12 col-xs-12">
+        <div class="container col-xl-9 col-lg-9 col-md-7 col-sm-12 col-xs-12">
             <h1>@ViewBag.Title</h1>
             <hr />
             <div class="jumbotron">
