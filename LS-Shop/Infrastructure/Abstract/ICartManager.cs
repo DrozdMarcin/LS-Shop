@@ -9,11 +9,11 @@ namespace LS_Shop.Infrastructure
 {
     public interface ICartManager
     {
-        List<PositionCart> TakeCart();
-        void AddToCart(int productID);
-        int DeleteFromCart(int productID);
-        decimal TakeValueCart();
-        int TakeValuePossitionCart();
+        List<PositionCart> GetCart();
+        void AddToCart(int productId);
+        int DeleteFromCart(int productId);
+        decimal GetCartValue();
+        int GetCartQuantity();
         Order CreateOrder(Order newOrder, string userEmail);
         void ClearCart();
     }

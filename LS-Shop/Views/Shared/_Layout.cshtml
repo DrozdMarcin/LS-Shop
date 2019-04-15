@@ -40,7 +40,7 @@
                         <li>
                             <input id="cart" type="image" src="~/Images/cart.png" width="38" height="38" style="background-color:rgba(52, 58, 64, 0.5); border-radius: 10%;" />
                             <!-- ilość produktów w koszyku - do zrobienia -->
-                            <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">0</span>
+                            <span style="background-color: lightcyan; position: relative; bottom: 10px; padding-left: 5px; padding-right: 5px; border-radius: 2px;">@Html.Action("GetCartQuantity", "Cart")</span>
                             <!-- koniec -->
                         </li>
                     }

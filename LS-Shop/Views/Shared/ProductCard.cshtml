@@ -20,8 +20,6 @@
         <div class="card-title">
            <b>@Model.Price.ToString("c")</b>
         </div>
-        <div class="btn btn-primary">
-            Do koszyka
-        </div>
+        @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
     </div>
 </div><br />

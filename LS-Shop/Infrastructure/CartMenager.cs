@@ -22,7 +22,7 @@ namespace LS_Shop.Infrastructure
         //Metody do obsługi koszyka
 
         //pobieranie zawartości koszyka
-        public List<PositionCart> TakeCart()
+        public List<PositionCart> GetCart()
         {
             List<PositionCart> cart;
 
@@ -39,18 +39,19 @@ namespace LS_Shop.Infrastructure
         }
 
         //dodawanie do koszyka
-        public void AddToCart(int productID)
+        public void AddToCart(int productId)
         {
-            var cart = TakeCart();
-            var possitionCart = cart.Find(k => k.Product.ProductId == productID);
+            var cart = GetCart();
+            var possitionCart = cart.Find(k => k.Product.ProductId == productId);
 
             if (possitionCart != null)
             {
-                possitionCart.Value++;
+                possitionCart.Amount++;
+                possitionCart.Value += possitionCart.Product.Price;
             }
             else
             {
-                var productTBAdded = db.Products.Where(k => k.ProductId == productID).SingleOrDefault();
+                var productTBAdded = db.Products.Where(k => k.ProductId == productId).SingleOrDefault();
 
                 //sprawdzamy czy pobrało produkt
                 if (productTBAdded != null)
@@ -72,10 +73,10 @@ namespace LS_Shop.Infrastructure
         }
 
         //usuwanie z koszyka
-        public int DeleteFromCart(int productID)
+        public int DeleteFromCart(int productId)
         {
-            var cart = TakeCart();
-            var positionCart = cart.Find(k => k.Product.ProductId == productID);
+            var cart = GetCart();
+            var positionCart = cart.Find(k => k.Product.ProductId == productId);
 
             if(positionCart != null)
             {
@@ -93,16 +94,16 @@ namespace LS_Shop.Infrastructure
         }
 
         //wartość koszyka
-        public decimal TakeValueCart()
+        public decimal GetCartValue()
         {
-            var cart = TakeCart();
+            var cart = GetCart();
             return cart.Sum(k => (k.Amount * k.Product.Price));
         }
 
         //zwracanie ilości pozycji w koszyku
-        public int TakeValuePossitionCart()
+        public int GetCartQuantity()
         {
-            var cart = TakeCart();
+            var cart = GetCart();
             var amount = cart.Sum(k => k.Amount);
             return amount;
         }
@@ -111,7 +112,7 @@ namespace LS_Shop.Infrastructure
         //Metoda tworzenia nowe zamowienie
        public Order CreateOrder(Order newOrder, string userEmail)
         {
-            var cart = TakeCart();
+            var cart = GetCart();
             newOrder.DateOfAddition = DateTime.Now;
             newOrder.Email = userEmail;
             

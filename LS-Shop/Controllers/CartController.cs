@@ -1,4 +1,6 @@
 ﻿using LS_Shop.Infrastructure;
+using LS_Shop.Models;
+using LS_Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +22,31 @@ namespace LS_Shop.Controllers
 
         public ActionResult Cart()
         {
-            return View();
+            List<PositionCart> cart = cartManager.GetCart();
+            decimal totalValue = cartManager.GetCartValue();
+            CartViewModel cartVM = new CartViewModel()
+            {
+                PositionCart = cart,
+                TotalValue = totalValue
+            };
+            return View(cartVM);
         }
 
-        public ActionResult AddIntoCart(string id)
+        public ActionResult AddToCart(int productId)
         {
-            return View();
+            cartManager.AddToCart(productId);
+            return RedirectToAction("Cart");
+        }
+
+        public ActionResult DeleteFromCart(int productId)
+        {
+            cartManager.DeleteFromCart(productId);
+            return RedirectToAction("Cart");
+        }
+
+        public int GetCartQuantity()
+        {
+            return cartManager.GetCartQuantity();
         }
     }
 }

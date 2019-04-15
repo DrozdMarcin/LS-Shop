@@ -1,12 +1,35 @@
-﻿
+﻿@model LS_Shop.ViewModels.CartViewModel
 @{
-    ViewBag.Title = "Cart";
+    ViewBag.Title = "Twój koszyk - LS-Shop";
 }
 
 <div class="row">
     <div class="col-lg-12 col-xs-12">
-
-
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nazwa</th>
+                        <th>Ilość</th>
+                        <th>Cena</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var product in Model.PositionCart)
+                    {
+                        <tr>
+                            <td>@product.Product.Name</td>
+                            <td>@product.Amount szt.</td>
+                            <td>@product.Value.ToString("c")</td>
+                            <td>@Html.ActionLink("Usuń", "DeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-danger" })</td>
+                        </tr>
+                    }
+                </tbody>
+                <tr>
+                    <td>W sumie: @Model.TotalValue.ToString("c")</td>
+                    <td><button class="btn btn-warning">Zamów</button></td>
+                </tr>
+            </table>
     </div>
 </div> 
 

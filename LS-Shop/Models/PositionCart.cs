@@ -1,6 +1,6 @@
 ﻿using LS_Shop.Models;
 
-namespace LS_Shop.Infrastructure
+namespace LS_Shop.Models
 {
     public class PositionCart
     {
