@@ -24,7 +24,7 @@
                 {
                     <div class="carousel-item active">
                         <a href="@Url.Action("Details", new { controller = "Product", productId = element.ProductId })">
-                            <img src="@Url.ImagesOfProductsPath(element.NameOfImage)" class="d-block-block w-100" />
+                            <img src="@Url.ImagesOfProductsPath(element.NameOfImage)" class="d-block-block w-100 img-fluid" />
                         </a>
                         <div class="carousel-caption d-none d-md-block" style="color:black">
                             <h3><b>@element.Name</b></h3>
@@ -36,7 +36,7 @@
                 {
                     <div class="carousel-item">
                         <a href="@Url.Action("Details", new { controller = "Product", productId = element.ProductId })">
-                            <img src="@Url.ImagesOfProductsPath(element.NameOfImage)" , class="d-block-block w-100" />
+                            <img src="@Url.ImagesOfProductsPath(element.NameOfImage)" , class="d-block-block w-100 img-fluid" />
                         </a>
                         <div class="carousel-caption d-none d-md-block" style="color:black">
                             <h4><b>@element.Name</b></h4>
