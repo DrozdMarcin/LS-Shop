@@ -1,4 +1,5 @@
 ﻿@model LS_Shop.Models.Product
+@using System.Drawing
 @using LS_Shop.Infrastructure
 
 <div class="card col-xs-12 col-md-12">
@@ -6,7 +7,10 @@
         <h4>@Model.Name</h4>
     </div>
     <div class="card-img">
-         <img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" width="160" height="160" class="img-fluid"/>       
+        @using (Html.BeginForm("Details", "Product", new {controller = "Product", productId = Model.ProductId}))
+        {
+            <input type="image" src="@Url.ImagesOfProductsPath(Model.NameOfImage)" width="160" height="160" class="img-fluid"/>
+        }
     </div>
     <div class="card-body">
         <div class="card-text text-justify">
@@ -17,7 +21,7 @@
         </div>
         <div class="card-footer">
             @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Szczgóły", "Details", new {  controller = "Product", productId = Model.ProductId }, new { @class = "btn btn-info"})
+            @Html.ActionLink("Szczegóły", "Details", new {  controller = "Product", productId = Model.ProductId }, new { @class = "btn btn-info"})
         </div>
     </div>
 </div><br />
