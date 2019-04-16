@@ -14,6 +14,12 @@ namespace LS_Shop
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "ProductDetails",
+                url: "szczegoly/{id}",
+                defaults: new { controller = "Product", action = "Details" }
+                );
+
+            routes.MapRoute(
                 name: "ProductsList",
                 url: "produkty/{*catchall}",
                 defaults: new { controller = "Product", action = "List"}

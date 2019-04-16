@@ -6,20 +6,18 @@
         <h4>@Model.Name</h4>
     </div>
     <div class="card-img">
-        
-        <a class="ProductDetails" href="@Url.Action("Details", "Product", new { id = Model.ProductId})"> 
-         <img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" width="160" height="160"/> 
-        </a>
-            
-         
+         <img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" width="160" height="160"/>       
     </div>
     <div class="card-body">
-        <div class="card-text">
+        <div class="card-text text-justify">
             @Model.Description
         </div>
         <div class="card-title">
            <b>@Model.Price.ToString("c")</b>
         </div>
-        @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
+        <div class="card-footer">
+            @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Szczgóły", "Details", new {  controller = "Product", productId = Model.ProductId }, new { @class = "btn btn-info"})
+        </div>
     </div>
 </div><br />

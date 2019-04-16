@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<LS_Shop.Models.Category>
+@using LS_Shop.Infrastructure
 
 <div class="col-xl-2 col-lg-3 col-md-3 col-xs-12 sidebar-categories">
     <div class="col-xs-12">
@@ -17,7 +18,12 @@
             @Html.ActionLink("Wszystkie", "List", new { controller = "Product", page = 1 }, new { @class = "list-group-item nav-link" })
             @foreach (var element in Model)
             {
-                <a href="@Url.Action("List", "Product", new { category = element.CategoryId, page = 1 })"><li class="list-group-item nav-link">@element.Name</li></a>
+                <a href="@Url.Action("List", "Product", new { category = element.CategoryId, page = 1 })"><li class="list-group-item nav-link col-xs-12 col-md-12 text-left">
+                    @if (element.NameOfImage != null)
+                    {
+                        <img src="@Url.ImagesOfProductsPath(element.NameOfImage)" width = "30" />
+                    }
+                    @element.Name</li></a>
             }
         </ul>
     </div>

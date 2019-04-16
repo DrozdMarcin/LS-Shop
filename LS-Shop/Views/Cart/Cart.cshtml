@@ -20,7 +20,7 @@
                     @foreach (var product in Model.PositionCart)
                     {
                         <tr>
-                            <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="120" height="120"/> </td>
+                            <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="120" height="120" /> </td>
                             <td>@product.Product.Name</td>
                             <td>@product.Amount szt.</td>
                             <td>@product.Value.ToString("c")</td>
@@ -28,12 +28,21 @@
                         </tr>
                     }
                 </tbody>
-                <tr>
-                    <td>W sumie: @Model.TotalValue.ToString("c")</td>
-                    <td><button class="btn btn-warning">Zamów</button></td>
-                </tr>
             </table>
+            @if (Request.IsAuthenticated)
+            {
+                <table class="table">
+                    <tr>
+                        <th>W sumie: @Model.TotalValue.ToString("c")</th>
+                        <td><button class="btn btn-primary">Zamów</button></td>
+                    </tr>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-danger text-center">Zaloguj się aby złożyć zaówienie</div>
+            }
     </div>
-</div> 
+</div>
 
 

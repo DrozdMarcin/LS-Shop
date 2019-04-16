@@ -66,9 +66,10 @@ namespace LS_Shop.Controllers
             return View(model);
         }
 
-        public ActionResult Details(string id)
+        public ActionResult Details(int productId)
         {
-            return View();
+            Product product = dbContext.Products.Where(o => o.ProductId == productId).FirstOrDefault();
+            return View(product);
         }
     }
 }

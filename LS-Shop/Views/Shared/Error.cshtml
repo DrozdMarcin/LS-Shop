@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Błąd";
 }
-
-<h1 class="text-danger">Błąd.</h1>
-<h2 class="text-danger">Wystąpił błąd podczas przetwarzania żądania.</h2>
+    <div class="alert alert-danger text-center">
+        <h3>@ViewBag.ErrorMessage</h3>
+    </div>
 

@@ -23,6 +23,11 @@ namespace LS_Shop.Controllers
         public ActionResult Cart()
         {
             List<PositionCart> cart = cartManager.GetCart();
+            if(cart.Count == 0 || cart == null)
+            {
+                ViewBag.ErrorMessage = "Twój koszyk jest pusty.";
+                return View("Error");
+            }
             decimal totalValue = cartManager.GetCartValue();
             CartViewModel cartVM = new CartViewModel()
             {
