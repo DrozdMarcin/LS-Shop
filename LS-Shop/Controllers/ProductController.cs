@@ -1,6 +1,5 @@
 ﻿using LS_Shop.Data_Access_Layer;
 using LS_Shop.Models;
-using LS_Shop.Models;
 using LS_Shop.ViewModels;
 using System;
 using System.Collections.Generic;

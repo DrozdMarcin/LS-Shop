@@ -7,8 +7,8 @@
     </div>
     <div class="card-img">
         
-        <a class="ProductDetails" href="@Url.Action("Details", "Product", new { id = Model.ProductId})">
-            @* <img src="@Url.ImagesOfProductsPath(Model.NameOfImage)"/>   - coś nie działa, pokazuje, że path null - do naprawienia *@
+        <a class="ProductDetails" href="@Url.Action("Details", "Product", new { id = Model.ProductId})"> 
+         <img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" width="160" height="160"/> 
         </a>
             
          

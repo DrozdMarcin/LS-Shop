@@ -1,4 +1,5 @@
 ﻿@model LS_Shop.ViewModels.CartViewModel
+@using LS_Shop.Infrastructure
 @{
     ViewBag.Title = "Twój koszyk - LS-Shop";
 }
@@ -8,6 +9,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Produkt</th>
                         <th>Nazwa</th>
                         <th>Ilość</th>
                         <th>Cena</th>
@@ -15,9 +17,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var product in Model.PositionCart)
+                    @foreach (var product in Model.PositionCart)
                     {
                         <tr>
+                            <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="120" height="120"/> </td>
                             <td>@product.Product.Name</td>
                             <td>@product.Amount szt.</td>
                             <td>@product.Value.ToString("c")</td>
