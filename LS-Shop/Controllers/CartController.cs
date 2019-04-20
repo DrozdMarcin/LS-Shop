@@ -40,13 +40,23 @@ namespace LS_Shop.Controllers
         public ActionResult AddToCart(int productId)
         {
             cartManager.AddToCart(productId);
+            var cart = cartManager.GetCart();
+            var product = cart.Find(o => o.Product.ProductId == productId);
+            TempData["Message"] = string.Format("Dodano do koszyka: {0}", product.Product.Name);
             return RedirectToAction("Cart");
         }
 
         public ActionResult DeleteFromCart(int productId)
         {
             cartManager.DeleteFromCart(productId);
+            TempData["Message"] = "Usunięto produkt z koszyka";
             return RedirectToAction("Cart");
+        }
+
+        [Authorize]
+        public ActionResult CreateOrder()
+        {
+            return View();
         }
 
         public int GetCartQuantity()

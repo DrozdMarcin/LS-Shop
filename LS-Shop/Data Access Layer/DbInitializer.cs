@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using LS_Shop.Migrations;
 using LS_Shop.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LS_Shop.Data_Access_Layer
 {
@@ -347,8 +348,15 @@ namespace LS_Shop.Data_Access_Layer
                     CategoryId = 8,
                 }
             };
+            products.ForEach(p => context.Products.AddOrUpdate(h => h.Name, p));
 
-           products.ForEach(p => context.Products.AddOrUpdate(h => h.Name, p));
+            var rolesList = new List<IdentityRole>()
+            {
+                new IdentityRole("Administrator"),
+                new IdentityRole("Employee"),
+                new IdentityRole("User")
+            };
+            rolesList.ForEach(o => context.Roles.AddOrUpdate(r => r.Name, o));
 
             context.SaveChanges();
         }

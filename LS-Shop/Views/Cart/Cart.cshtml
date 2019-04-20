@@ -6,6 +6,12 @@
 
 <div class="row">
     <div class="col-lg-12 col-xs-12">
+        @if(TempData["CartMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Message"]
+            </div>
+        }
             <table class="table">
                 <thead>
                     <tr>
