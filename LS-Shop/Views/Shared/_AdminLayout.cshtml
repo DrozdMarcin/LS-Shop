@@ -1,12 +1,45 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title — LS-Shop</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Styles/styles.css")
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @Scripts.Render("~/Scripts/navbar.js")
 </head>
-<body>
-    <div>
-        @RenderBody()
+<body style="background-color:rgba(52, 58, 64, 0.05);">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <div class="navbar-brand">
+                <ul class="nav navbar-nav mr-auto">
+                    <li><a href="@Url.Action("Index", new { controller = "Admin" })" class="nav-link">AdminPanel</a></li>
+                </ul>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="navbar-nav navbar-collapse collapse" id="navbarNav">
+                <li class="nav-item"><a href="@Url.Action("Index", new { controller = "Home" })" class="btn btn-secondary">Powrót do sklepu</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row" style="padding-top: 130px;">
+        <div class="container">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p style="text-align: center">&copy; @DateTime.Now.Year — Marcin Drozd, Miłosz Kulesza, Michał Fabrowski</p>
+            </footer>
+        </div>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

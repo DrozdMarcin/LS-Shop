@@ -266,6 +266,7 @@
     <Content Include="Images\cart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\logo.png" />
     <Content Include="Images\lupa.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
