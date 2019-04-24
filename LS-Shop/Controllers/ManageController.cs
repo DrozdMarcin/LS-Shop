@@ -64,13 +64,15 @@ namespace LS_Shop.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                UserData = user.UserData
             };
             return View(model);
         }
@@ -224,24 +226,28 @@ namespace LS_Shop.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<ActionResult> ChangePassword(IndexViewModel model)
         {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            model.UserData = user.UserData;
             if (!ModelState.IsValid)
             {
-                return View(model);
+                TempData["message"] = "Nie udało się zmienić hasła";
+                return View("Index", model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.ChangePasswordViewModel.OldPassword, model.ChangePasswordViewModel.NewPassword);
             if (result.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                TempData["message"] = "Udało się zmienić hasło";
+                return View("Index", model);
             }
             AddErrors(result);
-            return View(model);
+            TempData["message"] = "Nie udało się zmienić hasła";
+            return View("Index", model);
         }
 
         //
@@ -333,7 +339,31 @@ namespace LS_Shop.Controllers
             base.Dispose(disposing);
         }
 
-#region Pomocnicy
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeProfile([Bind(Prefix = "UserData")]UserData userData)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                user.UserData = userData;
+                var result = await UserManager.UpdateAsync(user);
+
+                AddErrors(result);
+                TempData["message"] = "Udało się zaktualizować dane";
+            }
+
+            if (!ModelState.IsValid)
+            {
+                TempData["ViewData"] = ViewData;
+                TempData["message"] = "Nie udało sie zaktualizować danych";
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        #region Pomocnicy
         // Służy do ochrony XSRF podczas dodawania logowań zewnętrznych
         private const string XsrfKey = "XsrfId";
 

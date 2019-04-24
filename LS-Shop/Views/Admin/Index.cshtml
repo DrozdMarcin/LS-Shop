@@ -1,8 +1,20 @@
-﻿
-@{
-    ViewBag.Title = "Panel administracyjny";
+﻿@{
+    ViewBag.Title = "Strona główna";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Panel administracyjny</h2>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Użytkownicy</a>
+    </li>
+</ul>
 

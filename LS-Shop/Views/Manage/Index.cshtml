@@ -1,87 +1,76 @@
 ﻿@model LS_Shop.Models.IndexViewModel
 @{
-    ViewBag.Title = "Zarządzaj";
+    ViewBag.Title = "Moje konto";
 }
 
-<h2>@ViewBag.Title.</h2>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["message"]
+    </div>
+}
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Zmień ustawienia konta</h4>
+<h2>Dane kontaktowe</h2>
+<hr />
+
+<div class="col-xs-12">
+    @using (Html.BeginForm("ChangeProfile", "Manage", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label>Imię: </label>
+            @Html.TextBoxFor(o => o.UserData.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Nazwisko: </label>
+            @Html.TextBoxFor(o => o.UserData.LastName, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Adres: </label>
+            @Html.TextBoxFor(o => o.UserData.Adress, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Miasto: </label>
+            @Html.TextBoxFor(o => o.UserData.City, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Telefon kontaktowy: </label>
+            @Html.TextBoxFor(o => o.UserData.Phone, new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Zapisz" class="btn btn-success" />
+    }
+    <br />
+
+    <h2>Zmień hasło</h2>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>Hasło:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Zmień hasło", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Utwórz", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>Logowania zewnętrzne:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Zarządzaj", "ManageLogins") ]
-        </dd>
-        @*
-            Numery telefonów mogą być używane jako drugi składnik w systemie uwierzytelniania dwuskładnikowego.
-             
-             Zapoznaj się z <a href="https://go.microsoft.com/fwlink/?LinkId=403804">tym artykułem</a>,
-                aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET do obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
-             
-             Po skonfigurowaniu uwierzytelniania dwuskładnikowego usuń komentarz z następującego bloku
-        *@
-        @*  
-            <dt>Numer telefonu:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Usuń" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Uwierzytelnianie dwuetapowe:</dt>
-        <dd>
-            <p>
-                Nie skonfigurowano dostawców uwierzytelniania dwuskładnikowego. Zapoznaj się z <a href="https://go.microsoft.com/fwlink/?LinkId=403804">tym artykułem</a>,
-                aby uzyskać szczegółowe informacje dotyczące konfigurowania tej aplikacji ASP.NET do obsługi uwierzytelniania dwuskładnikowego.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Włączono
-                        <input type="submit" value="Wyłącz" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Wyłączono
-                        <input type="submit" value="Włącz" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+
+    @using (Html.BeginForm("ChangePassword", "Manage", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label>Stare hasło</label>
+            @Html.PasswordFor(o => o.ChangePasswordViewModel.OldPassword, new { @class = "form-control" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(o => o.ChangePasswordViewModel.OldPassword)
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Nowe hasło</label>
+            @Html.PasswordFor(o => o.ChangePasswordViewModel.NewPassword, new { @class = "form-control" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(o => o.ChangePasswordViewModel.NewPassword)
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Potwierdź hasło</label>
+            @Html.PasswordFor(o => o.ChangePasswordViewModel.ConfirmPassword, new { @class = "form-control" })
+            <div class="text-danger">
+                @Html.ValidationMessageFor(o => o.ChangePasswordViewModel.ConfirmPassword)
+            </div>
+        </div>
+        <input type="submit" class="btn btn-success" value="Zmień hasło" />
+    }
 </div>
