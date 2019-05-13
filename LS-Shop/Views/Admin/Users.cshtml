@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LS_Shop.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Użytkownicy";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+    </li>
+</ul>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col" class="text-right">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td class="float-right">
+                    <button class="btn btn-primary">Edytuj</button>
+                    <button class="btn btn-danger">Usuń</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

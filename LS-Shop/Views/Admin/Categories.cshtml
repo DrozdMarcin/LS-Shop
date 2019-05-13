@@ -1,0 +1,45 @@
+﻿@model IEnumerable<LS_Shop.Models.Category>
+@{
+    ViewBag.Title = "Kategorie";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+    </li>
+</ul>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var category in Model)
+        {
+            <tr>
+                <td class="font-weight-bold">@category.CategoryId</td>
+                <td>@category.Name</td>
+                <td class="text-justify">@category.Description</td>
+                <td>
+                    <button class="btn btn-primary w-100">Edytuj</button>
+                    <button class="btn btn-danger w-100">Usuń</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

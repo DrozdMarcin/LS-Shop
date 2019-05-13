@@ -1,0 +1,62 @@
+﻿@model IEnumerable<LS_Shop.Models.Product>
+@{
+    ViewBag.Title = "Produkty";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+    </li>
+</ul>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Bestseller</th>
+            <th scope="col">Ukryty</th>
+            <th scope="col" class="text-right">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td class="font-weight-bold">@product.ProductId</td>
+                <td>@product.Name</td>
+                <td>@product.Price.ToString("c")</td>
+                @if(product.Bestseller)
+                {
+                    <td>Tak</td>
+                }
+                else
+                {
+                    <td>Nie</td>
+                }
+                @if(product.Hidden)
+                {
+                    <td>Tak</td>
+                }
+                else
+                {
+                    <td>Nie</td>
+                }
+                <td class="float-right">
+                    <button class="btn btn-primary">Edytuj</button>
+                    <button class="btn btn-danger">Usuń</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
