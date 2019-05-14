@@ -3,20 +3,26 @@
     ViewBag.Title = "Produkty";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="@Url.Action("Products", "Admin")">Produkty</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
-    </li>
-</ul>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="@Url.Action("Products", "Admin")">Produkty</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+        </li>
+        @if (User.IsInRole("Administrator"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
+            </li>
+        }
+        </ul>
 
 <table class="table table-striped">
     <thead class="thead-dark">

@@ -17,6 +17,16 @@ namespace LS_Shop.Controllers
     {
         private IDbContext db;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return this._roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set { this._roleManager = value; }
+        }
         public ApplicationUserManager UserManager
         {
             get
@@ -34,10 +44,11 @@ namespace LS_Shop.Controllers
             db = dbParam;
         }
 
-        public AdminController(IDbContext dbParam, ApplicationUserManager userManager)
+        public AdminController(IDbContext dbParam, ApplicationUserManager userManager, ApplicationRoleManager roleManager)
         {
             db = dbParam;
             UserManager = userManager;
+            RoleManager = roleManager;
         }
 
         // GET: Admin
@@ -65,22 +76,11 @@ namespace LS_Shop.Controllers
             return View(users);
         }
 
-        #region Pomocnicy
-        private IAuthenticationManager AuthenticationManager
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Roles()
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            var roles = RoleManager.Roles.ToList();
+            return View(roles);
         }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-        #endregion
     }
 }

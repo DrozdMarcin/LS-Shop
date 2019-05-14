@@ -1,6 +1,6 @@
-﻿@model IEnumerable<LS_Shop.Models.Category>
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
 @{
-    ViewBag.Title = "Kategorie";
+    ViewBag.Title = "Role";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -12,7 +12,7 @@
             <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+            <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
         </li>
         @if (User.IsInRole("Administrator"))
         {
@@ -20,29 +20,26 @@
                 <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
+                <a class="nav-link active" href="@Url.Action("Roles", "Admin")">Role</a>
             </li>
         }
-    </ul>
+        </ul>
+
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Nazwa</th>
-            <th scope="col">Opis</th>
-            <th scope="col">Akcje</th>
+            <th scope="col" class="text-right">Akcje</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var category in Model)
+        @foreach (var role in Model)
         {
             <tr>
-                <td class="font-weight-bold">@category.CategoryId</td>
-                <td>@category.Name</td>
-                <td class="text-justify">@category.Description</td>
-                <td>
-                    <button class="btn btn-primary w-100">Edytuj</button>
-                    <button class="btn btn-danger w-100">Usuń</button>
+                <td>@role.Name</td>
+                <td class="float-right">
+                    <button class="btn btn-primary">Edytuj</button>
+                    <button class="btn btn-danger">Usuń</button>
                 </td>
             </tr>
         }

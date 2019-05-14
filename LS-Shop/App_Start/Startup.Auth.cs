@@ -19,6 +19,7 @@ namespace LS_Shop
             app.CreatePerOwinContext(EfDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             // Zezwalaj aplikacji na przechowywanie w pliku cookie informacji o zalogowanym użytkowniku
             // oraz na tymczasowe przechowywanie w pliku cookie informacji o użytkowniku logującym się przy użyciu dostawcy logowania innego producenta
