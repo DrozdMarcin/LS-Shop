@@ -40,7 +40,7 @@
                 <table class="table">
                     <tr>
                         <th>W sumie: @Model.TotalValue.ToString("c")</th>
-                        <td><button class="btn btn-primary">Zamów</button></td>
+                        <td><button class="btn btn-primary" href="@Url.Action("CreateOrder", "Cart")">Zamów</button></td>
                     </tr>
                 </table>
             }
