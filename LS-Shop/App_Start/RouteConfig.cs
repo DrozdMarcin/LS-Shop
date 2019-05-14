@@ -14,6 +14,12 @@ namespace LS_Shop
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AdminRoles",
+                url: "adminpanel/role",
+                defaults: new { controller = "Admin", action = "Roles" }
+                );
+
+            routes.MapRoute(
                 name: "AdminUsers",
                 url: "adminpanel/uzytkownicy",
                 defaults: new { controller = "Admin", action = "Users" }
