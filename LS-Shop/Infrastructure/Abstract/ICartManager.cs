@@ -12,6 +12,7 @@ namespace LS_Shop.Infrastructure
         List<PositionCart> GetCart();
         void AddToCart(int productId);
         int DeleteFromCart(int productId);
+        int OneDeleteFromCart(int productId);
         decimal GetCartValue();
         int GetCartQuantity();
         Order CreateOrder(Order newOrder, string userEmail);

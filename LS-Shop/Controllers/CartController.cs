@@ -53,6 +53,13 @@ namespace LS_Shop.Controllers
             return RedirectToAction("Cart");
         }
 
+        public ActionResult OneDeleteFromCart(int productId)
+        {
+            cartManager.OneDeleteFromCart(productId);
+            TempData["Message"] = "Usunięto produkt z koszyka";
+            return RedirectToAction("Cart");
+        }
+
         [Authorize]
         public ActionResult CreateOrder()
         {

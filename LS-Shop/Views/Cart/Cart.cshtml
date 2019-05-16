@@ -25,13 +25,18 @@
                 <tbody>
                     @foreach (var product in Model.PositionCart)
                     {
-                        <tr>
-                            <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="50" height="50"  class="img-fluid"/></td>
-                            <td><a href="@Url.Action("Details", new { controller = "Product", productId = product.Product.ProductId })">@product.Product.Name</a></td>
-                            <td>@product.Amount szt.</td>
-                            <td>@product.Value.ToString("c")</td>
-                            <td>@Html.ActionLink("Usuń", "DeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-danger" })</td>
-                        </tr>
+                    <tr>
+                        <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="50" height="50" class="img-fluid" /></td>
+                        <td><a href="@Url.Action("Details", new { controller = "Product", productId = product.Product.ProductId })">@product.Product.Name</a></td>
+                        <td>
+                            @Html.ActionLink("+", "AddToCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-success" })
+                            @product.Amount szt.
+                            @Html.ActionLink("-", "OneDeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-warning" })
+                           
+                        </td>
+                        <td>@product.Value.ToString("c")</td>
+                        <td>@Html.ActionLink("Usuń", "DeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-danger" })</td>
+                    </tr>
                     }
                 </tbody>
             </table>

@@ -72,8 +72,43 @@ namespace LS_Shop.Infrastructure
               session.Set(Consts.CartSessionKey, cart);
         }
 
-        //usuwanie z koszyka
-        public int DeleteFromCart(int productId)
+
+        //dodanie z textboxa 
+        public void AddToCartTb(int productId)
+        {
+            var cart = GetCart();
+            var possitionCart = cart.Find(k => k.Product.ProductId == productId);
+            
+
+            if (possitionCart != null)
+            {
+                possitionCart.Amount ++;
+                possitionCart.Value += possitionCart.Product.Price;
+            }
+            else
+            {
+                var productTBAdded = db.Products.Where(k => k.ProductId == productId).SingleOrDefault();
+
+                //sprawdzamy czy pobrało produkt
+                if (productTBAdded != null)
+                {
+                    //pobrano
+                    var newPossitionCart = new PositionCart()
+                    {
+
+                        Product = productTBAdded,
+                        Amount = 1,
+                        Value = productTBAdded.Price
+                    };
+
+                    cart.Add(newPossitionCart);
+                }
+            }
+            //uaktualnienie sesji
+            session.Set(Consts.CartSessionKey, cart);
+        }
+        //pojedyncze usuwanie z koszyka produktu
+        public int OneDeleteFromCart(int productId)
         {
             var cart = GetCart();
             var positionCart = cart.Find(k => k.Product.ProductId == productId);
@@ -83,6 +118,7 @@ namespace LS_Shop.Infrastructure
                 if(positionCart.Amount > 1)
                 {
                     positionCart.Amount--;
+                    positionCart.Value -= positionCart.Product.Price;
                     return positionCart.Amount;
                 }
                 else
@@ -90,6 +126,20 @@ namespace LS_Shop.Infrastructure
                     cart.Remove(positionCart);
                 }
             }
+            return 0;
+        }
+
+        //całkowite usuniecie produktu z koszyka
+        public int DeleteFromCart(int productId)
+        {
+            var cart = GetCart();
+            var positionCart = cart.Find(k => k.Product.ProductId == productId);
+
+            if (positionCart != null)
+            { 
+              cart.Remove(positionCart);
+              
+             }
             return 0;
         }
 
