@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using LS_Shop.Migrations;
 using LS_Shop.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LS_Shop.Data_Access_Layer
@@ -350,13 +351,34 @@ namespace LS_Shop.Data_Access_Layer
             };
             products.ForEach(p => context.Products.AddOrUpdate(h => h.Name, p));
 
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var rolesList = new List<IdentityRole>()
             {
                 new IdentityRole("Administrator"),
                 new IdentityRole("Employee"),
                 new IdentityRole("User")
             };
-            rolesList.ForEach(o => context.Roles.AddOrUpdate(r => r.Name, o));
+            foreach (var role in rolesList)
+                roleManager.Create(role);
+
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var user = new ApplicationUser
+            {
+                Email = "admin@123.aa",
+                UserName = "admin@123.aa",
+                UserData = new UserData()
+            };
+            if (userManager.FindByEmail("admin@123.aa") == null)
+                userManager.Create(user, "ZAQ!2wsx");
+
+
+            var adminUserRole = new IdentityUserRole()
+            {
+                RoleId = roleManager.FindByName("Administrator").Id,
+                UserId = userManager.FindByEmail("admin@123.aa").Id
+            };
+            if (roleManager.FindByName("Administrator").Users.Where(o => o.UserId == userManager.FindByEmail("admin@123.aa").Id) == null)
+                roleManager.FindByName("Administrator").Users.Add(adminUserRole);
 
             context.SaveChanges();
         }
