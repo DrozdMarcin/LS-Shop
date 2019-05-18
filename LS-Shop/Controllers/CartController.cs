@@ -1,4 +1,5 @@
-﻿using LS_Shop.Infrastructure;
+﻿using LS_Shop.Data_Access_Layer;
+using LS_Shop.Infrastructure;
 using LS_Shop.Models;
 using LS_Shop.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace LS_Shop.Controllers
 {
@@ -81,7 +83,7 @@ namespace LS_Shop.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 var order = new Order
                 {
-                    Email = user.UserData.Email,
+                    Email = user.UserName,
                     FirstName = user.UserData.FirstName,
                     LastName = user.UserData.LastName,
                     Street = user.UserData.Street,
@@ -121,7 +123,25 @@ namespace LS_Shop.Controllers
 
         public ActionResult History()
         {
-            return View();
+            var userEmail = User.Identity.GetUserName();
+            List<Order> orderList = new List<Order>();
+            using (var context = new EfDbContext())
+            {
+                orderList = context.Orders.Where(o => o.Email == userEmail).Include(o => o.OrderPosition).OrderByDescending(o => o.DateOfAddition).ToList();
+            }             
+            return View(orderList);
+        }
+
+        public ActionResult OrderDetails(int id)
+        {
+            OrderDetailsViewModel order = new OrderDetailsViewModel();
+            using (var context = new EfDbContext())
+            {
+                order.Order = context.Orders.Where(o => o.OrderId == id).FirstOrDefault();
+                order.OrderPositions = context.OrderPositions.Where(o => o.OrderId == order.Order.OrderId).Include(o => o.Product).ToList();
+            }  
+            
+            return View(order);
         }
 
 

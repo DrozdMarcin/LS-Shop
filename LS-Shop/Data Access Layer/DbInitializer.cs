@@ -377,7 +377,7 @@ namespace LS_Shop.Data_Access_Layer
                 RoleId = roleManager.FindByName("Administrator").Id,
                 UserId = userManager.FindByEmail("admin@123.aa").Id
             };
-            if (roleManager.FindByName("Administrator").Users.Where(o => o.UserId == userManager.FindByEmail("admin@123.aa").Id) == null)
+            if (!roleManager.FindByName("Administrator").Users.Where(o => o.UserId == userManager.FindByEmail("admin@123.aa").Id).Any())
                 roleManager.FindByName("Administrator").Users.Add(adminUserRole);
 
             context.SaveChanges();

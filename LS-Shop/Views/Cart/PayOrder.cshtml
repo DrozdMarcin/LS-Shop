@@ -20,44 +20,44 @@
 
                     <tr>
                         <td>@Html.LabelFor(o => o.Email, "Email: ")</td>
-                        <td>@Html.TextBoxFor(o => o.Email)</td>
-                        <td>@Html.ValidationMessageFor(o => o.Email)</td>
+                        <td>@Html.TextBoxFor(o => o.Email, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.Email, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(o => o.FirstName, "Imie: ")</td>
-                        <td>@Html.TextBoxFor(o => o.FirstName)</td>
-                        <td>@Html.ValidationMessageFor(o => o.FirstName)</td>
+                        <td>@Html.TextBoxFor(o => o.FirstName, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.FirstName, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(o => o.LastName, "Nazwisko: ")</td>
-                        <td>@Html.TextBoxFor(o => o.LastName)</td>
-                        <td>@Html.ValidationMessageFor(o => o.LastName)</td>
+                        <td>@Html.TextBoxFor(o => o.LastName, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.LastName, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(o => o.Street, "Ulica i numer domu/budynku: ")</td>
-                        <td>@Html.TextBoxFor(o => o.Street)</td>
-                        <td>@Html.ValidationMessageFor(o => o.Street)</td>
+                        <td>@Html.TextBoxFor(o => o.Street, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.Street, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(o => o.City, "Miasto: ")</td>
-                        <td>@Html.TextBoxFor(o => o.City)</td>
-                        <td>@Html.ValidationMessageFor(o => o.City)</td>
+                        <td>@Html.TextBoxFor(o => o.City, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.City, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(o => o.PostalCode, "Kod pocztowy: ")</td>
-                        <td>@Html.TextBoxFor(o => o.PostalCode)</td>
-                        <td>@Html.ValidationMessageFor(o => o.PostalCode)</td>
+                        <td>@Html.TextBoxFor(o => o.PostalCode, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.PostalCode, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td>@Html.LabelFor(o => o.PhoneNumber, "Telefon: ")</td>
-                        <td>@Html.TextBoxFor(o => o.PhoneNumber)</td>
-                        <td>@Html.ValidationMessageFor(o => o.PhoneNumber)</td>
+                        <td>@Html.TextBoxFor(o => o.PhoneNumber, new { @class = "form-control" })</td>
+                        <td>@Html.ValidationMessageFor(o => o.PhoneNumber, "", new { @class = "text-danger" })</td>
                     </tr>
 
                     <tr>
                         <td><label for="comment">Uwagi</label></td>
                         <td>
-                            <textarea cols="40" rows="3" name="comment">@Model.Comment</textarea>
+                            @Html.TextAreaFor(o => o.Comment, new { @class = "form-control" })
                         </td>
                     </tr>
 

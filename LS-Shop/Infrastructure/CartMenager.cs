@@ -10,10 +10,10 @@ namespace LS_Shop.Infrastructure
 {
     public class CartMenager : ICartManager
     {
-        private IDbContext db;
+        private EfDbContext db;
         private ISessionManager session;
 
-        public CartMenager(ISessionManager session, IDbContext db)
+        public CartMenager(ISessionManager session, EfDbContext db)
         {
             this.session = session;
             this.db = db;
@@ -165,9 +165,9 @@ namespace LS_Shop.Infrastructure
             var cart = GetCart();
             newOrder.DateOfAddition = DateTime.Now;
             newOrder.UserId =  userId;
-            
+
             //dodanie zamówienia
-            db.Add(newOrder);
+            db.Orders.Add(newOrder);
 
             //dodanie pozycji zamowienia
             if (newOrder.OrderPosition == null)
@@ -189,6 +189,7 @@ namespace LS_Shop.Infrastructure
                 newOrder.OrderPosition.Add(newPositionOrder);
            }
             newOrder.OrderValue = cartValue;
+            db.SaveChanges();
             return newOrder;
     }
 

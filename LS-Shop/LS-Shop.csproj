@@ -246,6 +246,18 @@
     <Compile Include="Migrations\201905172201193_zam4.Designer.cs">
       <DependentUpon>201905172201193_zam4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905181415454_initial2.cs" />
+    <Compile Include="Migrations\201905181415454_initial2.Designer.cs">
+      <DependentUpon>201905181415454_initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905181434502_initial3.cs" />
+    <Compile Include="Migrations\201905181434502_initial3.Designer.cs">
+      <DependentUpon>201905181434502_initial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905181645517_orders.cs" />
+    <Compile Include="Migrations\201905181645517_orders.Designer.cs">
+      <DependentUpon>201905181645517_orders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PositionCart.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
     <Compile Include="Migrations\201903232131052_initial.cs" />
@@ -267,6 +279,7 @@
     <Compile Include="Models\UserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsListViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
   </ItemGroup>
@@ -412,6 +425,7 @@
     <Content Include="Views\Cart\PayOrder.cshtml" />
     <Content Include="Views\Cart\OrderConfirmation.cshtml" />
     <Content Include="Views\Cart\history.cshtml" />
+    <Content Include="Views\Cart\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -440,6 +454,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905172201193_zam4.resx">
       <DependentUpon>201905172201193_zam4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905181415454_initial2.resx">
+      <DependentUpon>201905181415454_initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905181434502_initial3.resx">
+      <DependentUpon>201905181434502_initial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905181645517_orders.resx">
+      <DependentUpon>201905181645517_orders.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -41,8 +41,7 @@ namespace LS_Shop.Models
         public DateTime DateOfAddition { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public decimal OrderValue { get; set; }
-
-        public List<OrderPosition> OrderPosition{ get; set; }
+        public List<OrderPosition> OrderPosition { get; set; }
     }
 
     public enum OrderStatus

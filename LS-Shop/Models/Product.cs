@@ -26,5 +26,6 @@ namespace LS_Shop.Models
         public bool Hidden { get; set; }
 
         public virtual Category Category { get; set; }
+        public virtual List<OrderPosition> OrderPosition { get; set; }
     }
 }
