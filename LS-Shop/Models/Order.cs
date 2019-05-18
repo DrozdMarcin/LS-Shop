@@ -12,6 +12,12 @@ namespace LS_Shop.Models
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.None)] //attributes not to assign Ids by the server
         public int OrderId { get; set; }
+
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
+
+
         [Required(ErrorMessage = "Wprowadź imię")]
         [StringLength(50)]
         public string FirstName { get; set; }
@@ -41,8 +47,11 @@ namespace LS_Shop.Models
 
     public enum OrderStatus
     {
-        New,
-        Completed
+        Nowy,
+        Przyjeto_do_realizacji,
+        Wyslano_do_klienta,
+        Zamkniety
+
     }
    
 }

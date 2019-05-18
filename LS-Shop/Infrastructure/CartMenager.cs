@@ -160,11 +160,11 @@ namespace LS_Shop.Infrastructure
 
 
         //Metoda tworzenia nowe zamowienie
-       public Order CreateOrder(Order newOrder, string userEmail)
+       public Order CreateOrder(Order newOrder, string userId)
         {
             var cart = GetCart();
             newOrder.DateOfAddition = DateTime.Now;
-            newOrder.Email = userEmail;
+            newOrder.UserId =  userId;
             
             //dodanie zamówienia
             db.Add(newOrder);

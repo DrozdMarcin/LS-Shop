@@ -1,0 +1,85 @@
+﻿@model IEnumerable<LS_Shop.Models.Order>
+
+@{
+    ViewBag.Title = "Historia zamówień";
+}
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            
+                @if (Model.Any())
+                {
+
+                 <table>
+                @foreach (var zamowienie in Model)
+                {
+                    <tr @if (zamowienie.OrderStatus == LS_Shop.Models.OrderStatus.Nowy) { }>
+                        <td>
+                            <strong>Nr zamówienia: </strong>@zamowienie.OrderId
+                        </td>
+                        <td>
+                            <strong>Data: </strong>
+                            @zamowienie.DateOfAddition.ToString("dd-MM-yyyy")
+                        </td>
+                        <td>
+                            <strong>Stan: </strong><br />
+
+                            @Html.DisplayFor(o => zamowienie.OrderStatus)
+
+                        </td>
+                        <td>
+                            <strong>Dane wysyłkowe:</strong><br />
+                            @zamowienie.FirstName @zamowienie.LastName<br />
+                            @zamowienie.Street <br />
+                            @zamowienie.PostalCode @zamowienie.City<br />
+                        </td>
+                        <td>
+                            <strong>Uwagi: </strong><br />
+                            @zamowienie.Comment
+                        </td>
+                        <td>
+                            <strong>Łączny koszt:</strong> @zamowienie.OrderValue zł
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6">
+                            <section>
+                                <ul class="col-lg-12 col-xs-12">
+
+                                    @foreach (var pozycjaZamowienia in zamowienie.OrderPosition)
+                                    {
+                                        <li>
+                                            <article>
+                                                <a class="btn btn-danger" href="@Url.Action("Details", "Product", new { id = pozycjaZamowienia.ProductId })">
+
+                                                    <h1>
+                                                        @pozycjaZamowienia.Product.Name <br />
+                                                        <strong>szt: @pozycjaZamowienia.Amount,Łącznie: @(pozycjaZamowienia.Amount * @pozycjaZamowienia.PurchasePrice)  zł</strong>
+                                                    </h1>
+                                                </a>
+                                            </article>
+                                        </li>
+                                    }
+                                </ul>
+                            </section>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="6"></td>
+                    </tr>
+                    <!-- nastepne zamowienie -->
+                }
+            </table>
+            }
+            else
+            {
+                <div style="text-align: center; margin-top: 50px; margin-bottom: 50px;">
+                    Brak zamówień.
+                </div>
+            }
+            </div>
+    </div>
+
