@@ -1,0 +1,81 @@
+﻿@model IEnumerable<LS_Shop.Models.Order>
+@{
+    ViewBag.Title = "Zamówienia";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
+    </li>
+    @if (User.IsInRole("Administrator"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
+        </li>
+    }
+</ul>
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success text-center font-weight-bold">
+        @TempData["message"]
+    </div>
+}
+
+@if (Model == null || Model.Count() == 0)
+{
+    <div class="alert alert-danger font-weight-bold text-justify text-center">
+        Brak zamówień
+    </div>
+}
+else
+{
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Stan</th>
+            <th>Dane wysyłkowe</th>
+            <th>Telefon</th>
+            <th>Uwagi</th>
+            <th>Łączny koszt</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.DateOfAddition</td>
+                <td>@order.OrderStatus</td>
+                <td>
+                    @order.FirstName @order.LastName<br />
+                    @order.Street <br />
+                    @order.PostalCode @order.City<br />
+                </td>
+                <td>@order.PhoneNumber</td>
+                <td style="max-width: 200px;">@order.Comment</td>
+                <td>@order.OrderValue.ToString("c")</td>
+                <td>
+                    @Html.ActionLink("Edytuj", "EditOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Usuń", "DeleteOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+

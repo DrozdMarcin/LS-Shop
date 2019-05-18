@@ -81,7 +81,7 @@ namespace LS_Shop.Controllers
             if (Request.IsAuthenticated)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                var order = new Order
+                var order = new Order()
                 {
                     Email = user.UserName,
                     FirstName = user.UserData.FirstName,

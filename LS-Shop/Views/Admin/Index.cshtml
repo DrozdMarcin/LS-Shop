@@ -13,6 +13,9 @@
         <li class="nav-item">
             <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
+        </li>
         @if (User.IsInRole("Administrator"))
         {
             <li class="nav-item">
