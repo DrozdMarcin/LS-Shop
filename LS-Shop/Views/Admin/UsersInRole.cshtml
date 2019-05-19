@@ -1,0 +1,39 @@
+﻿@model LS_Shop.ViewModels.UsersInRoleViewModel
+@{
+    ViewBag.Title = "Użytkownicy - Role";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3>Użytkownicy w roli @Model.Role.Name</h3>
+@if (Model.Users == null)
+{
+    <div class="alert alert-danger">
+        Brak użytkowników dla tej grupy
+    </div>
+    @Html.ActionLink("Powrót", "Roles", new { controller = "Admin" }, new { @class = "btn btn-primary" })
+}
+else
+{
+    @Html.ActionLink("Dodaj użytkownika", "AddUserToRole", new { controller = "Admin", roleId = Model.Role.Id}, new { @class = "btn btn-lg btn-success"})
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Akcja</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>
+                        @Html.ActionLink("Usuń", "DeleteUserFromRole", new { controller = "Admin", userId = user.Id, roleId = Model.Role.Id}, new { @class = "btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.ActionLink("Powrót", "Roles", new { controller = "Admin" }, new { @class = "btn btn-primary" })
+}
+

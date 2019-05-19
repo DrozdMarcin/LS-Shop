@@ -27,8 +27,13 @@
             </li>
         }
     </ul>
-
-<button class="btn btn-lg btn-success">Dodaj</button>
+@if(TempData["message"] != null)
+{
+    <div class="alert alert-success font-weight-bold text-center">
+        @TempData["message"]
+    </div>
+}
+@Html.ActionLink("Dodaj", "AddUser", new { controller = "Admin"}, new { @class = "btn btn-lg btn-success"})
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -42,8 +47,7 @@
             <tr>
                 <td>@user.Email</td>
                 <td class="float-right">
-                    <button class="btn btn-primary">Edytuj</button>
-                    <button class="btn btn-danger">Usuń</button>
+                    @Html.ActionLink("Usuń", "DeleteUser", new { controller = "Admin", id = user.Id}, new { @class = "btn btn-danger"})
                 </td>
             </tr>
         }

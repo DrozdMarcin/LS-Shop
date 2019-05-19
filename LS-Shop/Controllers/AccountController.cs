@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LS_Shop.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LS_Shop.Controllers
 {
@@ -164,6 +165,7 @@ namespace LS_Shop.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserData = new UserData() };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var roleResult = UserManager.AddToRole(user.Id, "User");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

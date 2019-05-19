@@ -267,6 +267,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
+    <Compile Include="ViewModels\AddUserViewModel.cs" />
     <Compile Include="ViewModels\BestsellersViewModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -283,6 +284,7 @@
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsListViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\UsersInRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -430,6 +432,9 @@
     <Content Include="Views\Admin\Orders.cshtml" />
     <Content Include="Views\Admin\EditOrder.cshtml" />
     <Content Include="Views\Admin\EditOrderProduct.cshtml" />
+    <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Admin\UsersInRole.cshtml" />
+    <Content Include="Views\Admin\AddUserToRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,6 +28,13 @@
         }
     </ul>
 
+@if(TempData["message"] != null)
+{
+    <div class="alert alert-success text-center font-weight-bold">
+        @TempData["message"]
+    </div> 
+}
+
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -41,7 +48,7 @@
             <tr>
                 <td>@role.Name</td>
                 <td class="float-right">
-                    <button class="btn btn-primary">Edytuj</button>
+                    @Html.ActionLink("Użytkownicy", "UsersInRole", new { controller = "Admin", id = role.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }

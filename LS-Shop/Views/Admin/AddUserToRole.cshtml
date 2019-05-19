@@ -1,0 +1,24 @@
+﻿@model LS_Shop.ViewModels.UsersInRoleViewModel
+@{
+    ViewBag.Title = "Dodaj użytkownika do roli";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@Html.ActionLink("Dodaj", "AddUserToRoleB", new { controller = "Admin", userId = user.Id, roleId = Model.Role.Id }, new { @class = "btn btn-success" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Powrót", "Roles", new { controller = "Admin" }, new { @class = "btn btn-primary" })
+

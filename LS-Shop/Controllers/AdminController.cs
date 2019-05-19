@@ -207,5 +207,94 @@ namespace LS_Shop.Controllers
             TempData["message"] = "Udało sie zapisać zmiany";
             return RedirectToAction("Orders");
         }
+
+        public ActionResult AddUser()
+        {
+            var newUser = new AddUserViewModel();
+            var roles = RoleManager.Roles.ToList();
+            newUser.User = new ApplicationUser();
+            newUser.Roles = RoleManager.Roles.ToList().Select(o => new SelectListItem
+            {
+                Selected = roles.Contains(o),
+                Text = o.Name,
+                Value = o.Name
+            }).OrderBy(o => o.Text);
+            return View(newUser);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddUser(AddUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email, UserData = new UserData() };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                var roleId = RoleManager.FindByName(model.UserRole).Id;
+                var roleResult = UserManager.AddToRole(user.Id, RoleManager.FindById(roleId).Name);
+                TempData["message"] = "Udało się dodać użytkownika";
+                return RedirectToAction("Users");
+            }
+            else
+            {
+                TempData["message"] = "Nie udało się dodać użytkownika";
+                return View(model);
+            }
+        }
+
+        public ActionResult DeleteUser(string id)
+        {
+            var user = UserManager.FindById(id);
+            UserManager.Delete(user);
+            TempData["message"] = "Udało się usunąć użytkownika";
+            return RedirectToAction("Users");
+        }
+
+        public ActionResult UsersInRole(string id)
+        {
+            var role = RoleManager.FindById(id);
+            var usersInRole = role.Users.Where(o => o.RoleId == role.Id).ToList();
+            List<ApplicationUser> list = new List<ApplicationUser>();
+            foreach(var user in usersInRole)
+            {
+                list.Add(UserManager.FindById(user.UserId));
+            }
+            var usersViewModel = new UsersInRoleViewModel();
+            usersViewModel.Role = role;
+            usersViewModel.Users = list;
+            return View(usersViewModel);
+        }
+
+        public ActionResult AddUserToRole(string roleId)
+        {
+            var role = RoleManager.FindById(roleId);
+            var users = UserManager.Users.ToList();
+            var usersInRole = role.Users.Where(o => o.RoleId == role.Id).ToList();
+            List<ApplicationUser> list = new List<ApplicationUser>();
+            foreach(var user in users)
+            {
+                if(!UserManager.IsInRole(user.Id, role.Id))
+                {
+                    list.Add(UserManager.FindById(user.Id));
+                }
+            }
+            var usersViewModel = new UsersInRoleViewModel();
+            usersViewModel.Role = role;
+            usersViewModel.Users = list;
+            return View(usersViewModel);
+        }
+
+        public ActionResult AddUserToRoleB(string userId, string roleId)
+        {
+            UserManager.AddToRole(userId, RoleManager.FindById(roleId).Name);
+            TempData["message"] = "Udało się dodać użytkownika do roli";
+            return RedirectToAction("Roles");
+        }
+
+        public ActionResult DeleteUserFromRole(string userId, string roleId)
+        {
+            UserManager.RemoveFromRole(userId, RoleManager.FindById(roleId).Name);
+            TempData["message"] = "Udało się usunąć użytkownika z roli";
+            return RedirectToAction("Roles");
+        }
     }
 }
