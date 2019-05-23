@@ -46,7 +46,7 @@
                 <td class="text-justify">@category.Description</td>
                 <td>
                     <button class="btn btn-primary w-100">Edytuj</button>
-                    <button class="btn btn-danger w-100">Usuń</button>
+                    @Html.ActionLink("Usuń", "DeleteCategory", new { controller = "Admin", id = category.CategoryId }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

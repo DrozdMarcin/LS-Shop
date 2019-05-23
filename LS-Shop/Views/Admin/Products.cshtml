@@ -62,10 +62,11 @@
                 {
                     <td>Nie</td>
                 }
-                <td class="float-right">
-                    <button class="btn btn-primary">Edytuj</button>
-                    <button class="btn btn-danger">Usuń</button>
-                </td>
+                    <td class="float-right">
+                        <button class="btn btn-primary">Edytuj</button>
+                        @Html.ActionLink("Usuń", "DeleteProduct", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-danger" })
+                        
+                    </td>
             </tr>
         }
     </tbody>

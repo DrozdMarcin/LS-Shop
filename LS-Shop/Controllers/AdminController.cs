@@ -249,6 +249,22 @@ namespace LS_Shop.Controllers
             return RedirectToAction("Users");
         }
 
+        public ActionResult DeleteProduct(string id)
+        {
+            var product = db.Products.First(f => f.ProductId == int.Parse(id));
+            db.Delete(product);
+            TempData["message"] = "Udało się usunąć produkt";
+            return RedirectToAction("Products");
+        }
+
+        public ActionResult DeleteCategory(string id)
+        {
+            var category = db.Categories.First(f => f.CategoryId == int.Parse(id));
+            db.Delete(category);
+            TempData["message"] = "Udało się usunąć produkt";
+            return RedirectToAction("Categories");
+        }
+
         public ActionResult UsersInRole(string id)
         {
             var role = RoleManager.FindById(id);
