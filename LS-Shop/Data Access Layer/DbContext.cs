@@ -53,6 +53,12 @@ namespace LS_Shop.Data_Access_Layer
             context.SaveChanges();
         }
 
+        public void Add(Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
+        }
+
         public void Delete(Product product)
         {
             context.Products.Remove(product);

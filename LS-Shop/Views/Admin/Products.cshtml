@@ -3,31 +3,31 @@
     ViewBag.Title = "Produkty";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-    <ul class="nav nav-tabs">
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
+    </li>
+    @if (User.IsInRole("Administrator"))
+    {
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+            <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="@Url.Action("Products", "Admin")">Produkty</a>
+            <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
-        </li>
-        @if (User.IsInRole("Administrator"))
-        {
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
-            </li>
-        }
-    </ul>
+    }
+</ul>
 
-<button class="btn btn-lg btn-success">Dodaj</button>
+@Html.ActionLink("Dodaj", "AddProduct", new { controller = "Admin" }, new { @class = "btn btn-lg btn-success" })
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -46,7 +46,7 @@
                 <td class="font-weight-bold">@product.ProductId</td>
                 <td>@product.Name</td>
                 <td>@product.Price.ToString("c")</td>
-                @if(product.Bestseller)
+                @if (product.Bestseller)
                 {
                     <td>Tak</td>
                 }
@@ -54,7 +54,7 @@
                 {
                     <td>Nie</td>
                 }
-                @if(product.Hidden)
+                @if (product.Hidden)
                 {
                     <td>Tak</td>
                 }
@@ -62,11 +62,11 @@
                 {
                     <td>Nie</td>
                 }
-                    <td class="float-right">
-                        <button class="btn btn-primary">Edytuj</button>
-                        @Html.ActionLink("Usuń", "DeleteProduct", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-danger" })
-                        
-                    </td>
+                <td class="float-right">
+                    <button class="btn btn-primary">Edytuj</button>
+                    @Html.ActionLink("Usuń", "DeleteProduct", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-danger" })
+
+                </td>
             </tr>
         }
     </tbody>

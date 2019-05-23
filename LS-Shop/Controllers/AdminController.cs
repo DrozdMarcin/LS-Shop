@@ -222,6 +222,27 @@ namespace LS_Shop.Controllers
             return View(newUser);
         }
 
+        public ActionResult AddProduct()
+        {
+            AddProductViewModel product = new AddProductViewModel();  
+            product.Product = new Product();
+            product.Categories = db.Categories.ToList().Select(o => new SelectListItem
+            {
+               Text = o.Name,
+                Value = o.Name
+            });
+            return View(product);
+        }
+
+        [HttpPost]
+        public ActionResult AddProduct(AddProductViewModel product)
+        {
+            //product.Product.NameOfImage = product.NewFile.FileName;
+            db.Add(product.Product);
+            TempData["message"] = "Udało się dodać Produkt";
+            return RedirectToAction("Products");
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddUser(AddUserViewModel model)
         {
