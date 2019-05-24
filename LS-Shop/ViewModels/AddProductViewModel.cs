@@ -10,7 +10,11 @@ namespace LS_Shop.ViewModels
 {
     public class AddProductViewModel
     {
-        public Product Product { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public bool Bestseller { get; set; }
+        public Category Category { get; set; }
         public HttpPostedFileBase NewFile { get; set; }
         public IEnumerable<Category> Categories { get; set; }
     }
