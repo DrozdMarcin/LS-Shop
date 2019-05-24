@@ -12,6 +12,6 @@ namespace LS_Shop.ViewModels
     {
         public Product Product { get; set; }
         public HttpPostedFileBase NewFile { get; set; }
-        public IEnumerable<SelectListItem> Categories { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
     }
 }

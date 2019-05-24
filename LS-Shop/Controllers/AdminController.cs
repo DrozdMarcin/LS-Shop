@@ -222,25 +222,56 @@ namespace LS_Shop.Controllers
             return View(newUser);
         }
 
-        public ActionResult AddProduct()
+        public ActionResult AddProduct(int? id)
         {
-            AddProductViewModel product = new AddProductViewModel();  
-            product.Product = new Product();
-            product.Categories = db.Categories.ToList().Select(o => new SelectListItem
+            AddProductViewModel productVM = new AddProductViewModel();
+            Product product;
+            if (id.HasValue)
             {
-               Text = o.Name,
-                Value = o.Name
-            });
-            return View(product);
+                product = db.Products.FirstOrDefault(o => o.ProductId == id);
+            }
+            else
+            {
+                product = new Product();
+            }
+            productVM.Categories = db.Categories.ToList();
+            productVM.Product = product;
+            return View(productVM);
         }
 
         [HttpPost]
-        public ActionResult AddProduct(AddProductViewModel product)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddProduct(AddProductViewModel model)
         {
-            //product.Product.NameOfImage = product.NewFile.FileName;
-            db.Add(product.Product);
-            TempData["message"] = "Udało się dodać Produkt";
-            return RedirectToAction("Products");
+            if(model.Product.ProductId > 0)
+            {
+                using (var context = new EfDbContext())
+                {
+                    context.Entry(model.Product).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                TempData["message"] = "Udało się zaktualizować produkt";
+                return RedirectToAction("Products");
+            }
+            else
+            {
+                if(ModelState.IsValid)
+                {
+                    model.Product.DateOfAddition = DateTime.Now;
+                    using (var context = new EfDbContext())
+                    {
+                        context.Entry(model.Product).State = EntityState.Added;
+                        context.SaveChanges();
+                    }
+                    TempData["message"] = "Udało się dodać produkt";
+                    return RedirectToAction("Products");
+                }
+                else
+                {
+                    model.Categories = db.Categories.ToList();
+                    return View(model);
+                }
+            }
         }
 
         [HttpPost]
