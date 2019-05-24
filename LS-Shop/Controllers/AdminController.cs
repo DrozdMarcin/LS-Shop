@@ -224,8 +224,7 @@ namespace LS_Shop.Controllers
 
         public ActionResult AddProduct()
         {
-            AddProductViewModel product = new AddProductViewModel();  
-            product.Product = new Product();
+            AddProductViewModel product = new AddProductViewModel();
             product.Categories = db.Categories.ToList().Select(o => new SelectListItem
             {
                Text = o.Name,
@@ -237,8 +236,20 @@ namespace LS_Shop.Controllers
         [HttpPost]
         public ActionResult AddProduct(AddProductViewModel product)
         {
+            Product newProduct = new Product();
+            newProduct.Name = product.Name;
+            newProduct.Price = product.Price;
+            newProduct.Category = product.Category;
+            newProduct.NameOfImage = product.NewFile.FileName;
+
+            using (var context = new EfDbContext())
+            {
+                context.Entry(newProduct).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+
             //product.Product.NameOfImage = product.NewFile.FileName;
-            db.Add(product.Product);
+            //db.Add(newProduct);
             TempData["message"] = "Udało się dodać Produkt";
             return RedirectToAction("Products");
         }
