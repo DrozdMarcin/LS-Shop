@@ -8,6 +8,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -243,7 +244,15 @@ namespace LS_Shop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddProduct(AddProductViewModel model)
         {
-            if(model.Product.ProductId > 0)
+            if (model.NewFile != null && model.NewFile.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(model.NewFile.FileName);
+                var path = Path.Combine(Server.MapPath("~/Images/Products/"), fileName);
+                model.NewFile.SaveAs(path);
+                model.Product.NameOfImage = fileName;
+            }
+
+            if (model.Product.ProductId > 0)
             {
                 using (var context = new EfDbContext())
                 {

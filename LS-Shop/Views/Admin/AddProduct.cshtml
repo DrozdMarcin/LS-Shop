@@ -8,7 +8,10 @@
     <div class="col-xs-12">
         <h3>@ViewBag.Title</h3>
         <hr />
-        @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post))
+        @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new  
+        {  
+            enctype = "multipart/form-data"  
+        }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()
@@ -40,6 +43,11 @@
             <div class="form-group">
                 <label>Bestseller:</label>
                 @Html.CheckBoxFor(o => o.Product.Bestseller)
+            </div>
+
+            <div class="form-group">
+                <label>Zdjęcie:</label>
+                @Html.FileFor(o => o.NewFile)
             </div>
             <input type="submit" value="Dodaj" class="btn btn-success" /><br /><br />
         }
