@@ -8,9 +8,9 @@
     <div class="col-xs-12">
         <h3>@ViewBag.Title</h3>
         <hr />
-        @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new  
-        {  
-            enctype = "multipart/form-data"  
+        @using (Html.BeginForm("AddProduct", "Admin", FormMethod.Post, new
+        {
+            enctype = "multipart/form-data"
         }))
         {
             @Html.AntiForgeryToken()
@@ -43,6 +43,11 @@
             <div class="form-group">
                 <label>Bestseller:</label>
                 @Html.CheckBoxFor(o => o.Product.Bestseller)
+            </div>
+
+            <div class="form-group">
+                <label>Ukryty:</label>
+                @Html.CheckBoxFor(o => o.Product.Hidden)
             </div>
 
             <div class="form-group">

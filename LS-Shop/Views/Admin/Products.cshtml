@@ -27,6 +27,13 @@
     }
 </ul>
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success font-weight-bold text-center">
+        @TempData["message"]
+    </div>
+}
+
 @Html.ActionLink("Dodaj", "AddProduct", new { controller = "Admin" }, new { @class = "btn btn-lg btn-success" })
 <table class="table table-striped">
     <thead class="thead-dark">
