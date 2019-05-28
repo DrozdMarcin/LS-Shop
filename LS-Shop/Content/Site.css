@@ -31,5 +31,6 @@ hr {
 
 
 body {
-    background-color: lightskyblue;
+    background-image: url(~/Images/tlo.jpg);
+    margin: 0;
 }

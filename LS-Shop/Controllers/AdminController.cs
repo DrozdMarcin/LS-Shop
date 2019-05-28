@@ -283,6 +283,54 @@ namespace LS_Shop.Controllers
             }
         }
 
+        public ActionResult AddCategory(int? id)
+        {
+            Category category = new Category();
+            if (id.HasValue)
+            {
+                category = db.Categories.FirstOrDefault(o => o.CategoryId == id);
+            }
+          
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCategory(Category category)
+        {
+            
+
+            if (category.CategoryId > 0)
+            {
+                using (var context = new EfDbContext())
+                {
+                    context.Entry(category).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+                TempData["message"] = "Udało się zaktualizować kategorię";
+                return RedirectToAction("Categories");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    
+                    using (var context = new EfDbContext())
+                    {
+                        context.Entry(category).State = EntityState.Added;
+                        context.SaveChanges();
+                    }
+                    TempData["message"] = "Udało się dodać kategorię";
+                    return RedirectToAction("Categories");
+                }
+                else
+                {
+                    
+                    return View(category);
+                }
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> AddUser(AddUserViewModel model)
         {

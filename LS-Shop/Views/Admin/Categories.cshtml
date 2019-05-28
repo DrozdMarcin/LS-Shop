@@ -27,7 +27,7 @@
             </li>
         }
     </ul>
-<button class="btn btn-lg btn-success">Dodaj</button>
+@Html.ActionLink("Dodaj", "AddCategory", new { controller = "Admin" }, new { @class = "btn btn-lg btn-success" })
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -45,7 +45,7 @@
                 <td>@category.Name</td>
                 <td class="text-justify">@category.Description</td>
                 <td>
-                    <button class="btn btn-primary w-100">Edytuj</button>
+                    @Html.ActionLink("Edytuj", "AddCategory", new { controller = "Admin", id = category.CategoryId }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Usuń", "DeleteCategory", new { controller = "Admin", id = category.CategoryId }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
