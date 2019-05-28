@@ -11,6 +11,7 @@ namespace LS_Shop.ViewModels
     public class AddProductViewModel
     {
         public string Name { get; set; }
+        public Product Product { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
         public bool Bestseller { get; set; }

@@ -36,6 +36,11 @@
                 <label>Kategoria:</label>
                 @Html.DropDownListFor(o => o.Product.CategoryId, new SelectList(Model.Categories, "CategoryId", "Name", Model.Categories.First().CategoryId), "Wybierz kategorię", new { @class = "form-control" })
             </div>
+
+            <div class="form-group">
+                <label>Bestseller:</label>
+                @Html.CheckBoxFor(o => o.Product.Bestseller)
+            </div>
             <input type="submit" value="Dodaj" class="btn btn-success" /><br /><br />
         }
         @Html.ActionLink("Powrót", "Products", new { controller = "Admin" }, new { @class = "btn btn-primary" })
