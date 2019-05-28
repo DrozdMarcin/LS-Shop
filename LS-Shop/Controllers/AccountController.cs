@@ -16,10 +16,13 @@ namespace LS_Shop.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        #region private members
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager roleManager;
+        #endregion
 
+        #region constructors
         public AccountController()
         {
         }
@@ -30,7 +33,9 @@ namespace LS_Shop.Controllers
             SignInManager = signInManager;
             RoleManager = roleManager;
         }
+        #endregion
 
+        #region properties
         public ApplicationSignInManager SignInManager
         {
             get
@@ -63,7 +68,9 @@ namespace LS_Shop.Controllers
             }
             private set { this.roleManager = value; }
         }
+        #endregion
 
+        #region public methods
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -415,6 +422,11 @@ namespace LS_Shop.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region Pomocnicy
+        // Używane w przypadku ochrony XSRF podczas dodawania logowań zewnętrznych
+        private const string XsrfKey = "XsrfId";
 
         protected override void Dispose(bool disposing)
         {
@@ -435,10 +447,6 @@ namespace LS_Shop.Controllers
 
             base.Dispose(disposing);
         }
-
-        #region Pomocnicy
-        // Używane w przypadku ochrony XSRF podczas dodawania logowań zewnętrznych
-        private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {

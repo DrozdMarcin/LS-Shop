@@ -10,15 +10,20 @@ namespace LS_Shop.Infrastructure
 {
     public class CartMenager : ICartManager
     {
+        #region private members
         private EfDbContext db;
         private ISessionManager session;
+        #endregion
 
+        #region constructors
         public CartMenager(ISessionManager session, EfDbContext db)
         {
             this.session = session;
             this.db = db;
         }
+        #endregion
 
+        #region public methods
         //Metody do obsługi koszyka
 
         //pobieranie zawartości koszyka
@@ -198,7 +203,6 @@ namespace LS_Shop.Infrastructure
         {
             session.Set<List< PositionCart>>(Consts.CartSessionKey, null);
         }
-
-
+        #endregion
     }
 }

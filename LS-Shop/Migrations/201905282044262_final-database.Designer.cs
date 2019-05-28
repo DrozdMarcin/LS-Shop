@@ -7,13 +7,13 @@ namespace LS_Shop.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class orders : IMigrationMetadata
+    public sealed partial class finaldatabase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(orders));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(finaldatabase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905181645517_orders"; }
+            get { return "201905282044262_final-database"; }
         }
         
         string IMigrationMetadata.Source

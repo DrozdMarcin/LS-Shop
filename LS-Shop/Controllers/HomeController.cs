@@ -10,7 +10,8 @@ using LS_Shop.Models;
 namespace LS_Shop.Controllers
 {
     public class HomeController : Controller
-    {        
+    {
+        #region public methods
         public ActionResult Index()
         {           
             return View();
@@ -20,5 +21,6 @@ namespace LS_Shop.Controllers
         {
             return View(name);
         }
+        #endregion
     }
 }

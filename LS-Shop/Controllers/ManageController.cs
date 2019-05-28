@@ -13,9 +13,12 @@ namespace LS_Shop.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        #region private members
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        #endregion
 
+        #region constructors
         public ManageController()
         {
         }
@@ -25,7 +28,9 @@ namespace LS_Shop.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
+        #endregion
 
+        #region properties
         public ApplicationSignInManager SignInManager
         {
             get
@@ -49,7 +54,9 @@ namespace LS_Shop.Controllers
                 _userManager = value;
             }
         }
+        #endregion
 
+        #region public methods
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -362,6 +369,7 @@ namespace LS_Shop.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
         #region Pomocnicy
         // Służy do ochrony XSRF podczas dodawania logowań zewnętrznych

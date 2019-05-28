@@ -19,10 +19,13 @@ namespace LS_Shop.Controllers
     [Authorize(Roles = "Administrator, Employee")]
     public class AdminController : Controller
     {
+        #region private members
         private IDbContext db;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        #endregion
 
+        #region properties
         public ApplicationRoleManager RoleManager
         {
             get
@@ -41,8 +44,10 @@ namespace LS_Shop.Controllers
             {
                 _userManager = value;
             }
-        } 
+        }
+        #endregion
 
+        #region constructors
         public AdminController(IDbContext dbParam)
         {
             db = dbParam;
@@ -54,7 +59,9 @@ namespace LS_Shop.Controllers
             UserManager = userManager;
             RoleManager = roleManager;
         }
+        #endregion
 
+        #region public methods
         // GET: Admin
         public ActionResult Index()
         {
@@ -214,12 +221,7 @@ namespace LS_Shop.Controllers
             var newUser = new AddUserViewModel();
             var roles = RoleManager.Roles.ToList();
             newUser.User = new ApplicationUser();
-            newUser.Roles = RoleManager.Roles.ToList().Select(o => new SelectListItem
-            {
-                Selected = roles.Contains(o),
-                Text = o.Name,
-                Value = o.Name
-            }).OrderBy(o => o.Text);
+            newUser.Roles = RoleManager.Roles.ToList();
             return View(newUser);
         }
 
@@ -332,19 +334,25 @@ namespace LS_Shop.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddUser(AddUserViewModel model)
+        public ActionResult AddUser(AddUserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email, UserData = new UserData() };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                var roleId = RoleManager.FindByName(model.UserRole).Id;
-                var roleResult = UserManager.AddToRole(user.Id, RoleManager.FindById(roleId).Name);
+                var result = UserManager.Create(user, model.Password);
+                if(result.Succeeded == false)
+                {
+                    TempData["message"] = "Hasło powinno się składać z minimum 8 znaków, jednej wielkiej litery, jednej cyfry i jednego znaku specjalnego.";
+                    model.Roles = RoleManager.Roles.ToList();
+                    return View(model);
+                }
+                var roleResult = UserManager.AddToRole(user.Id, RoleManager.FindById(model.UserRoleId).Name);
                 TempData["message"] = "Udało się dodać użytkownika";
                 return RedirectToAction("Users");
             }
             else
             {
+                model.Roles = RoleManager.Roles.ToList();
                 TempData["message"] = "Nie udało się dodać użytkownika";
                 return View(model);
             }
@@ -421,5 +429,6 @@ namespace LS_Shop.Controllers
             TempData["message"] = "Udało się usunąć użytkownika z roli";
             return RedirectToAction("Roles");
         }
+        #endregion
     }
 }

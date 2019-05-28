@@ -11,15 +11,22 @@ namespace LS_Shop.Controllers
 {
     public class ProductController : Controller
     {
+        #region private members
         private IDbContext dbContext;
-        public int PageSize = 4;
+        #endregion
 
+        #region public members
+        public int PageSize = 4;
+        #endregion
+
+        #region constructors
         public ProductController(IDbContext dbContextParam)
         {
             dbContext = dbContextParam;
         }
+        #endregion
 
-        
+        #region public methods
         public ActionResult NewProducts()
         {
             var products = dbContext.Products.Where(k => !k.Hidden).OrderByDescending(k => k.DateOfAddition).Take(4).ToList();
@@ -71,5 +78,6 @@ namespace LS_Shop.Controllers
             Product product = dbContext.Products.Where(o => o.ProductId == productId).FirstOrDefault();
             return View(product);
         }
+        #endregion
     }
 }

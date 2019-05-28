@@ -226,44 +226,12 @@
     <Compile Include="Infrastructure\CartMenager.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
-    <Compile Include="Migrations\201905171812497_poprawki.cs" />
-    <Compile Include="Migrations\201905171812497_poprawki.Designer.cs">
-      <DependentUpon>201905171812497_poprawki.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905171908089_zamowienia.cs" />
-    <Compile Include="Migrations\201905171908089_zamowienia.Designer.cs">
-      <DependentUpon>201905171908089_zamowienia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905171918372_zamowienia2.cs" />
-    <Compile Include="Migrations\201905171918372_zamowienia2.Designer.cs">
-      <DependentUpon>201905171918372_zamowienia2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905172120163_zamowienia3.cs" />
-    <Compile Include="Migrations\201905172120163_zamowienia3.Designer.cs">
-      <DependentUpon>201905172120163_zamowienia3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905172201193_zam4.cs" />
-    <Compile Include="Migrations\201905172201193_zam4.Designer.cs">
-      <DependentUpon>201905172201193_zam4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905181415454_initial2.cs" />
-    <Compile Include="Migrations\201905181415454_initial2.Designer.cs">
-      <DependentUpon>201905181415454_initial2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905181434502_initial3.cs" />
-    <Compile Include="Migrations\201905181434502_initial3.Designer.cs">
-      <DependentUpon>201905181434502_initial3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201905181645517_orders.cs" />
-    <Compile Include="Migrations\201905181645517_orders.Designer.cs">
-      <DependentUpon>201905181645517_orders.cs</DependentUpon>
+    <Compile Include="Migrations\201905282044262_final-database.cs" />
+    <Compile Include="Migrations\201905282044262_final-database.Designer.cs">
+      <DependentUpon>201905282044262_final-database.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\PositionCart.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
-    <Compile Include="Migrations\201903232131052_initial.cs" />
-    <Compile Include="Migrations\201903232131052_initial.Designer.cs">
-      <DependentUpon>201903232131052_initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -452,39 +420,15 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903232131052_initial.resx">
-      <DependentUpon>201903232131052_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905171812497_poprawki.resx">
-      <DependentUpon>201905171812497_poprawki.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905171908089_zamowienia.resx">
-      <DependentUpon>201905171908089_zamowienia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905171918372_zamowienia2.resx">
-      <DependentUpon>201905171918372_zamowienia2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905172120163_zamowienia3.resx">
-      <DependentUpon>201905172120163_zamowienia3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905172201193_zam4.resx">
-      <DependentUpon>201905172201193_zam4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905181415454_initial2.resx">
-      <DependentUpon>201905181415454_initial2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905181434502_initial3.resx">
-      <DependentUpon>201905181434502_initial3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905181645517_orders.resx">
-      <DependentUpon>201905181645517_orders.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905282044262_final-database.resx">
+      <DependentUpon>201905282044262_final-database.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

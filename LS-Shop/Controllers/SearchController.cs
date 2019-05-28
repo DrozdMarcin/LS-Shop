@@ -11,13 +11,18 @@ namespace LS_Shop.Controllers
 {
     public class SearchController : Controller
     {
+        #region private members
         private IDbContext dbContext;
+        #endregion
 
+        #region constructors
         public SearchController(IDbContext dbContextParam)
         {
             dbContext = dbContextParam;
         }
+        #endregion
 
+        #region public methods
         // GET: Search
         public ActionResult Search()
         {
@@ -42,5 +47,6 @@ namespace LS_Shop.Controllers
 
             return View(searchViewModel);
         }
+        #endregion
     }
 }

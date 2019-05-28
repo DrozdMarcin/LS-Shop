@@ -12,9 +12,10 @@ namespace LS_Shop.ViewModels
     public class AddUserViewModel
     {
         public ApplicationUser User { get; set; }
-        public IEnumerable<SelectListItem> Roles { get; set; }
-        public string UserRole { get; set; }
+        public IEnumerable<IdentityRole> Roles { get; set; }
+        public string UserRoleId { get; set; }
         [Required(ErrorMessage = "Podaj hasło")]
         public string Password { get; set; }
+        public bool EditMode { get; set; }
     }
 }

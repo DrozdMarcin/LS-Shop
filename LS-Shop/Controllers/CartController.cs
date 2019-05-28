@@ -16,15 +16,37 @@ namespace LS_Shop.Controllers
 {
     public class CartController : Controller
     {
+        #region private members
         private ISessionManager sessionManager;
         private ICartManager cartManager;
+        private ApplicationUserManager _userManager;
+        #endregion
 
+        #region properties
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            }
+            private set
+            {
+                _userManager = value;
+            }
+
+        }
+        #endregion
+
+        #region constructors
         public CartController(ISessionManager sessionManagerParam, ICartManager cartManagerParam)
         {
             sessionManager = sessionManagerParam;
             cartManager = cartManagerParam;
         }
+        #endregion
 
+        #region public methods
         public ActionResult Cart()
         {
             List<PositionCart> cart = cartManager.GetCart();
@@ -143,21 +165,6 @@ namespace LS_Shop.Controllers
             
             return View(order);
         }
-
-
-        private ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-            }
-            private set
-            {
-                _userManager = value;
-            }
-
-        }
+        #endregion
     }
 }

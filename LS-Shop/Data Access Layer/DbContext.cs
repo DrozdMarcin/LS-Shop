@@ -13,8 +13,11 @@ namespace LS_Shop.Data_Access_Layer
 {
     public class DbContext : IDbContext
     {
+        #region private members
         private EfDbContext context = new EfDbContext();
+        #endregion
 
+        #region properties
         public IEnumerable<Product> Products
         {
             get
@@ -46,7 +49,9 @@ namespace LS_Shop.Data_Access_Layer
                 return context.OrderPositions;
             }
         }
+        #endregion
 
+        #region public methods
         public void Add(Order order)
         {
             context.Orders.Add(order);
@@ -70,5 +75,6 @@ namespace LS_Shop.Data_Access_Layer
             context.Categories.Remove(category);
             context.SaveChanges();
         }
+        #endregion
     }
 }
