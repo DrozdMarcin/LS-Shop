@@ -25,7 +25,7 @@ namespace LS_Shop.Controllers
         public ActionResult List(string category = null)
         {
             ViewBag.SelectedCategory = category;
-            IEnumerable<Category> categories = dbContext.Categories;
+            IEnumerable<Category> categories = dbContext.Categories.Where(o => o.Hidden != true).ToList();
             return PartialView(categories);
         }
         #endregion

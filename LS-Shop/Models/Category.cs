@@ -18,6 +18,7 @@ namespace LS_Shop.Models
         [Required(ErrorMessage = "Wprowadź opis kategorii")]
         public string Description { get; set; }
         public string NameOfImage { get; set; }
+        public bool Hidden { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }

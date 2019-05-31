@@ -378,7 +378,7 @@ namespace LS_Shop.Controllers
         {
             var category = db.Categories.First(f => f.CategoryId == int.Parse(id));
             db.Delete(category);
-            TempData["message"] = "Udało się usunąć produkt";
+            TempData["message"] = "Udało się usunąć kategorię";
             return RedirectToAction("Categories");
         }
 
@@ -428,6 +428,37 @@ namespace LS_Shop.Controllers
             UserManager.RemoveFromRole(userId, RoleManager.FindById(roleId).Name);
             TempData["message"] = "Udało się usunąć użytkownika z roli";
             return RedirectToAction("Roles");
+        }
+
+        public ActionResult Delivery(int id)
+        {
+            var viewModel = new DeliveryViewModel();
+            viewModel.ProductId = id;
+            viewModel.DeliveredQuantity = 0;
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Delivery(DeliveryViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                if(model.DeliveredQuantity <= 0)
+                {
+                    TempData["message"] = "Ilość dostarczonych produktów musi być większa od 0.";
+                    return View(model);
+                }
+                using (var context = new EfDbContext())
+                {
+                    var product = context.Products.Find(model.ProductId);
+                    product.Quantity += model.DeliveredQuantity;
+                    context.SaveChanges();
+                }
+                TempData["message"] = "Udało się zaktualizować ilość produktu.";
+                return RedirectToAction("Products");
+            }
+            TempData["message"] = "Przy przetwarzaniu danych wystąpił błąd.";
+            return View(model);
         }
         #endregion
     }

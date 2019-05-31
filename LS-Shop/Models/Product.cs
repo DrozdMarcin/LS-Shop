@@ -21,10 +21,14 @@ namespace LS_Shop.Models
         [StringLength(100)]
         public string NameOfImage { get; set; }
         public string Description { get; set; }
+        [Required(ErrorMessage = "Podaj cenę")]
+        [DisplayFormat(DataFormatString = "{0:G29}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
         public bool Bestseller { get; set; }
         public bool Hidden { get; set; }
-
+        [Required(ErrorMessage = "Podaj ilość sztuk")]
+        [Range(1,int.MaxValue, ErrorMessage = "Ilość szutki nie może być mniejsza od 1")]
+        public int Quantity { get; set; }
         public virtual Category Category { get; set; }
         public virtual List<OrderPosition> OrderPosition { get; set; }
     }

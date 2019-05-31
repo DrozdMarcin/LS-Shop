@@ -1,0 +1,35 @@
+﻿@model LS_Shop.ViewModels.DeliveryViewModel
+
+@{
+    ViewBag.Title = "Dostawa";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h3>@ViewBag.Title</h3>
+        <hr />
+
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-danger font-weight-bold text-center">
+                @TempData["message"]
+            </div>
+        }
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(o => o.ProductId)
+            <div class="form-group">
+                <label>Ilość dostarczonego produktu:</label>
+                @Html.TextBoxFor(o => o.DeliveredQuantity, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(o => o.DeliveredQuantity, "", new { @class = "text-danger" })
+            </div>
+            <input type="submit" value="Dodaj" class="btn btn-success" style="width:100px;" />
+
+        }
+        @Html.ActionLink("Powrót", "Products", new { controller = "Admin" }, new { @class = "btn btn-primary", style="width:100px;" })
+    </div>
+</div>
+

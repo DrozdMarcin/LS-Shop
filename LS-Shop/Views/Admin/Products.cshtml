@@ -41,6 +41,7 @@
             <th scope="col">ID</th>
             <th scope="col">Nazwa</th>
             <th scope="col">Cena</th>
+            <th scope="col">Ilość</th>
             <th scope="col">Bestseller</th>
             <th scope="col">Ukryty</th>
             <th scope="col" class="text-right">Akcje</th>
@@ -53,6 +54,7 @@
                 <td class="font-weight-bold">@product.ProductId</td>
                 <td>@product.Name</td>
                 <td>@product.Price.ToString("c")</td>
+                <td>@product.Quantity szt.</td>
                 @if (product.Bestseller)
                 {
                     <td>Tak</td>
@@ -69,12 +71,46 @@
                 {
                     <td>Nie</td>
                 }
-                <td class="float-right">
-                    @Html.ActionLink("Edytuj", "AddProduct", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Usuń", "DeleteProduct", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-danger" })
-
-                </td>
+            <td class="float-right">
+                @Html.ActionLink("Edytuj", "AddProduct", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-primary", style = "width: 100px;" })
+                @Html.ActionLink("Dostawa", "Delivery", new { controller = "Admin", id = product.ProductId }, new { @class = "btn btn-success", style = "width: 100px;" })
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-productid="@product.ProductId" style="width:100px;">Usuń</button>
+            </td>
             </tr>
         }
     </tbody>
 </table>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Uwaga!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="catid">Na pewno chcesz usunąć ten produkt?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                <a class="btn btn-danger" id="modalDeleteBtn">Tak</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var productid = button.data('productid'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var urlaction = '@Url.Action("DeleteProduct", "Admin")' + '/' + productid;
+            jQuery("#modalDeleteBtn").attr("href", urlaction);
+        })
+    </script>
+}

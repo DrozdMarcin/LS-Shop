@@ -13,7 +13,7 @@ namespace LS_Shop.Data_Access_Layer
     {
         public EfDbContext() : base("ProductsContext")
         {
-            Database.SetInitializer(new DbInitializer());
+
         }
 
         public DbSet<Product> Products { get; set; }

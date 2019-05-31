@@ -11,7 +11,7 @@
                 <th><h2>@Model.Name</h2></th>
             </tr>
             <tr>
-                <td><img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" class="img-fluid"/></td>
+                <td><img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" class="img-fluid" /></td>
             </tr>
             <tr>
                 <td><p class="text-justify">@Model.Description</p></td>
@@ -19,14 +19,14 @@
         </table>
         <b>Cena: @Model.Price.ToString("c")</b><br /><br />
         <b>Dostępność: </b>
-        @if (!Model.Hidden)
+        @if (Model.Hidden || Model.Quantity == 0)
         {
-            @:W magazynie<br /><br />
-            @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
+            <p>Produkt niedostępny</p>
         }
         else
         {
-            <p>Produkt niedostępny</p>
+            @Model.Quantity @:szt.<br /><br />
+            @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
         }
     </div>
 

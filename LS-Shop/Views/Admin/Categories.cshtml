@@ -42,6 +42,7 @@
             <th scope="col">ID</th>
             <th scope="col">Nazwa</th>
             <th scope="col">Opis</th>
+            <th scope="col">Ukryty</th>
             <th scope="col">Akcje</th>
         </tr>
     </thead>
@@ -52,12 +53,53 @@
                 <td class="font-weight-bold">@category.CategoryId</td>
                 <td>@category.Name</td>
                 <td class="text-justify">@category.Description</td>
+                @if(category.Hidden)
+                {
+                    <td>Tak</td>
+                }
+                else
+                {
+                    <td>Nie</td>
+                }
                 <td>
-                    @Html.ActionLink("Edytuj", "AddCategory", new { controller = "Admin", id = category.CategoryId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Usuń", "DeleteCategory", new { controller = "Admin", id = category.CategoryId }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edytuj", "AddCategory", new { controller = "Admin", id = category.CategoryId }, new { @class = "btn btn-primary", style = "width: 100px;" })
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-categoryid="@category.CategoryId" style="width:100px;">Usuń</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Uwaga!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="catid">Usunięcie kategorii spowoduje także usunięcie produktów będących w niej. Czy na pewno chcesz to zrobić?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                <a class="btn btn-danger" id="modalDeleteBtn">Tak</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var categoryid = button.data('categoryid'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var urlaction = '@Url.Action("DeleteCategory", "Admin")' + '/' + categoryid;
+            jQuery("#modalDeleteBtn").attr("href", urlaction);
+        })
+    </script>
+}

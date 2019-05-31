@@ -212,7 +212,6 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Data Access Layer\DbContext.cs" />
-    <Compile Include="Data Access Layer\DbInitializer.cs" />
     <Compile Include="Data Access Layer\EfDbContext.cs" />
     <Compile Include="Data Access Layer\IDbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,6 +229,14 @@
     <Compile Include="Migrations\201905282044262_final-database.Designer.cs">
       <DependentUpon>201905282044262_final-database.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905311732121_product-quantity.cs" />
+    <Compile Include="Migrations\201905311732121_product-quantity.Designer.cs">
+      <DependentUpon>201905311732121_product-quantity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905312041138_category-hidden.cs" />
+    <Compile Include="Migrations\201905312041138_category-hidden.Designer.cs">
+      <DependentUpon>201905312041138_category-hidden.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PositionCart.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -241,6 +248,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="ViewModels\CartViewModel.cs" />
+    <Compile Include="ViewModels\DeliveryViewModel.cs" />
     <Compile Include="ViewModels\EditOrderViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\NewProductsViewModel.cs" />
@@ -307,7 +315,7 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <None Include="Properties\PublishProfiles\ls-shop.hostingasp.pl - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\lsshop.hostingasp.pl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -409,6 +417,7 @@
     <Content Include="Views\Admin\AddUserToRole.cshtml" />
     <Content Include="Views\Admin\AddProduct.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Admin\Delivery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -428,6 +437,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905282044262_final-database.resx">
       <DependentUpon>201905282044262_final-database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905311732121_product-quantity.resx">
+      <DependentUpon>201905311732121_product-quantity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905312041138_category-hidden.resx">
+      <DependentUpon>201905312041138_category-hidden.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
