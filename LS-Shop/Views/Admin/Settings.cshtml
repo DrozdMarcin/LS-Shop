@@ -31,22 +31,25 @@
     </li>
 </ul>
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success font-weight-bold text-center">
+        @TempData["message"]
+    </div>
+}
+
 <div class="row">
     <div class="col-xs-12">
-        @if (TempData["message"] != null)
-        {
-            <div class="alert alert-success font-weight-bold text-center">
-                @TempData["message"]
-            </div>
-        }
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(o => o.SettingsId)
             <div class="form-group">
-                <label>Limit powiadomienia o małej ilości produktu:</label>
+                <label class="font-weight-bold">Limit powiadomienia o małej ilości produktu:</label>
                 @Html.TextBoxFor(o => o.QuantityOfProductsLimit, new { @class = "form-control", type = "number" })
+                @Html.ValidationMessageFor(o => o.QuantityOfProductsLimit, "", new { @class = "text-danger" })
             </div>
+            <input type="submit" class="btn btn-success" value="Zapisz" />
         }
     </div>
 </div>

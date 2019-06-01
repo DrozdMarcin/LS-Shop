@@ -4,15 +4,15 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-danger font-weight-bold text-center">
+        @TempData["message"]
+    </div>
+}
+
 <div class="row">
     <div class="col-xs-12">
-        @if(TempData["message"] != null)
-        {
-            <div class="alert alert-danger font-weight-bold text-center">
-                @TempData["message"]
-            </div> 
-        }
-
         @using (Html.BeginForm("EditOrderProduct", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken()

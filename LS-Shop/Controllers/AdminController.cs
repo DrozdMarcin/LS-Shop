@@ -520,8 +520,17 @@ namespace LS_Shop.Controllers
                 {
                     using (var context = new EfDbContext())
                     {
-                        var settings = context.Settings.FirstOrDefault();
-                        settings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
+                        if (model.SettingsId == 0)
+                        {
+                            Settings newSettings = new Settings();
+                            newSettings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
+                            context.Entry(newSettings).State = EntityState.Added;
+                        }
+                        else
+                        {
+                            var settings = context.Settings.Find(1);
+                            settings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
+                        }
                         context.SaveChanges();
                     }
                     TempData["message"] = "Udało się zapisać zmiany.";
@@ -529,8 +538,8 @@ namespace LS_Shop.Controllers
                 }
                 else
                 {
-                    TempData["message"] = "Udało się zapisać zmiany, limit nie może być mniejszy od 0.";
-                    return View(model);
+                    TempData["message"] = "Udało się zapisać zmiany.";
+                    return RedirectToAction("Settings");
                 }
             }
             TempData["message"] = "Nie udało się zapisać zmian.";
