@@ -74,8 +74,12 @@ else
                         {
                             @Html.ActionLink("Edytuj", "EditOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal" data-orderid="@order.OrderId" style="width:100px;">Anuluj</button>
+                            @Html.ActionLink("Szczegóły", "OrderDetails", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })
                         }
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-orderid="@order.OrderId" style="width:100px;">Usuń</button>
+                        else
+                        {
+                            @Html.ActionLink("Szczegóły", "OrderDetails", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })
+                        }
                     </td>
                 </tr>
             }

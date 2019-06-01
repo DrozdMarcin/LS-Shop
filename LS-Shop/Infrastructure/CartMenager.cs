@@ -185,7 +185,7 @@ namespace LS_Shop.Infrastructure
                 //tworzenie nowej pozycji zamowienia
                 var newPositionOrder = new OrderPosition()
                 {
-                    ProductId = cartElement.Product.ProductId,
+                    ProductName = cartElement.Product.Name,
                     Amount = cartElement.Amount,
                     PurchasePrice = cartElement.Product.Price
                 };

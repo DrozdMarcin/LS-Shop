@@ -106,7 +106,7 @@ namespace LS_Shop.Controllers
             using (var context = new EfDbContext())
             {
                 result.Order = context.Orders.Find(id);
-                result.OrderPosition = context.OrderPositions.Where(o => o.OrderId == id).Include(o => o.Product).ToList();
+                result.OrderPosition = context.OrderPositions.Where(o => o.OrderId == id).ToList();
             }
             return View(result);
         }
@@ -130,62 +130,58 @@ namespace LS_Shop.Controllers
 
         public ActionResult EditOrderProduct(int id)
         {
-            OrderPosition orderPosition;
-            using (var context = new EfDbContext())
+            OrderPosition orderPosition = db.OrderPositions.FirstOrDefault(o => o.OrderPositionId == id);
+            var model = new EditOrderProductViewModel()
             {
-                orderPosition = context.OrderPositions.Where(o => o.OrderPositionId == id).Include(o => o.Product).FirstOrDefault();
-            }
-            return View(orderPosition);
+                OrderPositionId = id,
+                OrderId = orderPosition.OrderId,
+                ProductName = orderPosition.ProductName,
+                Quantity = 0
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult EditOrderProduct(OrderPosition orderPosition)
+        public ActionResult EditOrderProduct(EditOrderProductViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 using (var context = new EfDbContext())
                 {
-                    if (orderPosition.Amount <= 0)
+                    var orderPosition = context.OrderPositions.Find(viewModel.OrderPositionId);
+                    if (viewModel.Quantity <= 0)
                     {
                         context.Entry(orderPosition).State = EntityState.Deleted;
                         context.SaveChanges();
+                        TempData["message"] = "Udało się usunąć pozycję z zamówienia";
+                        return RedirectToAction("Orders");
                     }
-                    else
+                    var orderPositions = context.OrderPositions.Where(o => o.OrderId == viewModel.OrderId).ToList();
+                    var product = context.Products.FirstOrDefault(o => o.Name == viewModel.ProductName);
+                    product.Quantity += orderPosition.Amount;
+                    if (viewModel.Quantity > product.Quantity)
                     {
-                        context.Entry(orderPosition).State = EntityState.Modified;
-                        context.SaveChanges();
-                    }
-                    orderPosition.Order = context.Orders.Where(o => o.OrderId == orderPosition.OrderId).FirstOrDefault();
-                    orderPosition.Order.OrderPosition = context.OrderPositions.Where(o => o.OrderId == orderPosition.OrderId).ToList();
-                    orderPosition.Order.OrderValue = 0;
-                    foreach (var element in orderPosition.Order.OrderPosition)
-                    {
-                        orderPosition.Order.OrderValue += element.Amount * element.PurchasePrice;
-                    }
-                    context.Entry(orderPosition.Order).State = EntityState.Modified;
+                        TempData["message"] = "Nie ma aż tyle tego produktu w magazynie!";
+                        return View(viewModel);
+                    }  
+                    orderPosition.Amount = viewModel.Quantity;
+                    product.Quantity -= viewModel.Quantity;
+                    context.Entry(product).State = EntityState.Modified;
+                    context.Entry(orderPosition).State = EntityState.Modified;
                     context.SaveChanges();
-                    var order = context.Orders.Find(orderPosition.OrderId);
-                    if(order.OrderValue <= 0)
+                    var order = context.Orders.Find(viewModel.OrderId);
+                    order.OrderValue = 0;
+                    foreach (var element in order.OrderPosition)
                     {
-                        context.Entry(order).State = EntityState.Deleted;
-                        context.SaveChanges();
+                        order.OrderValue += element.Amount * element.PurchasePrice;
                     }
+                    context.Entry(order).State = EntityState.Modified;
+                    context.SaveChanges();
                 }
                 TempData["message"] = "Udało się zapisać zmiany";
                 return RedirectToAction("Orders");
             }
-            return View(orderPosition);
-        }
-
-        public ActionResult DeleteOrder(int id)
-        {
-            using (var context = new EfDbContext())
-            {
-                context.Entry(context.Orders.Find(id)).State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-            TempData["message"] = "Udało się usunąć zamówienie";
-            return RedirectToAction("Orders");
+            return View(viewModel);
         }
 
         public ActionResult DeleteOrderPosition(int id)
@@ -358,14 +354,6 @@ namespace LS_Shop.Controllers
             }
         }
 
-        public ActionResult DeleteUser(string id)
-        {
-            var user = UserManager.FindById(id);
-            UserManager.Delete(user);
-            TempData["message"] = "Udało się usunąć użytkownika";
-            return RedirectToAction("Users");
-        }
-
         public ActionResult DeleteProduct(string id)
         {
             var product = db.Products.First(f => f.ProductId == int.Parse(id));
@@ -469,7 +457,7 @@ namespace LS_Shop.Controllers
                 var orderPositions = context.OrderPositions.Where(o => o.OrderId == id).ToList();
                 foreach(var orderPosition in orderPositions)
                 {
-                    var product = context.Products.Find(orderPosition.ProductId);
+                    var product = context.Products.Where(o => o.Name == orderPosition.ProductName).FirstOrDefault();
                     product.Quantity += orderPosition.Amount;
                 }
                 order.OrderStatus = OrderStatus.Anulowano;
@@ -477,6 +465,18 @@ namespace LS_Shop.Controllers
             }
             TempData["message"] = "Udało się anulować zamówienie";
             return RedirectToAction("Orders");
+        }
+
+        public ActionResult OrderDetails(int id)
+        {
+            OrderDetailsViewModel order = new OrderDetailsViewModel();
+            using (var context = new EfDbContext())
+            {
+                order.Order = context.Orders.Where(o => o.OrderId == id).FirstOrDefault();
+                order.OrderPositions = context.OrderPositions.Where(o => o.OrderId == order.Order.OrderId).ToList();
+            }
+
+            return View(order);
         }
         #endregion
     }

@@ -160,7 +160,7 @@ namespace LS_Shop.Controllers
             using (var context = new EfDbContext())
             {
                 order.Order = context.Orders.Where(o => o.OrderId == id).FirstOrDefault();
-                order.OrderPositions = context.OrderPositions.Where(o => o.OrderId == order.Order.OrderId).Include(o => o.Product).ToList();
+                order.OrderPositions = context.OrderPositions.Where(o => o.OrderId == order.Order.OrderId).ToList();
             }  
             
             return View(order);

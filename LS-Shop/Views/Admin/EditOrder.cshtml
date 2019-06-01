@@ -20,7 +20,7 @@
                     @foreach (var orderPosition in Model.OrderPosition)
                     {
                         <tr>
-                            <td>@orderPosition.Product.Name</td>
+                            <td>@orderPosition.ProductName</td>
                             <td>@orderPosition.Amount</td>
                             <td>@orderPosition.PurchasePrice.ToString("c")</td>
                             <td>
