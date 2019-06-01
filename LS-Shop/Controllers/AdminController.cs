@@ -146,40 +146,48 @@ namespace LS_Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var context = new EfDbContext())
+                if (viewModel.Quantity > 0)
                 {
-                    var orderPosition = context.OrderPositions.Find(viewModel.OrderPositionId);
-                    if (viewModel.Quantity <= 0)
+                    using (var context = new EfDbContext())
                     {
-                        context.Entry(orderPosition).State = EntityState.Deleted;
+                        var orderPosition = context.OrderPositions.Find(viewModel.OrderPositionId);
+                        if (viewModel.Quantity <= 0)
+                        {
+                            context.Entry(orderPosition).State = EntityState.Deleted;
+                            context.SaveChanges();
+                            TempData["message"] = "Udało się usunąć pozycję z zamówienia";
+                            return RedirectToAction("Orders");
+                        }
+                        var orderPositions = context.OrderPositions.Where(o => o.OrderId == viewModel.OrderId).ToList();
+                        var product = context.Products.FirstOrDefault(o => o.Name == viewModel.ProductName);
+                        product.Quantity += orderPosition.Amount;
+                        if (viewModel.Quantity > product.Quantity)
+                        {
+                            TempData["message"] = "Nie ma aż tyle tego produktu w magazynie!";
+                            return View(viewModel);
+                        }
+                        orderPosition.Amount = viewModel.Quantity;
+                        product.Quantity -= viewModel.Quantity;
+                        context.Entry(product).State = EntityState.Modified;
+                        context.Entry(orderPosition).State = EntityState.Modified;
                         context.SaveChanges();
-                        TempData["message"] = "Udało się usunąć pozycję z zamówienia";
-                        return RedirectToAction("Orders");
+                        var order = context.Orders.Find(viewModel.OrderId);
+                        order.OrderValue = 0;
+                        foreach (var element in order.OrderPosition)
+                        {
+                            order.OrderValue += element.Amount * element.PurchasePrice;
+                        }
+                        context.Entry(order).State = EntityState.Modified;
+                        context.SaveChanges();
                     }
-                    var orderPositions = context.OrderPositions.Where(o => o.OrderId == viewModel.OrderId).ToList();
-                    var product = context.Products.FirstOrDefault(o => o.Name == viewModel.ProductName);
-                    product.Quantity += orderPosition.Amount;
-                    if (viewModel.Quantity > product.Quantity)
-                    {
-                        TempData["message"] = "Nie ma aż tyle tego produktu w magazynie!";
-                        return View(viewModel);
-                    }  
-                    orderPosition.Amount = viewModel.Quantity;
-                    product.Quantity -= viewModel.Quantity;
-                    context.Entry(product).State = EntityState.Modified;
-                    context.Entry(orderPosition).State = EntityState.Modified;
-                    context.SaveChanges();
-                    var order = context.Orders.Find(viewModel.OrderId);
-                    order.OrderValue = 0;
-                    foreach (var element in order.OrderPosition)
-                    {
-                        order.OrderValue += element.Amount * element.PurchasePrice;
-                    }
-                    context.Entry(order).State = EntityState.Modified;
-                    context.SaveChanges();
+                    TempData["message"] = "Udało się zapisać zmiany";
+                    return RedirectToAction("Orders");
                 }
-                TempData["message"] = "Udało się zapisać zmiany";
-                return RedirectToAction("Orders");
+                else
+                {
+                    TempData["message"] = "Ilość produktu w zamówieniu nie może być mniejsza od 0.";
+                    return View(viewModel);
+                }
             }
             return View(viewModel);
         }
@@ -189,21 +197,31 @@ namespace LS_Shop.Controllers
             using (var context = new EfDbContext())
             {
                 var orderId = context.OrderPositions.Find(id).OrderId;
-                context.Entry(context.OrderPositions.Find(id)).State = EntityState.Deleted;
+                var orderPosition = context.OrderPositions.Find(id);
+                var product = context.Products.Where(o => o.Name == orderPosition.ProductName).FirstOrDefault();
+                product.Quantity += orderPosition.Amount;
                 context.SaveChanges();
                 var order = context.Orders.Find(orderId);
-                order.OrderPosition = context.OrderPositions.Where(o => o.OrderId == orderId).ToList();
-                order.OrderValue = 0;
-                foreach (var element in order.OrderPosition)
+                var orderPositions = context.OrderPositions.Where(o => o.OrderId == orderId).ToList();
+                if (orderPositions.Count() > 1)
                 {
-                    order.OrderValue += element.Amount * element.PurchasePrice;
-                }
-                if (order.OrderValue <= 0)
-                {
-                    context.Entry(order).State = EntityState.Deleted;
+                    order.OrderValue = 0;
+                    foreach (var element in order.OrderPosition)
+                    {
+                        order.OrderValue += element.Amount * element.PurchasePrice;
+                    }
+                    if (order.OrderValue <= 0)
+                    {
+                        context.Entry(order).State = EntityState.Deleted;
+                    }
+                    else
+                    {
+                        context.Entry(order).State = EntityState.Modified;
+                    }
                 }
                 else
                 {
+                    order.OrderStatus = OrderStatus.Anulowano;
                     context.Entry(order).State = EntityState.Modified;
                 }
                 context.SaveChanges();
