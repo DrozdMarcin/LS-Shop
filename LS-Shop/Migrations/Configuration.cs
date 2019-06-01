@@ -404,6 +404,8 @@ namespace LS_Shop.Migrations
             if (!roleManager.FindByName("Administrator").Users.Where(o => o.UserId == userManager.FindByEmail("admin@123.aa").Id).Any())
                 roleManager.FindByName("Administrator").Users.Add(adminUserRole);
 
+            context.Settings.Add(new Settings() { Id = 1, QuantityOfProductsLimit = 0 });
+
             context.SaveChanges();
         }
     }
