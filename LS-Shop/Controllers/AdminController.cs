@@ -460,6 +460,24 @@ namespace LS_Shop.Controllers
             TempData["message"] = "Przy przetwarzaniu danych wystąpił błąd.";
             return View(model);
         }
+
+        public ActionResult CancelOrder(int id)
+        {
+            using (var context = new EfDbContext())
+            {
+                var order = context.Orders.Find(id);
+                var orderPositions = context.OrderPositions.Where(o => o.OrderId == id).ToList();
+                foreach(var orderPosition in orderPositions)
+                {
+                    var product = context.Products.Find(orderPosition.ProductId);
+                    product.Quantity += orderPosition.Amount;
+                }
+                order.OrderStatus = OrderStatus.Anulowano;
+                context.SaveChanges();
+            }
+            TempData["message"] = "Udało się anulować zamówienie";
+            return RedirectToAction("Orders");
+        }
         #endregion
     }
 }

@@ -43,39 +43,105 @@
 }
 else
 {
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Data</th>
-            <th>Stan</th>
-            <th>Dane wysyłkowe</th>
-            <th>Telefon</th>
-            <th>Uwagi</th>
-            <th>Łączny koszt</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>@order.DateOfAddition</td>
-                <td>@order.OrderStatus</td>
-                <td>
-                    @order.FirstName @order.LastName<br />
-                    @order.Street <br />
-                    @order.PostalCode @order.City<br />
-                </td>
-                <td>@order.PhoneNumber</td>
-                <td style="max-width: 200px;">@order.Comment</td>
-                <td>@order.OrderValue.ToString("c")</td>
-                <td>
-                    @Html.ActionLink("Edytuj", "EditOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Usuń", "DeleteOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-danger" })
-                </td>
+                <th>Data</th>
+                <th>Stan</th>
+                <th>Dane wysyłkowe</th>
+                <th>Telefon</th>
+                <th>Uwagi</th>
+                <th>Łączny koszt</th>
+                <th>Akcje</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.DateOfAddition</td>
+                    <td>@order.OrderStatus</td>
+                    <td>
+                        @order.FirstName @order.LastName<br />
+                        @order.Street <br />
+                        @order.PostalCode @order.City<br />
+                    </td>
+                    <td>@order.PhoneNumber</td>
+                    <td style="max-width: 200px;">@order.Comment</td>
+                    <td>@order.OrderValue.ToString("c")</td>
+                    <td>
+                        @if (order.OrderStatus == LS_Shop.Models.OrderStatus.Nowy || order.OrderStatus == LS_Shop.Models.OrderStatus.Przyjeto_do_realizacji || order.OrderStatus == LS_Shop.Models.OrderStatus.Wyslano_do_klienta)
+                        {
+                            @Html.ActionLink("Edytuj", "EditOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal" data-orderid="@order.OrderId" style="width:100px;">Anuluj</button>
+                        }
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-orderid="@order.OrderId" style="width:100px;">Usuń</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Uwaga!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="catid">Na pewno chcesz usunąć to zamówienie? Tej operacji nie da się przywrócić.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                <a class="btn btn-danger" id="modalDeleteBtn">Tak</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelModal" tabindex="0" role="dialog" aria-labelledby="exampleModalCancelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Uwaga!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="catid">Na pewno chcesz anulować to zamówienie?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                <a class="btn btn-danger" id="modalCancelBtn">Tak</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget); // Button that triggered the modal
+            let orderid = button.data('orderid'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            let delurlaction = '@Url.Action("DeleteOrder", "Admin")' + '/' + orderid;
+            jQuery("#modalDeleteBtn").attr("href", delurlaction);
+        });
+        $('#cancelModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget); // Button that triggered the modal
+            let orderid = button.data('orderid'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            let delurlaction = '@Url.Action("CancelOrder", "Admin")' + '/' + orderid;
+            jQuery("#modalCancelBtn").attr("href", delurlaction);
+        });
+    
+    </script>
+}

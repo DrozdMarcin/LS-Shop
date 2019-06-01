@@ -31,7 +31,10 @@
                         <td>
                             @Html.ActionLink("-", "OneDeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-warning" })
                             @product.Amount szt.
-                            @Html.ActionLink("+", "AddToCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-success" })
+                            @if (product.Amount < product.Product.Quantity)
+                            {
+                                @Html.ActionLink("+", "AddToCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-success" })
+                            }
                         </td>
                         <td>@product.Value.ToString("c")</td>
                         <td>@Html.ActionLink("Usuń", "DeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-danger" })</td>

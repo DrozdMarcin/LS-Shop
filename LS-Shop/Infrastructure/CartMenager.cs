@@ -189,7 +189,12 @@ namespace LS_Shop.Infrastructure
                     Amount = cartElement.Amount,
                     PurchasePrice = cartElement.Product.Price
                 };
-
+                using (var context = new EfDbContext())
+                {
+                    var product = context.Products.Find(cartElement.Product.ProductId);
+                    product.Quantity -= cartElement.Amount;
+                    context.SaveChanges();
+                }
                 cartValue += (cartElement.Amount * cartElement.Product.Price);
                 newOrder.OrderPosition.Add(newPositionOrder);
            }

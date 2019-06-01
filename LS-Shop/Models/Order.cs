@@ -49,7 +49,8 @@ namespace LS_Shop.Models
         Nowy,
         Przyjeto_do_realizacji,
         Wyslano_do_klienta,
-        Zamkniety
+        Zamkniety,
+        Anulowano
 
     }
    

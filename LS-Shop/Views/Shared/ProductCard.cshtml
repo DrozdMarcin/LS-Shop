@@ -20,7 +20,10 @@
            <b>@Model.Price.ToString("c")</b>
         </div>
         <div class="card-footer">
-            @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
+            @if (Model.Hidden == false && Model.Quantity > 0)
+            {
+                @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
+            }
             @Html.ActionLink("Szczegóły", "Details", new {  controller = "Product", productId = Model.ProductId }, new { @class = "btn btn-info"})
         </div>
     </div>
