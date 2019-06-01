@@ -26,7 +26,11 @@
                 <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
             </li>
         }
+        <li>
+            <a class="nav-link" href="@Url.Action("Settings", "Admin")">Ustawienia</a>
+        </li>
     </ul>
+
 @if(TempData["message"] != null)
 {
     <div class="alert alert-success font-weight-bold text-center">

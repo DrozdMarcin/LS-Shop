@@ -241,10 +241,15 @@
     <Compile Include="Migrations\201906011028330_orderposition-without-product-relation.Designer.cs">
       <DependentUpon>201906011028330_orderposition-without-product-relation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906011426389_settings-table.cs" />
+    <Compile Include="Migrations\201906011426389_settings-table.Designer.cs">
+      <DependentUpon>201906011426389_settings-table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PositionCart.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AddProductViewModel.cs" />
     <Compile Include="ViewModels\AddUserViewModel.cs" />
@@ -266,6 +271,7 @@
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\ProductsListViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UsersInRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +430,7 @@
     <Content Include="Views\Admin\AddCategory.cshtml" />
     <Content Include="Views\Admin\Delivery.cshtml" />
     <Content Include="Views\Admin\OrderDetails.cshtml" />
+    <Content Include="Views\Admin\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -452,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906011028330_orderposition-without-product-relation.resx">
       <DependentUpon>201906011028330_orderposition-without-product-relation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906011426389_settings-table.resx">
+      <DependentUpon>201906011426389_settings-table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

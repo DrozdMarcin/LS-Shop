@@ -114,7 +114,7 @@ namespace LS_Shop.Controllers
         [HttpPost]
         public ActionResult EditOrder(EditOrderViewModel editedOrder)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 using (var context = new EfDbContext())
                 {
@@ -280,7 +280,7 @@ namespace LS_Shop.Controllers
             }
             else
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     model.Product.DateOfAddition = DateTime.Now;
                     using (var context = new EfDbContext())
@@ -306,7 +306,7 @@ namespace LS_Shop.Controllers
             {
                 category = db.Categories.FirstOrDefault(o => o.CategoryId == id);
             }
-          
+
             return View(category);
         }
 
@@ -314,7 +314,7 @@ namespace LS_Shop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddCategory(Category category)
         {
-            
+
 
             if (category.CategoryId > 0)
             {
@@ -330,7 +330,7 @@ namespace LS_Shop.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
+
                     using (var context = new EfDbContext())
                     {
                         context.Entry(category).State = EntityState.Added;
@@ -341,7 +341,7 @@ namespace LS_Shop.Controllers
                 }
                 else
                 {
-                    
+
                     return View(category);
                 }
             }
@@ -354,7 +354,7 @@ namespace LS_Shop.Controllers
             {
                 var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email, UserData = new UserData() };
                 var result = UserManager.Create(user, model.Password);
-                if(result.Succeeded == false)
+                if (result.Succeeded == false)
                 {
                     TempData["message"] = "Hasło powinno się składać z minimum 8 znaków, jednej wielkiej litery, jednej cyfry i jednego znaku specjalnego.";
                     model.Roles = RoleManager.Roles.ToList();
@@ -393,7 +393,7 @@ namespace LS_Shop.Controllers
             var role = RoleManager.FindById(id);
             var usersInRole = role.Users.Where(o => o.RoleId == role.Id).ToList();
             List<ApplicationUser> list = new List<ApplicationUser>();
-            foreach(var user in usersInRole)
+            foreach (var user in usersInRole)
             {
                 list.Add(UserManager.FindById(user.UserId));
             }
@@ -409,9 +409,9 @@ namespace LS_Shop.Controllers
             var users = UserManager.Users.ToList();
             var usersInRole = role.Users.Where(o => o.RoleId == role.Id).ToList();
             List<ApplicationUser> list = new List<ApplicationUser>();
-            foreach(var user in users)
+            foreach (var user in users)
             {
-                if(!UserManager.IsInRole(user.Id, role.Id))
+                if (!UserManager.IsInRole(user.Id, role.Id))
                 {
                     list.Add(UserManager.FindById(user.Id));
                 }
@@ -447,9 +447,9 @@ namespace LS_Shop.Controllers
         [HttpPost]
         public ActionResult Delivery(DeliveryViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(model.DeliveredQuantity <= 0)
+                if (model.DeliveredQuantity <= 0)
                 {
                     TempData["message"] = "Ilość dostarczonych produktów musi być większa od 0.";
                     return View(model);
@@ -473,7 +473,7 @@ namespace LS_Shop.Controllers
             {
                 var order = context.Orders.Find(id);
                 var orderPositions = context.OrderPositions.Where(o => o.OrderId == id).ToList();
-                foreach(var orderPosition in orderPositions)
+                foreach (var orderPosition in orderPositions)
                 {
                     var product = context.Products.Where(o => o.Name == orderPosition.ProductName).FirstOrDefault();
                     product.Quantity += orderPosition.Amount;
@@ -495,6 +495,46 @@ namespace LS_Shop.Controllers
             }
 
             return View(order);
+        }
+
+        public ActionResult Settings()
+        {
+            SettingsViewModel viewModel;
+            if (db.Settings.FirstOrDefault() == null)
+                viewModel = new SettingsViewModel();
+            else
+            {
+                viewModel = new SettingsViewModel();
+                viewModel.SettingsId = db.Settings.FirstOrDefault().Id;
+                viewModel.QuantityOfProductsLimit = db.Settings.FirstOrDefault().QuantityOfProductsLimit;
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Settings(SettingsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.QuantityOfProductsLimit != null && model.QuantityOfProductsLimit >= 0)
+                {
+                    using (var context = new EfDbContext())
+                    {
+                        var settings = context.Settings.FirstOrDefault();
+                        settings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
+                        context.SaveChanges();
+                    }
+                    TempData["message"] = "Udało się zapisać zmiany.";
+                    return RedirectToAction("Settings");
+                }
+                else
+                {
+                    TempData["message"] = "Udało się zapisać zmiany, limit nie może być mniejszy od 0.";
+                    return View(model);
+                }
+            }
+            TempData["message"] = "Nie udało się zapisać zmian.";
+            return View(model);
         }
         #endregion
     }

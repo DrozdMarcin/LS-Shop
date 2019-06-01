@@ -14,6 +14,7 @@ namespace LS_Shop.Data_Access_Layer
         IEnumerable<Category> Categories { get; }
         IEnumerable<Order> Orders { get; }
         IEnumerable<OrderPosition> OrderPositions { get; }
+        IEnumerable<Settings> Settings { get; }
         void Add(Order order);
         void Add(Product product);
         void Delete(Product product);

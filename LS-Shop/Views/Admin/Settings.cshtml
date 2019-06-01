@@ -1,0 +1,54 @@
+﻿@model LS_Shop.ViewModels.SettingsViewModel
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
+    </li>
+    @if (User.IsInRole("Administrator"))
+    {
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
+        </li>
+    }
+    <li>
+        <a class="nav-link active" href="@Url.Action("Settings", "Admin")">Ustawienia</a>
+    </li>
+</ul>
+
+<div class="row">
+    <div class="col-xs-12">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success font-weight-bold text-center">
+                @TempData["message"]
+            </div>
+        }
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(o => o.SettingsId)
+            <div class="form-group">
+                <label>Limit powiadomienia o małej ilości produktu:</label>
+                @Html.TextBoxFor(o => o.QuantityOfProductsLimit, new { @class = "form-control", type = "number" })
+            </div>
+        }
+    </div>
+</div>
+
+

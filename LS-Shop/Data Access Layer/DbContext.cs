@@ -49,6 +49,14 @@ namespace LS_Shop.Data_Access_Layer
                 return context.OrderPositions;
             }
         }
+
+        public IEnumerable<Settings> Settings
+        {
+            get
+            {
+                return context.Settings;
+            }
+        }
         #endregion
 
         #region public methods

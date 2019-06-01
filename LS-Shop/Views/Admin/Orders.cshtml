@@ -4,29 +4,32 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
-    </li>
-    @if (User.IsInRole("Administrator"))
-    {
+    <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+            <a class="nav-link" href="@Url.Action("Index", "Admin")">Strona główna</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
+            <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
         </li>
-    }
-</ul>
+        <li class="nav-item">
+            <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
+        </li>
+        @if (User.IsInRole("Administrator"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
+            </li>
+        }
+        <li>
+            <a class="nav-link" href="@Url.Action("Settings", "Admin")">Ustawienia</a>
+        </li>
+    </ul>
 
 @if (TempData["message"] != null)
 {
