@@ -4,6 +4,13 @@
     ViewBag.Title = "Twój koszyk";
 }
 
+@if(TempData["message"] != null )
+{
+    <div class="alert alert-success font-weight-bold text-center">
+        @TempData["message"]
+    </div>
+}
+
 <div class="row">
     <div class="col-lg-12 col-xs-12">
         @if(TempData["CartMessage"] != null)
@@ -25,33 +32,39 @@
                 <tbody>
                     @foreach (var product in Model.PositionCart)
                     {
-                    <tr>
-                        <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="50" height="50" class="img-fluid" /></td>
-                        <td><a href="@Url.Action("Details", new { controller = "Product", productId = product.Product.ProductId })">@product.Product.Name</a></td>
-                        <td>
-                            @Html.ActionLink("-", "OneDeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-warning" })
-                            @product.Amount szt.
-                            @if (product.Amount < product.Product.Quantity)
-                            {
-                                @Html.ActionLink("+", "AddToCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-success" })
-                            }
-                        </td>
-                        <td>@product.Value.ToString("c")</td>
-                        <td>@Html.ActionLink("Usuń", "DeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-danger" })</td>
-                    </tr>
+                        <tr>
+                            <td><img src="@Url.ImagesOfProductsPath(product.Product.NameOfImage)" width="50" height="50" class="img-fluid" /></td>
+                            <td><a href="@Url.Action("Details", new { controller = "Product", productId = product.Product.ProductId })">@product.Product.Name</a></td>
+                            <td>
+                                @Html.ActionLink("-", "OneDeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-warning" })
+                                @product.Amount szt.
+                                @if (product.Amount < product.Product.Quantity)
+                                {
+                                    @Html.ActionLink("+", "AddToCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-success" })
+                                }
+                            </td>
+                            <td>@product.Value.ToString("c")</td>
+                            <td>@Html.ActionLink("Usuń", "DeleteFromCart", new { controller = "Cart", productId = product.Product.ProductId }, new { @class = "btn btn-danger" })</td>
+                        </tr>
                     }
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th class="">W sumie: @Model.TotalValue.ToString("c")</th>
+                    <th></th>
+                </tr>
                 </tbody>
             </table>
             @if (Request.IsAuthenticated)
             {
                 <table class="table">
+                    
                     <tr>
-                        <th>W sumie: @Model.TotalValue.ToString("c")</th>
-
-
-
-                        <td><a class="btn btn-danger" id="" href="@Url.Action("Index","Home")">Powrót</a></td>
-                        <td><a class="btn btn-info" id="" href="@Url.Action("PayOrder","Cart")">Zamów</a></td>
+                        <td class="justify-content-center text-center">
+                            <a class="btn btn-danger" id="" href="@Url.Action("Index","Home")">Powrót</a>
+                            <a class="btn btn-success" id="" href="@Url.Action("PayOrder","Cart")">Zamów</a>
+                        </td>
 
                     </tr>
                 </table>
