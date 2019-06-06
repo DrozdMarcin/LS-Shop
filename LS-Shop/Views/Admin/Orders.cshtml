@@ -49,6 +49,7 @@ else
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Nr zamówienia</th>
                 <th>Data</th>
                 <th>Stan</th>
                 <th>Dane wysyłkowe</th>
@@ -62,6 +63,7 @@ else
             @foreach (var order in Model)
             {
                 <tr>
+                    <td>@order.OrderId</td>
                     <td>@order.DateOfAddition</td>
                     <td>@order.OrderStatus</td>
                     <td>
@@ -75,9 +77,9 @@ else
                     <td>
                         @if (order.OrderStatus == LS_Shop.Models.OrderStatus.Nowy || order.OrderStatus == LS_Shop.Models.OrderStatus.Przyjeto_do_realizacji || order.OrderStatus == LS_Shop.Models.OrderStatus.Wyslano_do_klienta)
                         {
-                            @Html.ActionLink("Edytuj", "EditOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal" data-orderid="@order.OrderId" style="width:100px;">Anuluj</button>
-                            @Html.ActionLink("Szczegóły", "OrderDetails", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })
+                            @Html.ActionLink("Edytuj", "EditOrder", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-info", style = "width:100px;" })<br />
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal" data-orderid="@order.OrderId" style="width:100px;">Anuluj</button><br />
+                            @Html.ActionLink("Szczegóły", "OrderDetails", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })<br />
                         }
                         else
                         {

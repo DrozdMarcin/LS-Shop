@@ -25,7 +25,7 @@
                             <td>@orderPosition.PurchasePrice.ToString("c")</td>
                             <td>
                                 @Html.ActionLink("Edytuj", "EditOrderProduct", new { controller = "Admin", id = orderPosition.OrderPositionId }, new { @class = "btn btn-primary" })
-                                @Html.ActionLink("Usuń", "DeleteOrderPosition", new { controller = "Admin", id = orderPosition.OrderPositionId}, new { @class = "btn btn-danger" })
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-orderpositionid="@orderPosition.OrderPositionId" style="width:100px;">Usuń</button>
                             </td>
                         </tr>
                     }
@@ -86,3 +86,35 @@
         </div>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Uwaga!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Na pewno chcesz usunąć tą pozycję z zamówienia? Tej operacji nie będzie można cofnąć.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nie</button>
+                    <a class="btn btn-danger" id="modalDeleteBtn">Tak</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section scripts{ 
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            let button = $(event.relatedTarget); // Button that triggered the modal
+            let orderpositionid = button.data('orderpositionid'); // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            let delurlaction = '@Url.Action("DeleteOrderPosition", "Admin")' + '/' + orderpositionid;
+            jQuery("#modalDeleteBtn").attr("href", delurlaction);
+        });
+    </script>
+}

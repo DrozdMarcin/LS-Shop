@@ -65,7 +65,27 @@ namespace LS_Shop.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            int? quantityLimit = db.Settings.FirstOrDefault().QuantityOfProductsLimit;
+            AdminIndexViewModel viewModel = new AdminIndexViewModel();
+            if (quantityLimit > 0)
+            {
+                var productsWithLowQuantity = db.Products.Where(o => o.Quantity <= quantityLimit).ToList();
+                viewModel.ProductsWithLowQuantity = productsWithLowQuantity;
+            }
+            else
+            {
+                viewModel.ProductsWithLowQuantity = new List<Product>();
+            }
+            var latestOrders = db.Orders.Where(o => o.OrderStatus == OrderStatus.Nowy).OrderBy(o => o.DateOfAddition).ToList();
+            if(latestOrders.Count() > 0)
+            {
+                viewModel.LatestOrders = latestOrders;
+            }
+            else
+            {
+                viewModel.LatestOrders = new List<Order>();
+            }
+            return View(viewModel);
         }
 
         public ActionResult Products()

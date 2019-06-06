@@ -5,54 +5,34 @@
     ViewBag.Title = "Szczegóły produktu";
 }
 
-<div class="col-xs-12 col-md-12">
-    <table class="table">
-        <tr>
-            <th><h2>@Model.Name</h2></th>
-        </tr>
-       
-        <tr>
-             
-            @if (Model.Hidden || Model.Quantity == 0)
-            {
-                <div class="alert alert-dark" role="alert">
-                    <p> Produkt niedostępny</p>
-                </div>
+    <div class="col-xs-12 col-md-12">
+        @if (Model.Quantity <= 9)
+        {
+            <div class="alert alert-danger font-weight-bold text-center">
+                Na stanie pozostało zaledwie kilka produktów
+            </div>
+        }
+        <table class="table">
+            <tr>
+                <th><h2>@Model.Name</h2></th>
+            </tr>
 
-            }
-            else if (Model.Quantity > 30)
-            {
-                <div class="alert alert-success" role="alert">
-                    Na stanie dostępnych jest wiele produktów
-                </div>
-            }
-            else if (Model.Quantity < 30 && Model.Quantity > 9)
-            {
-                <div class="alert alert-warning" role="alert">
-                    Na stanie dostępna jest umiarkowana ilość produktów
-                </div>
-            }
-            else if (Model.Quantity <= 9)
-            {
-                <div class="alert alert-danger" role="alert">
-                    Na stanie pozostało zaledwie kilka produktów
-                </div>
-            }
-            <td><img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" class="img-fluid"/></td>
-        </tr>
-        <tr>
-            <td><p class="text-justify">@Model.Description</p></td>
-        </tr>
-    </table>
-    <b>Cena: @Model.Price.ToString("c")</b><br /><br />
-     <b>Dostępność: @Model.Quantity szt.</b>
-    <p> </p>
-    
-    @if (Model.Quantity > 0)
-    {
-        @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
-    }
+            <tr>
+                <td><img src="@Url.ImagesOfProductsPath(Model.NameOfImage)" class="img-fluid" /></td>
+            </tr>
+            <tr>
+                <td><p class="text-justify">@Model.Description</p></td>
+            </tr>
+        </table>
+        <b>Cena: @Model.Price.ToString("c")</b><br /><br />
+        <b>Dostępność: @Model.Quantity szt.</b>
+        <p> </p>
+
+        @if (Model.Quantity > 0)
+        {
+            @Html.ActionLink("Dodaj do koszyka", "AddToCart", new { controller = "Cart", productId = Model.ProductId }, new { @class = "btn btn-primary" })
+        }
 
 
-</div>
+    </div>
 

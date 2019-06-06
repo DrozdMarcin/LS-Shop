@@ -1,33 +1,87 @@
-﻿@{
+﻿@model LS_Shop.ViewModels.AdminIndexViewModel
+@{
     ViewBag.Title = "Strona główna";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-    <ul class="nav nav-tabs">
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="@Url.Action("Index", "Admin")">Strona główna</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
+    </li>
+    @if (User.IsInRole("Administrator"))
+    {
         <li class="nav-item">
-            <a class="nav-link active" href="@Url.Action("Index", "Admin")">Strona główna</a>
+            <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Products", "Admin")">Produkty</a>
+            <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Categories", "Admin")">Kategorie</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Orders", "Admin")">Zamówienia</a>
-        </li>
-        @if (User.IsInRole("Administrator"))
-        {
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Users", "Admin")">Użytkownicy</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Roles", "Admin")">Role</a>
-            </li>
-        }
-        <li>
-            <a class="nav-link" href="@Url.Action("Settings", "Admin")">Ustawienia</a>
-        </li>
-    </ul>
+    }
+    <li>
+        <a class="nav-link" href="@Url.Action("Settings", "Admin")">Ustawienia</a>
+    </li>
+</ul>
 
-<h1>Witaj w panelu administratora</h1>
+@if (Model.ProductsWithLowQuantity.Count() > 0)
+{
+    foreach (var product in Model.ProductsWithLowQuantity)
+    {
+        <div class="alert alert-danger font-weight-bold text-center">
+            Kończy się produkt @product.Name
+        </div>
+    }
+}
+
+<h3>Najnowsze zamówienia</h3>
+<hr />
+@if (Model.LatestOrders.Count() == 0)
+{
+    <div class="alert alert-warning font-weight-bold text-center">
+        Brak nowych zamówień
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nr zamówienia</th>
+                <th>Data</th>
+                <th>Stan</th>
+                <th>Dane wysyłkowe</th>
+                <th>Telefon</th>
+                <th>Uwagi</th>
+                <th>Łączny koszt</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var order in Model.LatestOrders)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.DateOfAddition</td>
+                    <td>@order.OrderStatus</td>
+                    <td>
+                        @order.FirstName @order.LastName<br />
+                        @order.Street <br />
+                        @order.PostalCode @order.City<br />
+                    </td>
+                    <td>@order.PhoneNumber</td>
+                    <td style="max-width: 200px;">@order.Comment</td>
+                    <td>@order.OrderValue.ToString("c")</td>
+                    <td>@Html.ActionLink("Przejdź", "OrderDetails", new { controller = "Admin", id = order.OrderId }, new { @class = "btn btn-primary", style = "width:100px;" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
