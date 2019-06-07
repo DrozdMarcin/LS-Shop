@@ -25,7 +25,7 @@
                     {
                         <tr>
                             <td><a href="@Url.Action("OrderDetails", "Cart", new { id = zamowienie.OrderId })">@zamowienie.DateOfAddition.ToString("dd-MM-yyyy")</a></td>
-                            <td>@Html.DisplayFor(o => zamowienie.OrderStatus)</td>
+                            <td>@LS_Shop.Infrastructure.EnumHelpers.GetDisplayName(zamowienie.OrderStatus)</td>
                             <td>
                                 @zamowienie.FirstName @zamowienie.LastName<br />
                                 @zamowienie.Street <br />

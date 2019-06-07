@@ -33,8 +33,9 @@
             @if (Model.Order.Comment != null)
             {
                 @Model.Order.Comment<br />
-                <b>Stan zamówienia:</b> @Model.Order.OrderStatus
-                <br /><hr />
+                <b>Stan zamówienia:</b> @LS_Shop.Infrastructure.EnumHelpers.GetDisplayName(Model.Order.OrderStatus)
+
+                < br />< hr />
             }
             else
             {

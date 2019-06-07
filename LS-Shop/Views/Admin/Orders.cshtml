@@ -65,7 +65,7 @@ else
                 <tr>
                     <td>@order.OrderId</td>
                     <td>@order.DateOfAddition</td>
-                    <td>@order.OrderStatus</td>
+                    <td>@LS_Shop.Infrastructure.EnumHelpers.GetDisplayName(order.OrderStatus)</td>
                     <td>
                         @order.FirstName @order.LastName<br />
                         @order.Street <br />

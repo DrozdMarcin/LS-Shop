@@ -32,13 +32,13 @@
             @if (Model.Order.Comment != null)
             {
                 @Model.Order.Comment<br />
-                <b>Stan zamówienia:</b> @Model.Order.OrderStatus
-                <br /><hr />
+                <b>Stan zamówienia:</b> @LS_Shop.Infrastructure.EnumHelpers.GetDisplayName(Model.Order.OrderStatus)
+                < br />< hr />
             }
             else
             {
                 @:Brak<br />
-                <b>Stan zamówienia:</b> @Model.Order.OrderStatus<hr />
+                <b>Stan zamówienia:</b> @LS_Shop.Infrastructure.EnumHelpers.GetDisplayName(Model.Order.OrderStatus)<hr />
             }
         </div>
         <h3>Dane do faktury:</h3>

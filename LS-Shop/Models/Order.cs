@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace LS_Shop.Models
@@ -46,12 +49,16 @@ namespace LS_Shop.Models
 
     public enum OrderStatus
     {
+        [Display(Name = "Nowy")]
         Nowy,
+        [Display(Name = "Przyjęto do realizacji")]
         Przyjeto_do_realizacji,
+        [Display(Name = "Wysłano do klienta")]
         Wyslano_do_klienta,
+        [Display(Name = "Zamknięty")]
         Zamkniety,
+        [Display(Name = "Anulowano")]
         Anulowano
 
     }
-   
 }

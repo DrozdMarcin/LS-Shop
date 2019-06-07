@@ -225,6 +225,7 @@
     <Compile Include="Infrastructure\Abstract\ICartManager.cs" />
     <Compile Include="Infrastructure\Abstract\ISessionManager.cs" />
     <Compile Include="Infrastructure\CartMenager.cs" />
+    <Compile Include="Infrastructure\EnumHelpers.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Infrastructure\UrlHelpers.cs" />
     <Compile Include="Migrations\201905282044262_final-database.cs" />
