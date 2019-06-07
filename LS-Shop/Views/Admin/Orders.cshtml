@@ -27,6 +27,9 @@
             </li>
         }
         <li>
+            <a class="nav-link" href="@Url.Action("BlackList", "Admin")">Czarna lista</a>
+        </li>
+        <li>
             <a class="nav-link" href="@Url.Action("Settings", "Admin")">Ustawienia</a>
         </li>
     </ul>
@@ -47,7 +50,7 @@
 else
 {
     <table class="table table-striped">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Nr zamówienia</th>
                 <th>Data</th>

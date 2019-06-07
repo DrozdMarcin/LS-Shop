@@ -248,6 +248,18 @@
     <Compile Include="Migrations\201906011426389_settings-table.Designer.cs">
       <DependentUpon>201906011426389_settings-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906071716009_blacklist.cs" />
+    <Compile Include="Migrations\201906071716009_blacklist.Designer.cs">
+      <DependentUpon>201906071716009_blacklist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906071717093_blacklist2.cs" />
+    <Compile Include="Migrations\201906071717093_blacklist2.Designer.cs">
+      <DependentUpon>201906071717093_blacklist2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906071739571_blacklist3.cs" />
+    <Compile Include="Migrations\201906071739571_blacklist3.Designer.cs">
+      <DependentUpon>201906071739571_blacklist3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PositionCart.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -435,6 +447,8 @@
     <Content Include="Views\Admin\Delivery.cshtml" />
     <Content Include="Views\Admin\OrderDetails.cshtml" />
     <Content Include="Views\Admin\Settings.cshtml" />
+    <Content Include="Views\Admin\BlackList.cshtml" />
+    <Content Include="Views\Admin\AddUserToBlackList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -467,6 +481,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906011426389_settings-table.resx">
       <DependentUpon>201906011426389_settings-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071716009_blacklist.resx">
+      <DependentUpon>201906071716009_blacklist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071717093_blacklist2.resx">
+      <DependentUpon>201906071717093_blacklist2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906071739571_blacklist3.resx">
+      <DependentUpon>201906071739571_blacklist3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

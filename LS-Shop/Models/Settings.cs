@@ -12,5 +12,7 @@ namespace LS_Shop.Models
         public int Id { get; set; }
 
         public int? QuantityOfProductsLimit { get; set; }
+
+        public int? QuantityOfCanceledOrdersLimit { get; set; }
     }
 }

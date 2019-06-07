@@ -492,12 +492,20 @@ namespace LS_Shop.Controllers
             using (var context = new EfDbContext())
             {
                 var order = context.Orders.Find(id);
+                var user = UserManager.Users.Where(o => o.Id == order.UserId).FirstOrDefault();
+                var canceledOrdersLimit = context.Settings.FirstOrDefault().QuantityOfCanceledOrdersLimit;
                 var orderPositions = context.OrderPositions.Where(o => o.OrderId == id).ToList();
                 foreach (var orderPosition in orderPositions)
                 {
                     var product = context.Products.Where(o => o.Name == orderPosition.ProductName).FirstOrDefault();
                     product.Quantity += orderPosition.Amount;
                 }
+                user.UserData.QuantityOfCanceledOrders++;
+                if(user.UserData.QuantityOfCanceledOrders >= canceledOrdersLimit)
+                {
+                    user.UserData.IsOnBlackList = true;
+                }
+                UserManager.Update(user);
                 order.OrderStatus = OrderStatus.Anulowano;
                 context.SaveChanges();
             }
@@ -527,6 +535,7 @@ namespace LS_Shop.Controllers
                 viewModel = new SettingsViewModel();
                 viewModel.SettingsId = db.Settings.FirstOrDefault().Id;
                 viewModel.QuantityOfProductsLimit = db.Settings.FirstOrDefault().QuantityOfProductsLimit;
+                viewModel.QuantityOfCanceledOrdersLimit = db.Settings.FirstOrDefault().QuantityOfCanceledOrdersLimit;
             }
             return View(viewModel);
         }
@@ -536,34 +545,97 @@ namespace LS_Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.QuantityOfProductsLimit != null && model.QuantityOfProductsLimit >= 0)
+                using (var context = new EfDbContext())
                 {
-                    using (var context = new EfDbContext())
+                    if (model.SettingsId == 0)
                     {
-                        if (model.SettingsId == 0)
-                        {
-                            Settings newSettings = new Settings();
-                            newSettings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
-                            context.Entry(newSettings).State = EntityState.Added;
-                        }
-                        else
-                        {
-                            var settings = context.Settings.Find(1);
-                            settings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
-                        }
+                        Settings newSettings = new Settings();
+                        newSettings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
+                        newSettings.QuantityOfCanceledOrdersLimit = model.QuantityOfCanceledOrdersLimit;
+                        context.Entry(newSettings).State = EntityState.Added;
                         context.SaveChanges();
+                        TempData["message"] = "Udało się zapisać zmiany.";
+                        return RedirectToAction("Settings");
                     }
-                    TempData["message"] = "Udało się zapisać zmiany.";
-                    return RedirectToAction("Settings");
-                }
-                else
-                {
-                    TempData["message"] = "Udało się zapisać zmiany.";
-                    return RedirectToAction("Settings");
+                    else
+                    {
+                        var settings = context.Settings.Find(1);
+                        if (model.QuantityOfProductsLimit != null)
+                        {
+                            settings.QuantityOfProductsLimit = model.QuantityOfProductsLimit;
+                            var users = UserManager.Users.ToList();
+                            settings.QuantityOfCanceledOrdersLimit = model.QuantityOfCanceledOrdersLimit;
+                            if (model.QuantityOfCanceledOrdersLimit == 0)
+                            {
+                                foreach (var user in users)
+                                {
+                                    if (user.UserData.IsOnBlackList)
+                                    {
+                                        user.UserData.IsOnBlackList = false;
+                                        UserManager.Update(user);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (var user in users)
+                                {
+                                    if (user.UserData.QuantityOfCanceledOrders < model.QuantityOfCanceledOrdersLimit)
+                                    {
+                                        if (user.UserData.IsOnBlackList)
+                                        {
+                                            user.UserData.IsOnBlackList = false;
+                                            UserManager.Update(user);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (!user.UserData.IsOnBlackList)
+                                        {
+                                            user.UserData.IsOnBlackList = true;
+                                            UserManager.Update(user);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        var result = context.SaveChanges();
+                        TempData["message"] = "Udało się zapisać zmiany.";
+                        return RedirectToAction("Settings");
+                    }
                 }
             }
             TempData["message"] = "Nie udało się zapisać zmian.";
             return View(model);
+        }
+
+        public ActionResult BlackList()
+        {
+            var users = UserManager.Users.Where(o => o.UserData.IsOnBlackList).ToList();
+            return View(users);
+        }
+
+        public ActionResult AddUserToBlackList(string id = null)
+        {
+            if(id == null)
+            {
+                var users = UserManager.Users.Where(o => o.UserData.IsOnBlackList == false).ToList();
+                return View(users);
+            }
+            var user = UserManager.FindById(id);
+            user.UserData.IsOnBlackList = true;
+            UserManager.Update(user);
+            TempData["message"] = "Udało się dodać użytkownika do czarnej listy";
+            return RedirectToAction("BlackList");
+        }
+
+        public ActionResult DeleteUserFromBlackList(string id)
+        {
+            var user = UserManager.FindById(id);
+            user.UserData.IsOnBlackList = false;
+            var result = UserManager.Update(user);
+            TempData["message"] = "Usunięto użytkownika z czarnej listy";
+            return RedirectToAction("BlackList");
         }
         #endregion
     }

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LS_Shop.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Dodaj użytkownika do czarnej listy";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h3>@ViewBag.Title</h3>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Ilość anulowanych zamówień</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserData.QuantityOfCanceledOrders</td>
+                <td>@Html.ActionLink("Dodaj", "AddUserToBlackList", new { controller = "Admin", id = user.Id }, new { @class = "btn btn-success" })</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Powrót", "BlackList", new { controller = "Admin" }, new { @class = "btn btn-primary" })
+

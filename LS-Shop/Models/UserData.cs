@@ -15,6 +15,7 @@ namespace LS_Shop.Models
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string PhoneNumber { get; set; }
-     
+        public int QuantityOfCanceledOrders { get; set; } = 0;
+        public bool IsOnBlackList { get; set; } = false;
     }
 }
