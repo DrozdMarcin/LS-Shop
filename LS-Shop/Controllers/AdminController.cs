@@ -76,7 +76,7 @@ namespace LS_Shop.Controllers
             {
                 viewModel.ProductsWithLowQuantity = new List<Product>();
             }
-            var latestOrders = db.Orders.Where(o => o.OrderStatus == OrderStatus.Nowy).OrderBy(o => o.DateOfAddition).ToList();
+            var latestOrders = db.Orders.Where(o => o.OrderStatus == OrderStatus.Nowy).OrderByDescending(o => o.DateOfAddition).ToList();
             if(latestOrders.Count() > 0)
             {
                 viewModel.LatestOrders = latestOrders;
