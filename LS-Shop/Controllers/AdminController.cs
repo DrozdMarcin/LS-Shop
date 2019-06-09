@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace LS_Shop.Controllers
 {
-    [Authorize(Roles = "Administrator, Użytkownik")]
+    [Authorize(Roles = "Administrator, Pracownik")]
     public class AdminController : Controller
     {
         #region private members
@@ -393,7 +393,7 @@ namespace LS_Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email, UserData = new UserData() };
+                var user = new ApplicationUser { UserName = model.User.Email, Email = model.User.Email, UserData = new UserData(), IsLocked = false };
                 var result = UserManager.Create(user, model.Password);
                 if (result.Succeeded == false)
                 {
