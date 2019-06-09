@@ -390,7 +390,8 @@ namespace LS_Shop.Migrations
             {
                 Email = "admin@123.aa",
                 UserName = "admin@123.aa",
-                UserData = new UserData()
+                UserData = new UserData(),
+                IsLocked = false
             };
             if (userManager.FindByEmail("admin@123.aa") == null)
                 userManager.Create(user, "ZAQ!2wsx");

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LS_Shop.Models.ApplicationUser>
+﻿@model IEnumerable<LS_Shop.ViewModels.UsersViewModel>
 @{
     ViewBag.Title = "Użytkownicy";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -53,8 +53,8 @@
         @foreach (var user in Model)
         {
             <tr>
-                <td>@user.Email</td>
-                @if(user.LockoutEnabled)
+                <td>@user.User.Email</td>
+                @if(user.User.IsLocked)
                 {
                     <td>Nieaktywny</td>
                 }
@@ -62,8 +62,18 @@
                 {
                     <td>Aktywny</td>
                 }
-                <td class="float-right">
-                    <a href="#" class="btn btn-danger">Dezaktywuj</a>
+            <td class="float-right">
+                @if (user.User.IsLocked)
+                {
+                    <a href="@Url.Action("UnlockAccount", "Admin", new { id = user.User.Id })" class="btn btn-success">Aktywuj</a>
+                }
+                else
+                {
+                    if (!user.IsAdministrator)
+                    {
+                        <a href="@Url.Action("LockAccount", "Admin", new { id = user.User.Id })" class="btn btn-danger">Dezaktywuj</a>
+                    }
+                }
                 </td>
             </tr>
         }

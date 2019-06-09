@@ -11,6 +11,7 @@ namespace LS_Shop.Models
     {
         public virtual ICollection<Product> Products { get; set; }
         public UserData UserData { get; set; }
+        public bool IsLocked { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

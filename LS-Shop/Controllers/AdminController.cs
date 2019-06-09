@@ -104,7 +104,28 @@ namespace LS_Shop.Controllers
         public ActionResult Users()
         {
             var users = UserManager.Users.ToList();
-            return View(users);
+            var adminRoleId = RoleManager.Roles.FirstOrDefault(o => o.Name == "Administrator").Id;
+            var viewModelList = new List<UsersViewModel>();
+            foreach (var user in users)
+            {
+                if (user.Roles.Where(o => o.RoleId == adminRoleId && o.UserId == user.Id).Any())
+                {
+                    viewModelList.Add(new UsersViewModel
+                    {
+                        User = user,
+                        IsAdministrator = true
+                    });
+                }
+                else
+                {
+                    viewModelList.Add(new UsersViewModel
+                    {
+                        User = user,
+                        IsAdministrator = false
+                    });
+                }
+            }
+            return View(viewModelList);
         }
 
         [Authorize(Roles = "Administrator")]
@@ -636,6 +657,24 @@ namespace LS_Shop.Controllers
             var result = UserManager.Update(user);
             TempData["message"] = "Usunięto użytkownika z czarnej listy";
             return RedirectToAction("BlackList");
+        }
+
+        public ActionResult LockAccount(string id)
+        {
+            var user = UserManager.FindById(id);
+            user.IsLocked = true;
+            UserManager.Update(user);
+            TempData["message"] = "Udało się dezaktywować konto użytkownika.";
+            return RedirectToAction("Users");
+        }
+
+        public ActionResult UnlockAccount(string id)
+        {
+            var user = UserManager.FindById(id);
+            user.IsLocked = false;
+            UserManager.Update(user);
+            TempData["message"] = "Udało się aktywować konto uzytkownika.";
+            return RedirectToAction("Users");
         }
         #endregion
     }

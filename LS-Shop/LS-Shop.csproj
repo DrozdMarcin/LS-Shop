@@ -260,6 +260,10 @@
     <Compile Include="Migrations\201906071739571_blacklist3.Designer.cs">
       <DependentUpon>201906071739571_blacklist3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906091447093_locked-account.cs" />
+    <Compile Include="Migrations\201906091447093_locked-account.Designer.cs">
+      <DependentUpon>201906091447093_locked-account.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PositionCart.cs" />
     <Compile Include="Infrastructure\SessionManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -289,6 +293,7 @@
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UsersInRoleViewModel.cs" />
+    <Compile Include="ViewModels\UsersViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -490,6 +495,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906071739571_blacklist3.resx">
       <DependentUpon>201906071739571_blacklist3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906091447093_locked-account.resx">
+      <DependentUpon>201906091447093_locked-account.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

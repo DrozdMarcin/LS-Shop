@@ -92,6 +92,13 @@ namespace LS_Shop.Controllers
                 return View(model);
             }
 
+            var user = UserManager.FindByEmail(model.Email);
+            if(user.IsLocked)
+            {
+                ModelState.AddModelError("", "Konto zostało dezaktywowane. Aby je aktywować skontaktuj się z administratorem.");
+                return View(model);
+            }
+
             // Nie powoduje to liczenia niepowodzeń logowania w celu zablokowania konta
             // Aby włączyć wyzwalanie blokady konta po określonej liczbie niepomyślnych prób wprowadzenia hasła, zmień ustawienie na shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -170,7 +177,7 @@ namespace LS_Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserData = new UserData() };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, UserData = new UserData(), IsLocked = false };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var roleResult = UserManager.AddToRole(user.Id, "User");
                 if (result.Succeeded)
