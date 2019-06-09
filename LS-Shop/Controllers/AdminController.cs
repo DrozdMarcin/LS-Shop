@@ -16,7 +16,7 @@ using System.Web.Mvc;
 
 namespace LS_Shop.Controllers
 {
-    [Authorize(Roles = "Administrator, Employee")]
+    [Authorize(Roles = "Administrator, Użytkownik")]
     public class AdminController : Controller
     {
         #region private members

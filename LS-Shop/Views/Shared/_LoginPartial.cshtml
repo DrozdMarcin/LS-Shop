@@ -11,7 +11,7 @@
             <div class="dropdown-menu bg-secondary" aria-labelledby="navbarDropdown">
                 @Html.ActionLink("Moje konto", "Index", "Manage", null, new { @class = "nav-link dropdown-item bg-secondary" })
                 <a href=" @Url.Action("History", "Cart")" class="nav-link dropdown-item bg-secondary">Historia zamówień</a>
-                @if (User.IsInRole("Administrator") || User.IsInRole("Employee"))
+                @if (User.IsInRole("Administrator") || User.IsInRole("Użytkownik"))
                 {
                     @Html.ActionLink("AdminPanel", "Index", new { controller = "Admin" }, new { @class = "nav-link dropdown-item bg-secondary" })
                 }

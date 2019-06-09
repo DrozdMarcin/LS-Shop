@@ -382,8 +382,8 @@ namespace LS_Shop.Migrations
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             roleManager.Create(new IdentityRole("Administrator"));
-            roleManager.Create(new IdentityRole("Employee"));
-            roleManager.Create(new IdentityRole("User"));
+            roleManager.Create(new IdentityRole("Pracownik"));
+            roleManager.Create(new IdentityRole("Użytkownik"));
 
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var user = new ApplicationUser
